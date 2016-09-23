@@ -1,0 +1,52 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| This file is where you may define all of the routes that are handled
+| by your application. Just tell Laravel the URIs it should respond
+| to using a Closure or controller method. Build something great!
+|
+*/
+/*
+Route::get('/', function () {
+    return view('welcome');
+});
+*/
+
+Route::get('/', 'HomeController@index');
+
+//Auth::routes();
+
+// Authentication Routes...
+route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+route::post('login', 'Auth\LoginController@login');
+route::post('logout', 'Auth\LoginController@logout');
+
+        // Registration Routes...
+route::get('utilisateurs/ajout', 'Auth\RegisterController@showRegistrationForm');
+route::post('register', 'Auth\RegisterController@register');
+
+        // Password Reset Routes...
+route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+
+Route::get('/user/create','UsersController@create');
+
+
+Route::get('/accueil', 'HomeController@index');
+
+
+Route::get('dossiers', 'DossiersController@create');
+Route::get('dossiers/{dossier}/show', 'DossiersController@show');
+Route::get('dossiers/create', 'DossiersController@create');
+Route::post('dossiers/create', 'DossiersController@store');
+
+Route::get('utilisateurs', 'UsersController@index');
+Route::get('utilisateurs/{user}', 'UsersController@show');
+Route::get('utilisateurs/{user}/delete', 'UsersController@delete');
