@@ -21,9 +21,9 @@ class DossiersController extends Controller
     
     public function show(Dossier $dossier)
     {	
-    	//$dossier=Dossier::findOrFail($id);
     	$this->authorize('show', $dossier);
-    	return $dossier->nom;
+        return view('dossiers.show', compact('dossier'));
+
     }
 
     public function create()
@@ -41,8 +41,16 @@ class DossiersController extends Controller
         ]);
      $data=$request->all();
      $data['nom_complet']=$request->prenom.' '.$request->nom;
+
+     //
      $dossier=Dossier::create($data);
 
-     return($dossier);
+     return redirect('dossiers/'.$dossier->id.'/show');
+    }
+
+    public function index()
+    {
+    $dossiers=Dossier::select(['id', 'nom_complet'])->get();
+    return view('dossiers.liste', compact('dossiers'));
     }
 }
