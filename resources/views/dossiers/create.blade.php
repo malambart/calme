@@ -24,7 +24,6 @@
 
 		<div class="col-md-6">
 			<input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}" autofocus>
-
 			@if ($errors->has('prenom'))
 			<span class="help-block">
 				<strong>{{ $errors->first('prenom') }}</strong>
@@ -55,14 +54,15 @@
 			</span>
 			@endif
 		</div>
-	</div>				
+	</div>
 	<div class="form-group">
 		<div class="col-md-6 col-md-offset-4">
-			<button type="submit" class="btn btn-primary">
+		 <label><input type="checkbox" name="exclure" value="1"> Exclure de l'étude</label>
+		</div>
+	</div>						
+			<button type="submit" class="btn btn-primary pull-right">
 				Ajouter
 			</button>
-		</div>
-	</div>
 </form>
 @endsection
 @section('script')

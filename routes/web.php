@@ -46,6 +46,11 @@ Route::get('dossiers', 'DossiersController@create');
 Route::get('dossiers/{dossier}/show', 'DossiersController@show');
 Route::get('dossiers/create', 'DossiersController@create');
 Route::post('dossiers/create', 'DossiersController@store');
+Route::get('dossiers/index', 'DossiersController@index');
+Route::get('parents/{dossier}/create', 'ParentsRepController@create');
+Route::post('parents/{dossier}/create', 'ParentsRepController@store');
+
+
 
 Route::get('utilisateurs', 'UsersController@index');
 Route::get('utilisateurs/{user}', 'UsersController@show');
