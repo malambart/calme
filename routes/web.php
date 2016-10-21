@@ -50,6 +50,11 @@ Route::get('dossiers/index', 'DossiersController@index');
 Route::get('parents/{dossier}/create', 'ParentsRepController@create');
 Route::post('parents/{dossier}/create', 'ParentsRepController@store');
 
+Route::get('mesures/{dossier}/create', 'MesuresController@create');
+Route::post('mesures/{dossier}/create', 'MesuresController@store');
+
+Route::get('ecoles/create', 'EcolesController@create');
+Route::post('ecoles/create', 'EcolesController@store');
 
 
 Route::get('utilisateurs', 'UsersController@index');

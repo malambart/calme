@@ -21,5 +21,9 @@ class Dossier extends Model
 	{
 		return $this->hasOne(ParentRep::class)->where('current', true);
 	}
+	public function mesures()
+	{
+		return $this->hasMany(Mesure::class);
+	}
 
 }
