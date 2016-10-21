@@ -1,4 +1,7 @@
 @extends('layouts.row')
+@section('panel-heading')
+<h1>Dossier {{$id}} : ajouter un parent répondant</h1>
+@endsection
 @section('body')
 <form class="form-horizontal" role="form" method="POST" action="{{ url('/parents/'.$id.'/create') }}">
 	{{ csrf_field() }}
@@ -18,13 +21,13 @@
 		<div class="col-md-6">
 			<select id="lien" name="lien" class="form-control">
 				<option value="">Veillez Choisir</option>
-				<option value="mere"
-				@if(old('lien')=="mere")
+				<option value="mère"
+				@if(old('lien')=="mère")
 				selected="selected"
 				@endif 
 				>Mère</option>
-				<option value="pere"
-				@if(old('lien')=="pere")
+				<option value="père"
+				@if(old('lien')=="père")
 				selected="selected"
 				@endif
 				>Père</option>

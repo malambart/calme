@@ -1,4 +1,7 @@
 @extends('layouts.row')
+@section('panel-heading')
+<h1>Gestion des dossiers</h1>
+@endsection
 @section('navLevel2')
 @include('dossiers.navLevel2')
 @endsection

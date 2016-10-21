@@ -10,3 +10,8 @@
 	padding-bottom:10px;
 	vertical-align:middle;
 }
+
+.panel-heading h1 {
+	font-size:1.55em;
+	color:#777;
+}
