@@ -4,7 +4,8 @@
 
 @endsection
 @section('body')
-<p>Date de naissance : {{$dossier->date_naiss}}</p>
+<p>Date de naissance : {{$dossier->date_naiss->toDateString()}}</p>
+<p>Âge : {{$dossier->age}}</p>
 <p>Numéro de dossier au CHUS : {{$dossier->no_doss_chus}}</p>
 @if(count($dossier->currentParent)>=1)
 <p>Parent répondant : {{$dossier->currentParent->prenom.' ('.$dossier->currentParent->lien.')'}}</p>

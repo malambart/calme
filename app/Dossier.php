@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Updater;
 use App\ParentRep;
+use Carbon\Carbon;
 //use Illuminate\Support\Facades\Auth
 
 class Dossier extends Model
@@ -24,6 +25,13 @@ class Dossier extends Model
 	public function mesures()
 	{
 		return $this->hasMany(Mesure::class);
+	}
+	protected $dates=['date_naiss'];
+	public function getAgeAttribute()	
+	{
+		$naiss=$this->date_naiss;
+		$auj=Carbon::today();
+		return round(($auj->diff($naiss)->format('%a'))/365.25, 1);
 	}
 
 }

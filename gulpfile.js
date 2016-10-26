@@ -16,4 +16,8 @@ require('laravel-elixir-vue');
 elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js');
+    mix.scripts([
+    '../bower/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js',
+], 'public/js/vendor.js');
 });
+
