@@ -19,11 +19,11 @@ class CreateMesuresTable extends Migration
             $table->integer('temps')->unsigned();
             $table->integer('dossier_id')->unsigned();
             $table->integer('parent_id')->unsigned();
-            $table->integer('ecole_id');
-            $table->string('prenom_ens');
-            $table->string('nom_ens');
-            $table->string('tel_ens');
-            $table->string('courriel_ens');
+            $table->integer('ecole_id')->nullable();
+            $table->string('prenom_ens')->nullable();
+            $table->string('nom_ens')->nullable();
+            $table->string('tel_ens')->nullable();
+            $table->string('courriel_ens')->nullable();
             $table->string('fax_ens')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')

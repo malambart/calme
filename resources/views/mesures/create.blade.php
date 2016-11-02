@@ -16,21 +16,21 @@
 					{{ csrf_field() }}
 					<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 						<label for="nom" class="control-label">Nom de l'école</label>
-							<input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom') }}" autofocus>
-							@if ($errors->has('nom'))
-							<p class="help-block">
-								<strong>{{ $errors->first('nom') }}</strong>
-							</p>
-							@endif
+						<input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom') }}" autofocus>
+						@if ($errors->has('nom'))
+						<p class="help-block">
+							<strong>{{ $errors->first('nom') }}</strong>
+						</p>
+						@endif
 					</div>
 					<div class="form-group{{ $errors->has('ville') ? ' has-error' : '' }}">
 						<label for="ville" class="control-label">Ville</label>
-							<input id="ville" type="text" class="form-control" name="ville" value="{{ old('ville') }}" autofocus>
-							@if ($errors->has('ville'))
-							<span class="help-block">
-								<strong>{{ $errors->first('ville') }}</strong>
-							</span>
-							@endif
+						<input id="ville" type="text" class="form-control" name="ville" value="{{ old('ville') }}" autofocus>
+						@if ($errors->has('ville'))
+						<span class="help-block">
+							<strong>{{ $errors->first('ville') }}</strong>
+						</span>
+						@endif
 					</div>
 					<button type="submit" class="btn btn-primary pull-right">
 						Ajouter
@@ -43,6 +43,31 @@
 </div>
 <form class="form-horizontal" role="form" method="POST" action="{{ url('mesures/'.$dossier->id.'/create') }}">
 	{{ csrf_field() }}
+	<div class="form-group{{ $errors->has('ecole_id') ? ' has-error' : '' }}">
+		<label for="ecole_id" class="col-md-4 control-label">École</label>
+		
+		<div class="col-md-6">
+			<div class="input-group">
+				<select name="ecole_id" class="form-control" autofocus>
+					<option value="">Veuillez choisir</option>
+					@foreach($ecoles as $ecole)
+					<option value="{{$ecole->id}}">{{$ecole->nom}}</option>
+					@endforeach
+				</select>
+				<span class="input-group-btn">
+					<button tabindex="-1" type="button" class="btn btn-primary bootstrap-modal-form-open" data-toggle="modal" data-target="#ecoleForm">+</button>
+				</span>	
+				
+			</div>
+			
+			@if ($errors->has('ecole_id'))
+			<span class="help-block">
+				<strong>{{ $errors->first('ecole_id') }}</strong>
+			</span>
+			@endif
+			
+		</div>
+	</div>	
 	<div class="form-group{{ $errors->has('prenom_ens') ? ' has-error' : '' }}">
 		<label for="prenom_ens" class="col-md-4 control-label">Prénom de l'enseignant</label>
 		<div class="col-md-6">
@@ -65,31 +90,7 @@
 			@endif
 		</div>
 	</div>
-	<div class="form-group{{ $errors->has('ecole_id') ? ' has-error' : '' }}">
-		<label for="ecole_id" class="col-md-4 control-label">École</label>
-		
-		<div class="col-md-6">
-			<div class="input-group">
-				<select name="ecole_id" class="form-control">
-					<option value="">Veuillez choisir</option>
-					@foreach($ecoles as $ecole)
-					<option value="{{$ecole->id}}">{{$ecole->nom}}</option>
-					@endforeach
-				</select>
-				<span class="input-group-btn">
-					<button tabindex="-1" type="button" class="btn btn-primary bootstrap-modal-form-open" data-toggle="modal" data-target="#ecoleForm">+</button>
-				</span>	
-				
-			</div>
-			
-			@if ($errors->has('ecole_id'))
-			<span class="help-block">
-				<strong>{{ $errors->first('ecole_id') }}</strong>
-			</span>
-			@endif
-			
-		</div>
-	</div>	
+	
 	<div class="form-group{{ $errors->has('tel_ens') ? ' has-error' : '' }}">
 		<label for="tel_ens" class="col-md-4 control-label">Numéro de téléphone</label>
 		<div class="col-md-6">

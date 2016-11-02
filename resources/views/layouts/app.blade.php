@@ -44,7 +44,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{url('dossiers')}}">Dossiers</a></li>
-                    <li><a href="">Usagers</a></li>
+                    <li><a href="{{url('utilisateurs')}}">Usagers</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

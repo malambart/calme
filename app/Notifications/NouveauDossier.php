@@ -44,8 +44,8 @@ class NouveauDossier extends Notification
     {
         return (new MailMessage)
                     ->line('Un nouveau dossier a été entré')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+                    ->action('Accéder au dossier', 'http://calme.dev/dossiers/'.$this->dossier->id.'/show')
+                    ->line('Pour toute question,  veuillez contacter...');
     }
 
     /**

@@ -52,6 +52,8 @@ Route::post('parents/{dossier}/create', 'ParentsRepController@store');
 
 Route::get('mesures/{dossier}/create', 'MesuresController@create');
 Route::post('mesures/{dossier}/create', 'MesuresController@store');
+Route::get('mesures/{mesure}/show', 'MesuresController@show');
+
 
 Route::get('ecoles/create', 'EcolesController@create');
 Route::post('ecoles/create', 'EcolesController@store');
@@ -60,3 +62,5 @@ Route::post('ecoles/create', 'EcolesController@store');
 Route::get('utilisateurs', 'UsersController@index');
 Route::get('utilisateurs/{user}', 'UsersController@show');
 Route::get('utilisateurs/{user}/delete', 'UsersController@delete');
+
+Route::post('recherche', 'DossiersController@recherche');

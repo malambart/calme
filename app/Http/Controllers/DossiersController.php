@@ -12,9 +12,9 @@ use App\Notifications\NouveauDossier;
 
 
 
+
 class DossiersController extends Controller
 {   
-    
     public function __construct()
     {
         $this->middleware('auth');
@@ -46,7 +46,7 @@ class DossiersController extends Controller
      $dossier=Dossier::create($data);
      //Mail::to('francislafort@gmail.com'->send(new NouveauDossier($dossier));
      $user=User::findOrFail(1);
-     //$user->notify(new NouveauDossier($dossier));
+     $user->notify(new NouveauDossier($dossier));
      return redirect('dossiers/'.$dossier->id.'/show');
     }
 
@@ -55,4 +55,12 @@ class DossiersController extends Controller
     $dossiers=Dossier::select(['id', 'nom_complet'])->get();
     return view('dossiers.liste', compact('dossiers'));
     }
+
+    public function recherche(Request $request){
+        $this->validate($request,['recherche'=>'required']);
+        $results=Dossier::search($request->recherche)->take(100)->get();
+        $chaine=$request->recherche;
+        return view('home',compact('results','chaine'));
+    }
+
 }

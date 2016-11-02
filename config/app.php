@@ -167,6 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Sofa\Eloquence\ServiceProvider::class, 
 
         //
 
