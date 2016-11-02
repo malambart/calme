@@ -1,4 +1,14 @@
 @extends('layouts.row')
+@section('panel-heading')
+<ul class="nav nav-pills">
+<li id="liste_utilisateurs">
+		<a href="{{url('/utilisateurs')}}">Liste</a>
+	</li>
+	<li id="gestion_dossiers">
+		<a href="{{url('/utilisateurs/ajout')}}">Ajouter</a>
+	</li>
+</ul>
+@endsection
 @section('body')
     <ul class="list-group">
         @foreach($users as $user)
@@ -14,6 +24,6 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-$( "#gestion_utilisateurs" ).addClass( "active" );
+$( "#liste_utilisateurs" ).addClass( "active" );
 </script>
 @endsection

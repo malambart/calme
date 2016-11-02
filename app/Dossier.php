@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Updater;
 use App\ParentRep;
 use Carbon\Carbon;
+use Sofa\Eloquence\Eloquence;
 //use Illuminate\Support\Facades\Auth
 
 class Dossier extends Model
 {	
 	use Updater;
+	use Eloquence;
+	protected $searchableColumns = ['id'=>30, 'nom'=>20, 'prenom'=>10];
 	protected $fillable=['nom', 'prenom', 'nom_complet', 'no_doss_chus','date_naiss'];
 
 	public function parents()

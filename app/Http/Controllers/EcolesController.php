@@ -17,7 +17,6 @@ class EcolesController extends Controller
     {
     $this->validate($request, ['nom'=>'required|unique:ecoles', 'ville'=>'required']);
     Ecole::create($request->all());
-    return back();
     }
 
 }

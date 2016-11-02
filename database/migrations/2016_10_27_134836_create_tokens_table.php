@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuestionnairesTable extends Migration
+class CreateTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateQuestionnairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('questionnaires', function (Blueprint $table) {
+        Schema::create('tokens', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ls_id')->unsigned();
-            $table->integer('temps')->unsigned();
-            $table->string('rep');
-            $table->string('titre');
             $table->timestamps();
+            $table->integer('ls_id')->unsigned();
+            $table->integer('mesure_id')->unsigned();
+            $table->string('token');
+            $table->foreign('mesure_id')
+                ->references('id')
+                ->on('mesures')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,6 +33,6 @@ class CreateQuestionnairesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('questionnaires');
+        Schema::drop('tokens');
     }
 }

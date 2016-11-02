@@ -8,7 +8,18 @@
 @section('body')
 <form class="form-horizontal" role="form" method="POST" action="{{ url('/dossiers/create') }}">
 	{{ csrf_field() }}
+	<div class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
+		<label for="prenom" class="col-md-4 control-label">Prénom</label>
 
+		<div class="col-md-6">
+			<input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}" autofocus>
+			@if ($errors->has('prenom'))
+			<span class="help-block">
+				<strong>{{ $errors->first('prenom') }}</strong>
+			</span>
+			@endif
+		</div>
+	</div>
 	<div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
 		<label for="nom" class="col-md-4 control-label">Nom</label>
 
@@ -18,18 +29,6 @@
 			@if ($errors->has('nom'))
 			<span class="help-block">
 				<strong>{{ $errors->first('nom') }}</strong>
-			</span>
-			@endif
-		</div>
-	</div>
-	<div class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
-		<label for="prenom" class="col-md-4 control-label">Prénom</label>
-
-		<div class="col-md-6">
-			<input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}" autofocus>
-			@if ($errors->has('prenom'))
-			<span class="help-block">
-				<strong>{{ $errors->first('prenom') }}</strong>
 			</span>
 			@endif
 		</div>
