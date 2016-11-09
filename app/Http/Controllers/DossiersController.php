@@ -38,7 +38,7 @@ class DossiersController extends Controller
     $this->validate($request, [
         'nom'=>'required', 
         'prenom'=>'required', 
-        'no_doss_chus'=>'required', 
+        'no_doss_chus'=>'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/', 
         'date_naiss'=>'required|date', 
         ]);
      $data=$request->all();
