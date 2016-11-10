@@ -18,7 +18,7 @@ class CreateMesuresTable extends Migration
             $table->timestamps();
             $table->integer('temps')->unsigned();
             $table->integer('dossier_id')->unsigned();
-            $table->integer('parent_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('ecole_id')->nullable();
             $table->string('prenom_ens')->nullable();
             $table->string('nom_ens')->nullable();
