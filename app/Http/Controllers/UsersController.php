@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -34,5 +35,25 @@ class UsersController extends Controller
     	}
     	$user->delete();
     	return redirect($redirect);
+    }
+
+    public function edit(User $user)
+    {
+        return view('users/edit', compact('user'));
+    }
+    public function update(User $user, Request $request)
+    {
+        $this->validate($request, ['name'=>'required',
+            'email' => ['required', Rule::unique('users')->ignore($user->id), 'email', 'max:255'],
+            'role'=>'required',
+            'password' => 'required|min:6|confirmed']
+            );
+        $user->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'role'  => $request['role'], 
+            'password' => bcrypt($request['password']),
+        ]);
+        return redirect('/utilisateurs/'.$user->id);
     }
 }
