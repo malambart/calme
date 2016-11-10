@@ -24,6 +24,10 @@ class CreateTableDossiers extends Migration
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
+            $table->date('premiere_seance');
+            $table->date('bilan_final');
+            $table->integer('sexe');
+            $table->boolean('exclu')->nullable();
         });
     }
 

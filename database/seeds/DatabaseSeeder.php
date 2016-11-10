@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Questionnaire;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +12,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+    	Questionnaire::create([
+    		'ls_id'=>798474, 
+    		'rep'=>'JE', 
+    		'temps'=>1, 
+    		'titre'=>'Questionnaire aux jeunes', 
+    		]);
+    	Questionnaire::create([
+    		'ls_id'=>349391, 
+    		'rep'=>'PA', 
+    		'temps'=>1, 
+    		'titre'=>'Questionnaire aux parents', 
+    		]);
+    	Questionnaire::create([
+    		'ls_id'=>397422, 
+    		'rep'=>'EN', 
+    		'temps'=>1, 
+    		'titre'=>'Questionnaire aux enseignant', 
+    		]); 
     }
 }

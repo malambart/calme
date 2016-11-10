@@ -14,7 +14,7 @@ class Dossier extends Model
 	use Updater;
 	use Eloquence;
 	protected $searchableColumns = ['id'=>30, 'nom'=>20, 'prenom'=>10];
-	protected $fillable=['nom', 'prenom', 'nom_complet', 'no_doss_chus','date_naiss'];
+	protected $fillable=['nom', 'prenom', 'nom_complet', 'no_doss_chus','date_naiss', 'premiere_seance', 'bilan_final', 'sexe', 'exclu'];
 
 	public function parents()
 	{
