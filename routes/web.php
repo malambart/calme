@@ -38,7 +38,6 @@ route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/user/create','UsersController@create');
 
-
 Route::get('/accueil', 'HomeController@index');
 
 
@@ -61,6 +60,8 @@ Route::post('ecoles/create', 'EcolesController@store');
 
 Route::get('utilisateurs', 'UsersController@index');
 Route::get('utilisateurs/{user}', 'UsersController@show');
+Route::get('utilisateurs/{user}/edit', 'UsersController@edit');
+Route::patch('utilisateurs/{user}/edit', 'UsersController@update');
 Route::get('utilisateurs/{user}/delete', 'UsersController@delete');
 
 Route::post('recherche', 'DossiersController@recherche');

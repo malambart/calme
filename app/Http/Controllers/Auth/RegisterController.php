@@ -72,4 +72,5 @@ class RegisterController extends Controller
        $this->create($request->all());
         return redirect('/utilisateurs');
     }
+    
 }
