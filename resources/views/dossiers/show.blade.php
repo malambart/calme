@@ -21,13 +21,12 @@ Masculin
 Féminin
 @endif</p>
 <p>Numéro de dossier au CHUS : {{$dossier->no_doss_chus}}</p>
-<p>Date de la première séance de traitement : {{$dossier->premiere_seance}}</p>
+<p>Date de la première séance de traitement : {{$dossier->premiere_seance->toDateString()}}</p>
 <p>Date du bilan final : {{$dossier->bilan_final}}</p>
 @if(count($dossier->currentParent)>=1)
 <p>Parent répondant : {{$dossier->currentParent->prenom.' ('.$dossier->currentParent->lien.')'}}</p>
 
-
-@else
+@elseif(!$dossier->exclu)
 <a class="btn btn-primary" href="{{url('parents/'.$dossier->id.'/create')}}">Ajouter un parent répondant</a>
 @endif
 
