@@ -29,7 +29,7 @@ class Dossier extends Model
 	{
 		return $this->hasMany(Mesure::class);
 	}
-	protected $dates=['date_naiss'];
+	protected $dates=['date_naiss', 'premiere_seance'];
 	public function getAgeAttribute()	
 	{
 		$naiss=$this->date_naiss;

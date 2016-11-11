@@ -52,16 +52,25 @@ class DossiersController extends Controller
 
         $mesure=$dossier->mesures()->create(['temps'=>1]);
     //On fetch les questionnaires associés
-        $q=$mesure->questionnaires()->where('rep', 'JE')->where('temps', 1)->first();
+        $questionnaires=$mesure->questionnaires()->where('temps', 1)->get();
     // On cree l'invitation dans limeSurvey
-        if ($dossier->age>=8) {
+        foreach ($questionnaires as $q) {
+            if (
+                    ($q->rep=='JE' && $dossier->age<8)| //Si répondant est un jeune est à moins de 8 ans
+                    ($q->rep!='JE' && $dossier->exclu==1)|
+                    ($q->rep=='EN' && ($dossier->premiere_seance->month >= 7 && $dossier->premiere_seance->month < 10))
+                 ) 
+            {
+                continue;
+            }
             $table=env('LS_PREFIX').'tokens_'.$q->ls_id;
             $token=$mesure->id.$q->ls_id.str_random(12);
             DB::connection('ls')->insert('insert into '.$table.' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
             $mesure->tokens()->create(['token'=>$token, 'ls_id'=>$q->ls_id]);
         }
+        
 
-        return redirect('dossiers/'.$dossier->id.'/show');
+        return redirect('parents/'.$dossier->id.'/create');
     }
 
     public function index()
