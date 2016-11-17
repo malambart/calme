@@ -42,6 +42,8 @@ Route::get('/accueil', 'HomeController@index');
 
 
 Route::get('dossiers', 'DossiersController@create');
+Route::get('dossiers/{dossier}/edit', 'DossiersController@edit');
+Route::patch('dossiers/{dossier}/edit', 'DossiersController@update');
 Route::get('dossiers/{dossier}/show', 'DossiersController@show');
 Route::get('dossiers/create', 'DossiersController@create');
 Route::post('dossiers/create', 'DossiersController@store');
