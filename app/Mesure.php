@@ -21,4 +21,16 @@ class Mesure extends Model
 	{
 		return $this->hasMany(Token::class);
 	}
+	public function qCompleted()
+	{
+		$count=0;
+		$questionnaires=$this->tokens()->get();
+		$deno=$questionnaires->count();
+		foreach($questionnaires as $q)
+			if ($q->isCompleted()!='N') {
+				$count=$count+1;
+			}
+		$result=['deno'=>$deno, 'complet'=>$count];
+		return $result;
+	}
 }

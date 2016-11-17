@@ -27,7 +27,11 @@ Féminin
 <p>Parent répondant : {{$dossier->currentParent->prenom.' ('.$dossier->currentParent->lien.')'}}</p>
 
 @elseif(!$dossier->exclu)
-<a class="btn btn-primary" href="{{url('parents/'.$dossier->id.'/create')}}">Ajouter un parent répondant</a>
+<div class="alert alert-warning">
+Le parent n'a pas été ajouté. 
+<a class="alert-link" href="{{url('parents/'.$dossier->id.'/create')}}">Ajouter un parent répondant</a>
+</div>
+
 @endif
 
 </section>
@@ -39,6 +43,7 @@ Féminin
 	@foreach($dossier->mesures as $mesure)
 	<a class="list-group-item" href={{url('mesures/'.$mesure->id.'/show')}}>
 		Temps {{$mesure->temps}}
+		<span class="badge">{{$mesure->qCompleted()['complet'].' / '.$mesure->qCompleted()['deno']}}</span>
 	</a>
 	@endforeach
 </div>

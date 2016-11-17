@@ -4,8 +4,15 @@
 @endsection
 @section('body')
 <div class="list-group">
-	@foreach($mesure->tokens as $token)
-	<a class="list-group-item" href="{{url(env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$token->ls_id.'/token/'.$token->token.'/lang//newtest/Y')}}">{{$token->questionnaire->titre}}</a>
+	@foreach($mesure->tokens as $q)
+		@if($q->isCompleted()=="N")
+			<a class="list-group-item" href="{{url(env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$q->ls_id.'/token/'.$q->token.'/lang//newtest/Y')}}">{{$q->questionnaire->titre}}</a>
+		@else
+			<div class="list-group-item list-group-item-success">
+				{{$q->questionnaire->titre}} 
+				<div class="pull-right"><b>{{$q->isCompleted()}}</b></div>
+			</div>
+		@endif
 	@endforeach
 </div>
 @if($mesure->dossier->age<8)
