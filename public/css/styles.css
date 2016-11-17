@@ -8,4 +8,9 @@
 .panel-heading h1 {
 	font-size:1.55em;
 	color:#777;
+	display: inline;
+}
+.panel-heading {
+	padding-top: 20px;
+	padding-bottom: 20px;
 }

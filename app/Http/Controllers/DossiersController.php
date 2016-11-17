@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\NouveauDossier;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 
 
@@ -84,6 +85,24 @@ class DossiersController extends Controller
         $results=Dossier::search($request->recherche)->take(100)->get();
         $chaine=$request->recherche;
         return view('home',compact('results','chaine'));
+    }
+    public function edit(Dossier $dossier)
+    {
+        return view('dossiers.edit', compact('dossier'));
+    }
+    public function update(Dossier $dossier, Request $request)
+    {
+        $this->validate($request, [
+            'nom'=>'required', 
+            'prenom'=>'required', 
+            'no_doss_chus'=>['required', Rule::unique('dossiers')->ignore($dossier->id),'regex:/^[0-9]{7}$/'], 
+            'date_naiss'=>'required|date', 
+            ]);
+        //'email' => ['required', Rule::unique('users')->ignore($user->id), 'email', 'max:255'],
+        $data=$request->all();
+        $data['nom_complet']=$request->prenom.' '.$request->nom;
+        $dossier->update($data);
+        return redirect('dossiers/'.$dossier->id.'/show');
     }
 
 }
