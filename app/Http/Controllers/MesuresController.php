@@ -45,7 +45,7 @@ class mesuresController extends Controller
       if ((($q->rep=='JE' | $q->rep=='EN') && $dossier->age>=8) | $q->rep=='PA')  {
         $table=env('LS_PREFIX').'tokens_'.$q->ls_id;
         $token=$mesure->id.$q->ls_id.str_random(12);
-        DB::insert('insert into '.$table.' (lastname, token) values (?, ?)', [$mesure->id, $token]);
+        DB::connection('ls')->insert('insert into '.$table.' (lastname, token) values (?, ?)', [$mesure->id, $token]);
         $mesure->tokens()->create(['token'=>$token, 'ls_id'=>$q->ls_id]);
       }
     }   
@@ -67,49 +67,7 @@ class mesuresController extends Controller
 
  public function show(Mesure $mesure) 
  {  
-  $mesure=$mesure->with('tokens')->first();
-  $query=DB::table('questionnaires')->where('temps', $mesure->temps);
-  $nb=$query->count();
-  $questionnaires=$query->get();
-      //dd($nb);
-  $raw_query='(';
-  $compteur=1;
-  foreach($questionnaires as $q) {
-    if ($compteur < $nb) {
-      $union=' UNION ';
-    }
-    else {
-      $union='';
-    }
-    $raw_query=$raw_query.'SELECT completed, '.$q->ls_id. ' as ls_id, token FROM '.env('LS_PREFIX').'tokens_'.$q->ls_id.$union;
-    ++$compteur;
-  }
-  $raw_query=$raw_query.') AS token_all';
-      //dd($raw_query);
-      //SELECT completed, RRRR as ls_id, token FROM
-  $test=DB::select(DB::raw('SELECT * from dossiers'));
-  /*$someVariable = Input::get("some_variable");
+  return view('mesures.show', compact('mesure'));
+}
 
-  $results = DB::select( DB::raw("SELECT * FROM some_table WHERE some_col = :somevariable"), array(
-   'somevariable' => $someVariable,
-   ));
-   */
-  dd($test);
-  $mesure=DB::table('tokens')
-  ->where('mesure_id', $mesure->id)
-  ->join(DB::connection('ls')->raw($raw_query), function ($join){
-    $join->on('tokens.ls_id', '=', 'token_all.ls_id')->on('tokens.token', '=', 'token_all.token');
-  })
-  ->toSql();
-  dd($mesure);
-        /*
-        $tokens=$mesure->tokens()->join(DB::connection('ls')->raw("
-            SELECT 
-          ")
-          
-        ) 
-        ->leftJoin(DB::raw("(SELECT `local_id`, julianday('now')-julianday(last_releve) as age from (SELECT `local_id`, max(created_at) as last_releve From releves Group By local_id)) as last"),'locals.id', '=', 'last.local_id' )*/
-        return view('mesures.show', compact('mesure'));
-      }
-
-    }
+}
