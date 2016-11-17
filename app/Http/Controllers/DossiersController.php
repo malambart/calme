@@ -65,7 +65,7 @@ class DossiersController extends Controller
             }
             $table=env('LS_PREFIX').'tokens_'.$q->ls_id;
             $token=$mesure->id.$q->ls_id.str_random(12);
-            DB::connection('ls')->insert('insert into '.$table.' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
+            DB::insert('insert into '.$table.' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
             $mesure->tokens()->create(['token'=>$token, 'ls_id'=>$q->ls_id]);
         }
         

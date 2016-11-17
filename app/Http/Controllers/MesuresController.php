@@ -45,7 +45,7 @@ class mesuresController extends Controller
       if ((($q->rep=='JE' | $q->rep=='EN') && $dossier->age>=8) | $q->rep=='PA')  {
         $table=env('LS_PREFIX').'tokens_'.$q->ls_id;
         $token=$mesure->id.$q->ls_id.str_random(12);
-        DB::connection('ls')->insert('insert into '.$table.' (lastname, token) values (?, ?)', [$mesure->id, $token]);
+        DB::insert('insert into '.$table.' (lastname, token) values (?, ?)', [$mesure->id, $token]);
         $mesure->tokens()->create(['token'=>$token, 'ls_id'=>$q->ls_id]);
       }
     }   
