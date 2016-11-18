@@ -19,6 +19,7 @@ class CreateTokensTable extends Migration
             $table->integer('ls_id')->unsigned();
             $table->integer('mesure_id')->unsigned();
             $table->string('token');
+            $table->string('rep');
             $table->foreign('mesure_id')
                 ->references('id')
                 ->on('mesures')

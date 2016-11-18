@@ -36,5 +36,9 @@ class Dossier extends Model
 		$auj=Carbon::today();
 		return round(($auj->diff($naiss)->format('%a'))/365.25, 1);
 	}
+	public function getCurrentMesure()
+	{
+		return $this->mesures()->orderBy('temps', 'desc')->first();
+	}
 
 }
