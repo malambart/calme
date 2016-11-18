@@ -8,7 +8,7 @@ use App\Questionaire;
 use Illuminate\Support\Facades\DB;
 class Token extends Model
 {
-	protected $fillable=['token', 'ls_id'];
+	protected $fillable=['token', 'ls_id', 'rep'];
 
 	public function mesure()
 	{

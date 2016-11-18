@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/vendor.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
