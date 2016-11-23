@@ -41,9 +41,12 @@ class DossiersController extends Controller
             'nom'=>'required', 
             'prenom'=>'required', 
             'no_doss_chus'=>'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/', 
-            'date_naiss'=>'required|date', 
+            'date_naiss'=>'required|date_format:Y-m-d|after:1990-01-01',
+            'premiere_seance'=>'required|date_format:Y-m-d|after:today',
+            'bilan_final'=>'required|date_format:Y-m-d|after:today'
             ]);
         $data=$request->all();
+        //dd($data);
         $data['nom_complet']=$request->prenom.' '.$request->nom;
         $dossier=Dossier::create($data);
      //Mail::to('francislafort@gmail.com'->send(new NouveauDossier($dossier));
