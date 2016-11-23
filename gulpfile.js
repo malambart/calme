@@ -22,12 +22,11 @@ elixir(mix => {
     '../bower/moment/min/moment.min.js',
     '../bower/moment/locale/fr.js',
     '../bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js', 
-    '../bower/jquery-ui/jquery-ui.min.js' 
-
+    '../bower/jquery-ui/jquery-ui.min.js'
 ], 'public/js/vendor.js');
     mix.styles([
-        '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+        '../bower/eonasdPan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
         '../bower/jquery-ui/themes/base/jquery-ui.min.css',
         ],'public/css/vendor.css');
 });
-
+P
