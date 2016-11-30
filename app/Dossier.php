@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Updater;
-use App\ParentRep;
+use App\Parentrep;
 use Carbon\Carbon;
 use Sofa\Eloquence\Eloquence;
 //use Illuminate\Support\Facades\Auth
@@ -18,12 +18,12 @@ class Dossier extends Model
 
 	public function parents()
 	{
-	return $this->hasMany(ParentRep::class);
+	return $this->hasMany(Parentrep::class);
 	}
 
 	public function currentParent()
 	{
-		return $this->hasOne(ParentRep::class)->where('current', true);
+		return $this->hasOne(Parentrep::class)->where('current', true);
 	}
 	public function mesures()
 	{

@@ -16,9 +16,13 @@ class CreateParentsTable extends Migration
         Schema::create('parents', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('current')->default(true);
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->integer('dossier_id')->unsigned();
             $table->string('prenom');
+            $table->string('nom');
             $table->string('lien');
             $table->string('lieuT1');
             $table->string('courriel');

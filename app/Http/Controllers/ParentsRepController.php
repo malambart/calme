@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Dossier;
+use App\Parentrep;
 
-class ParentsRepController extends Controller
+class ParentsrepController extends Controller
 {
     public function create(Dossier $dossier)
     {
@@ -17,7 +18,8 @@ class ParentsRepController extends Controller
     public function store(Dossier $dossier, Request $request)
     {
     	$rules=[
-    		'prenom'=>'required', 
+            'prenom'=>'required',
+    		'nom'=>'required',
     		'lien'=>'required', 
     		'lieuT1'=>'required', 
     		'tel'=>'required', 
@@ -36,5 +38,13 @@ class ParentsRepController extends Controller
     	$dossier->parents()->update(['current'=>false]);
     	$parent=$dossier->parents()->create($data);
     	return redirect('dossiers/'.$dossier->id.'/show');
+    }
+    public function show(Parentrep $parent)
+    {
+        return view('parents.show', compact('parent'));
+    }
+    public function edit(Parentrep $parent)
+    {
+        return view('parents.edit', compact('parent'));
     }
 }

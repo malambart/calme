@@ -24,7 +24,7 @@ class DossiersController extends Controller
     
     public function show(Dossier $dossier)
     {	
-    	$this->authorize('show', $dossier);
+    	//$this->authorize('show', $dossier);
         $dossier->load('mesures');
         return view('dossiers.show', compact('dossier'));
 
@@ -58,14 +58,6 @@ class DossiersController extends Controller
         $questionnaires=$mesure->questionnaires()->where('temps', 1)->get();
     // On cree l'invitation dans limeSurvey
         foreach ($questionnaires as $q) {
-            if (
-                    ($q->rep=='JE' && $dossier->age<8)| //Si répondant est un jeune est à moins de 8 ans
-                    ($q->rep!='JE' && $dossier->exclu==1)|
-                    ($q->rep=='EN' && ($dossier->premiere_seance->month >= 7 && $dossier->premiere_seance->month < 10))
-                    ) 
-            {
-                continue; 
-            }
             $table=env('LS_PREFIX').'tokens_'.$q->ls_id;
             $token=$mesure->id.$q->ls_id.str_random(12);
             DB::connection('ls')->insert('insert into '.$table.' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);

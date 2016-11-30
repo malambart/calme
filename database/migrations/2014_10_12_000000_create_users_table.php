@@ -17,6 +17,9 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+             $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->string('name');
             $table->string('role');
             $table->string('email')->unique();
@@ -25,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
         $password=Hash::make('password');
-        DB::insert('insert into users (id, name, role, email, password) values (?, ?, ?, ?, ?)', [1, 'Francis','superadmin',  'francislafort@gmail.com', $password]);
+        DB::insert('insert into users (id, name, role, email, password, created_by) values (?, ?, ?, ?, ?, ?)', [1, 'Francis','superadmin',  'francislafort@gmail.com', $password, 1]);
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokensTable extends Migration
+class CreateEnseignantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('enseignants', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
+            $table->string('nom');
+            $table->string('prenom');
             $table->timestamps();
-            $table->integer('ls_id')->unsigned();
-            $table->integer('mesure_id')->unsigned();
-            $table->string('token');
-            $table->string('rep');
-            $table->foreign('mesure_id')
-                ->references('id')
-                ->on('mesures')
-                ->onDelete('cascade');
         });
     }
 
@@ -37,6 +31,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tokens');
+        Schema::dropIfExists('enseignants');
     }
 }

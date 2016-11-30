@@ -15,6 +15,9 @@ class CreateEcolesTable extends Migration
     {
         Schema::create('ecoles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->string('nom')->unique();
             $table->string('ville');

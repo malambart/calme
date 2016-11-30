@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Mesure;
 use App\Questionaire;
 use Illuminate\Support\Facades\DB;
+use App\Updater;
 class Token extends Model
 {
+	use Updater;
 	protected $fillable=['token', 'ls_id', 'rep'];
 
 	public function mesure()
