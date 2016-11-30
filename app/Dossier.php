@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Updater;
-use App\Parentrep;
+use App\ParentRep;
 use Carbon\Carbon;
 use Sofa\Eloquence\Eloquence;
 //use Illuminate\Support\Facades\Auth
