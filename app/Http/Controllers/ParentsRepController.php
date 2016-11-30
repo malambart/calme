@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Dossier;
 use App\Parentrep;
 
-class ParentsrepController extends Controller
+class ParentsRepController extends Controller
 {
     public function create(Dossier $dossier)
     {
