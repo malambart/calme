@@ -15,16 +15,12 @@ class CreateMesuresTable extends Migration
     {
         Schema::create('mesures', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('created_by');
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->integer('temps')->unsigned();
             $table->integer('dossier_id')->unsigned();
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->integer('ecole_id')->nullable();
-            $table->string('prenom_ens')->nullable();
-            $table->string('nom_ens')->nullable();
-            $table->string('tel_ens')->nullable();
-            $table->string('courriel_ens')->nullable();
-            $table->string('fax_ens')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')
                 ->on('dossiers')

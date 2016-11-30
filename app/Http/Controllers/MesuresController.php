@@ -27,31 +27,6 @@ class mesuresController extends Controller
 
   }
 
-  public function build(Dossier $dossier, $data=array())
-  {
-    $data['parent_id']=$dossier->currentParent()->first()->id;
-    $lastmesure=$dossier->mesures->last();
-    if($lastmesure){
-      $data['temps']=$lastmesure->temps+1;
-    }
-    else {
-      $data['temps']=1;   
-    }
-    $mesure=$dossier->mesures()->create($data);
-        //On fetch les questionnaires associés
-    $questionnaires=$mesure->questionnaires()->get();
-
-    foreach($questionnaires as $q) {
-      if ((($q->rep=='JE' | $q->rep=='EN') && $dossier->age>=8) | $q->rep=='PA')  {
-        $table=env('LS_PREFIX').'tokens_'.$q->ls_id;
-        $token=$mesure->id.$q->ls_id.str_random(12);
-        DB::connection('ls')->insert('insert into '.$table.' (lastname, token) values (?, ?)', [$mesure->id, $token]);
-        $mesure->tokens()->create(['token'=>$token, 'ls_id'=>$q->ls_id]);
-      }
-    }   
-  }
-
-
   public function store(Dossier $dossier, Request $request)
   {
    $this->validate($request, [

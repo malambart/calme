@@ -48,8 +48,10 @@ Route::get('dossiers/{dossier}/show', 'DossiersController@show');
 Route::get('dossiers/create', 'DossiersController@create');
 Route::post('dossiers/create', 'DossiersController@store');
 Route::get('dossiers/index', 'DossiersController@index');
-Route::get('parents/{dossier}/create', 'ParentsRepController@create');
-Route::post('parents/{dossier}/create', 'ParentsRepController@store');
+Route::get('parents/{dossier}/create', 'ParentsrepController@create');
+Route::post('parents/{dossier}/create', 'ParentsrepController@store');
+Route::get('parents/{parent}/show', 'ParentsrepController@show');
+Route::get('parents/{parent}/edit', 'ParentsrepController@edit');
 
 Route::get('mesures/{dossier}/create', 'MesuresController@create');
 Route::post('mesures/{dossier}/create', 'MesuresController@store');
