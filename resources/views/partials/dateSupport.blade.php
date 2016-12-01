@@ -48,7 +48,7 @@ if (!Modernizr.inputtypes.date) {
 	dateFormat: 'yy-mm-dd', 
 	changeYear:true, 
 	changeMonth:true, 
-	yearRange:"1990:+0"
+	yearRange:"1990:+20"
 	}).attr("placeholder", "aaaa-mm-jj");
 }
 
