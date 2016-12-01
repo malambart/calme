@@ -58,7 +58,7 @@
 	@endif
 </div>
 <div class="form-group{{ $errors->has('date_naiss') ? ' has-error' : '' }}">
-	<label for="date_naiss" class=" control-label">Date de naissance</label>
+	<label for="date_naiss" class=" control-label">Date de naissance <span class="tip">(aaaa-mm-jj)</span></label>
 	<input id="date_naiss" type="date" class="form-control datepicker" name="date_naiss" value="{{ old('date_naiss') }}" autofocus>
 	@if ($errors->has('date_naiss'))
 	<span class="help-block">
@@ -67,7 +67,7 @@
 	@endif
 </div>
 <div class="form-group{{ $errors->has('premiere_seance') ? ' has-error' : '' }}">
-	<label for="premiere_seance" class=" control-label">Date prévue de la première séance de traitement</label>
+	<label for="premiere_seance" class=" control-label">Date prévue de la première séance de traitement <span class="tip">(aaaa-mm-jj)</span></label>
 	<input id="premiere_seance" type="date" class="form-control datepicker" name="premiere_seance" value="{{ old('premiere_seance') }}" autofocus>
 	@if ($errors->has('premiere_seance'))
 	<span class="help-block">
@@ -76,7 +76,7 @@
 	@endif
 </div>
 <div class="form-group{{ $errors->has('bilan_final') ? ' has-error' : '' }}">
-	<label for="bilan_final" class=" control-label">Date prévue du bilan final</label>
+	<label for="bilan_final" class=" control-label">Date prévue du bilan final <span class="tip">(aaaa-mm-jj)</span></label>
 	<input id="bilan_final" type="date" class="form-control datepicker" name="bilan_final" value="{{ old('bilan_final') }}" autofocus>
 	@if ($errors->has('bilan_final'))
 	<span class="help-block">
