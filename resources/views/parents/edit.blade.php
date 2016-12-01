@@ -59,13 +59,7 @@
 	<div hidden id="input_lien_autre" class="form-group{{ $errors->has('lien_autre') ? ' has-error' : '' }}">
 		<label for="lien_autre" class="col-md-4 control-label">Veuillez précisez</label>
 		<div class="col-md-6">
-			<input id="lien_autre" type="text" class="form-control" name="lien_autre" value="
-			@if($parent->lien != "mère" && $parent->lien != "père")
-			{{ old('lien_autre', $parent->lien) }}
-			@else
-			 {{ old('lien_autre') }}
-			@endif
-			 "
+			<input id="lien_autre" type="text" class="form-control" name="lien_autre" value="{{old('lien_autre', $parent->lien_autre)}}"
 			autofocus>
 			@if ($errors->has('lien_autre'))
 			<span class="help-block">

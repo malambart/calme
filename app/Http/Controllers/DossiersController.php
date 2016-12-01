@@ -26,7 +26,9 @@ class DossiersController extends Controller
     {	
     	//$this->authorize('show', $dossier);
         $dossier->load('mesures');
-        return view('dossiers.show', compact('dossier'));
+        $parent=$dossier->currentParent();
+        $enseignant=$dossier->currentEnseignant();
+        return view('dossiers.show', compact('dossier', 'parent', 'enseignant'));
 
     }
 

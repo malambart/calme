@@ -24,6 +24,7 @@ class CreateParentsTable extends Migration
             $table->string('prenom');
             $table->string('nom');
             $table->string('lien');
+            $table->string('lien_autre')->nullable();
             $table->string('lieuT1');
             $table->string('courriel');
             $table->string('tel');

@@ -69,3 +69,7 @@ Route::patch('utilisateurs/{user}/edit', 'UsersController@update');
 Route::get('utilisateurs/{user}/delete', 'UsersController@delete');
 
 Route::post('recherche', 'DossiersController@recherche');
+
+Route::get('enseignants/{dossier}/create',  'EnseignantsController@create');
+Route::post('enseignants/{dossier}/create',  'EnseignantsController@store');
+Route::get('enseignants/{enseignant}/{dossier}/show',  'EnseignantsController@show');

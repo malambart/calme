@@ -11,7 +11,13 @@
 <div class="alert alert-warning">
   Pour modifier les infos du parent (ex. : corriger une erreur dans le nom,  changer l'adresse courriel,  etc),  utiliser le bouton "Edit". Si le parent répondant <b>change au cours du projet</b>,  utilisez le bouton "changer de parent".
 </div>
-<p>Lien avec le jeune : {{$parent->lien}}</p>
+<p>Lien avec le jeune :
+	@if($parent->lien=='autre')
+		{{$parent->lien_autre}}
+	@else
+		{{$parent->lien}}
+	@endif
+</p>
 <p>Numéro de téléphone: {{$parent->tel}}</p>
 <p>Courriel: {{$parent->courriel}}</p>
 <p>Lieu du T1: {{$parent->lieuT1}}</p>

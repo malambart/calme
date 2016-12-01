@@ -102,7 +102,7 @@
 	<div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
 		<label for="tel" class="col-md-4 control-label">Téléphone principal</label>
 		<div class="col-md-6">
-			<input id="tel" type="text" class="form-control" name="tel" value="{{ old('tel') }}" autofocus>
+			<input id="tel" type="text" class="form-control tel-mask" name="tel" value="{{ old('tel') }}" autofocus>
 			@if ($errors->has('tel'))
 			<span class="help-block">
 				<strong>{{ $errors->first('tel') }}</strong>
@@ -113,7 +113,7 @@
 	<div class="form-group{{ $errors->has('tel2') ? ' has-error' : '' }}">
 		<label for="tel2" class="col-md-4 control-label">Téléphone secondaire</label>
 		<div class="col-md-6">
-			<input id="tel2" type="text" class="form-control" name="tel2" value="{{ old('tel2') }}" autofocus>
+			<input id="tel2" type="text" class="form-control tel-mask" name="tel2" value="{{ old('tel2') }}" autofocus>
 			@if ($errors->has('tel2'))
 			<span class="help-block">
 				<strong>{{ $errors->first('tel2') }}</strong>
@@ -139,5 +139,9 @@
 			$('#input_lien_autre').hide();
 		}
 	});
+	jQuery(function($){
+   $(".tel-mask").mask("999 999-9999");
+	});
+	
 </script>
 @endsection
