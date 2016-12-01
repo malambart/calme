@@ -5,7 +5,7 @@
 @section('body')
 <div class="list-group">
 	@foreach($mesure->getTokens() as $q)
-	@if($q->rep=="PA" && is_null($mesure->dossier->currentParent()->first()))
+	@if($q->rep=="PA" && !$mesure->dossier->currentParent())
 	@elseif($q->isCompleted()=="N")
 		<a class="list-group-item" href="{{url(env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$q->ls_id.'/token/'.$q->token.'/lang//newtest/Y')}}">{{$q->questionnaire->titre}}
 		</a>
@@ -17,7 +17,7 @@
 	@endif
 	@endforeach
 </div>
-@if(!$mesure->dossier->exclu && !$mesure->dossier->currentParent()->first())
+@if(!$mesure->dossier->exclu && !$mesure->dossier->currentParent())
 	<div class="alert alert-warning">
 	Le parent n'a pas été ajouté. 
 	<a class="alert-link" href="{{url('parents/'.$mesure->dossier->id.'/create')}}">Ajouter un parent répondant</a>

@@ -32,12 +32,15 @@ class ParentsRepController extends Controller
     	}
     	$this->validate($request,$rules);
     	$data=$request->all();
-    	if ($data['lien_autre']!='') {
-    		$data['lien']=$data['lien_autre'];
-    	}
     	$dossier->parents()->update(['current'=>false]);
     	$parent=$dossier->parents()->create($data);
-    	return redirect('dossiers/'.$dossier->id.'/show');
+        if ($dossier->enseignants()->first()) {
+            return redirect('dossiers/'.$dossier->id.'/show');
+        }
+        else {
+            return redirect('enseignants/'.$dossier->id.'/create');
+        }
+    	
     }
     public function show(Parentrep $parent)
     {

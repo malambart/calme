@@ -25,17 +25,26 @@ Féminin
 <p>Date de la première séance de traitement : {{$dossier->premiere_seance->toDateString()}}</p>
 <p>Date du bilan final : {{$dossier->bilan_final}}</p>
 <hr>
-@if(count($dossier->currentParent)>=1)
-<p>Parent répondant :  <a href="{{url('parents/'.$dossier->currentParent->id.'/show')}}">{{$dossier->currentParent->prenom.' ('.$dossier->currentParent->lien.')'}}</a></p>
-@if($dossier->currentParent->courriel)
-	<p>Courriel du parent : <a href="mailto:{{$dossier->currentParent->courriel}}">{{$dossier->currentParent->courriel}}</a></p>
+@if($parent)
+<p>Parent répondant :  <a href="{{url('parents/'.$parent->id.'/show')}}">{{$parent->prenom.' ('.$parent->getLien().')'}}</a></p>
+@if($parent->courriel)
+	<p>Courriel du parent : <a href="mailto:{{$parent->courriel}}">{{$parent->courriel}}</a></p>
 @endif	
 @elseif(!$dossier->exclu)
 <div class="alert alert-warning">
 Le parent n'a pas été ajouté. 
 <a class="alert-link" href="{{url('parents/'.$dossier->id.'/create')}}">Ajouter un parent répondant</a>
 </div>
-
+@endif
+<hr>
+@if($enseignant)
+<?php ?>
+<p>Enseignant répondant : <a href="{{url('enseignants/'.$enseignant->id.'/'.$dossier->id.'/show')}}">{{$enseignant->prenom.' '.$enseignant->nom. ' (école '.$enseignant->ecole()->first()->nom.')'}}</a></p>
+@elseif(!$dossier->exclu)
+<div class="alert alert-warning">
+L'enseignant n'a pas été ajouté. 
+<a class="alert-link" href="{{url('enseignants/'.$dossier->id.'/create')}}">Ajouter un enseignant</a>
+</div>
 @endif
 
 </section>
