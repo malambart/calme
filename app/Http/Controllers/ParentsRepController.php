@@ -42,11 +42,11 @@ class ParentsRepController extends Controller
         }
     	
     }
-    public function show(Parentrep $parent)
+    public function show(ParentRep $parent)
     {
         return view('parents.show', compact('parent'));
     }
-    public function edit(Parentrep $parent)
+    public function edit(ParentRep $parent)
     {
         return view('parents.edit', compact('parent'));
     }
