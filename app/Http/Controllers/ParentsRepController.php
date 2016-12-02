@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Dossier;
-use App\Parentrep;
+use App\ParentRep;
 
 class ParentsRepController extends Controller
 {
