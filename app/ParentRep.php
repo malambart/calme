@@ -13,7 +13,7 @@ class ParentRep extends Model
 
     public function dossier()
     {
-    	return $this->belongsTo(dossier::class);
+    	return $this->belongsTo(Dossier::class);
     }
     
     public function current($query)	
