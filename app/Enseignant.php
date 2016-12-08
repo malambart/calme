@@ -10,7 +10,8 @@ class Enseignant extends Model
 {
 	use Updater;
 	protected $fillable=['nom', 'prenom', 'ecole_id'];
-    public function Dossiers()
+
+    public function dossiers()
 	{
 		return $this->belongsToMany(Dossier::class)->withTimestamps();;
 	}

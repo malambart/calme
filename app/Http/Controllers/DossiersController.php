@@ -36,16 +36,28 @@ class DossiersController extends Controller {
             'bilan_final' => 'required|date_format:Y-m-d|after:today'
         ]);
         $data = $request->all();
-        //dd($data);
         $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
         $dossier = Dossier::create($data);
         //Mail::to('francislafort@gmail.com'->send(new NouveauDossier($dossier));
         //$user=User::findOrFail(1);
         //$user->notify(new NouveauDossier($dossier));
+
         //Creation du premier temps de mesure
         $mesure = $dossier->mesures()->create(['temps' => 1]);
         //On fetch les questionnaires associés
         $questionnaires = $mesure->questionnaires()->where('temps', 1)->get();
+        // On cree l'invitation dans limeSurvey
+        foreach ($questionnaires as $q) {
+            $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
+            $token = $mesure->id . $q->ls_id . str_random(12);
+            DB::connection('ls')->insert('insert into ' . $table . ' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
+            $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
+        }
+
+        //Creation du second temps de mesure
+        $mesure = $dossier->mesures()->create(['temps' => 2]);
+        //On fetch les questionnaires associés
+        $questionnaires = $mesure->questionnaires()->where('temps', 2)->get();
         // On cree l'invitation dans limeSurvey
         foreach ($questionnaires as $q) {
             $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
