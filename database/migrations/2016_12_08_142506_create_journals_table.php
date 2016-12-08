@@ -18,7 +18,6 @@ class CreateJournalsTable extends Migration
             $table->timestamps();
             $table->date('date');
             $table->integer('duree');
-
         });
     }
 
