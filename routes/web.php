@@ -26,7 +26,7 @@ route::post('login', 'Auth\LoginController@login');
 route::post('logout', 'Auth\LoginController@logout');
 
         // Registration Routes...
-route::get('utilisateurs/ajout', 'Auth\RegisterController@showRegistrationForm');
+Route::get('utilisateurs/ajout', 'Auth\RegisterController@showRegistrationForm');
 route::post('register', 'Auth\RegisterController@register');
 
         // Password Reset Routes...
@@ -52,6 +52,7 @@ Route::get('parents/{dossier}/create', 'ParentsRepController@create');
 Route::post('parents/{dossier}/create', 'ParentsRepController@store');
 Route::get('parents/{parent}/show', 'ParentsRepController@show');
 Route::get('parents/{parent}/edit', 'ParentsRepController@edit');
+Route::patch('parents/{parent}/edit', 'ParentsRepController@update');
 
 Route::get('mesures/{dossier}/create', 'MesuresController@create');
 Route::post('mesures/{dossier}/create', 'MesuresController@store');

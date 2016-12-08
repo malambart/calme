@@ -1,16 +1,34 @@
 .list-header {
-	font-size:1.5em;
-	margin-top:15px;
-	padding-bottom:10px;
-	vertical-align:middle;
+    font-size: 1.5em;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    vertical-align: middle;
 }
 
 .panel-heading h1 {
-	font-size:1.55em;
-	color:#777;
-	display: inline;
+    font-size: 1.55em;
+    color: #777;
+    display: inline;
 }
+
 .panel-heading {
-	padding-top: 20px;
-	padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.tel-mask {
+    width: 50%;
+    display: inline;
+}
+
+.tel-ext {
+    width: 49%;
+    display: inline;
+}
+
+.tab-content {
+    padding: 20px 10px 10px 10px;
+    border-right: 1px solid #d3e0e9;
+    border-bottom: 1px solid #d3e0e9;
+    border-left: 1px solid #d3e0e9;
 }

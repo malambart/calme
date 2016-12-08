@@ -18,8 +18,21 @@
 		{{$parent->lien}}
 	@endif
 </p>
-<p>Numéro de téléphone: {{$parent->tel}}</p>
-<p>Courriel: {{$parent->courriel}}</p>
+<p>
+	Numéro de téléphone: {{$parent->tel}}
+	@if($parent->ext)
+		({{$parent->ext}})
+	@endif
+</p>
+@if($parent->tel2)
+	<p>
+		Numéro de téléphone secondaire : {{$parent->tel2}}
+		@if($parent->ext2)
+			($parent->ext2)
+		@endif
+	</p>
+@endif
+<p>Courriel: <a href="mailto:{{$parent->courriel}}">{{$parent->courriel}}</a></p>
 <p>Lieu du T1: {{$parent->lieuT1}}</p>
 @endsection
 @section('script')

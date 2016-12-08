@@ -28,7 +28,9 @@ class CreateParentsTable extends Migration
             $table->string('lieuT1');
             $table->string('courriel');
             $table->string('tel');
+            $table->string('ext')->nullable();
             $table->string('tel2')->nullable();
+            $table->string('ext2')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')
                 ->on('dossiers')

@@ -15,19 +15,20 @@ require('laravel-elixir-vue');
 
 elixir(mix => {
     mix.sass('app.scss')
-       .webpack('app.js');
-    mix.scripts([
-    '../bower/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js',
+    .webpack('app.js');
+mix.scripts([
     '../bower/jquery/dist/jquery.min.js',
+    '../js/bootstrap.min.js',
+    '../bower/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js',
     '../bower/moment/min/moment.min.js',
     '../bower/moment/locale/fr.js',
-    '../bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js', 
-    '../bower/jquery-ui/jquery-ui.min.js', 
+    '../bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
+    '../bower/jquery-ui/jquery-ui.min.js',
     '../js/maskedinput.js'
 ], 'public/js/vendor.js');
-    mix.styles([
-        '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-        '../bower/jquery-ui/themes/base/jquery-ui.min.css',
-        ],'public/css/vendor.css');
+mix.styles([
+    '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+    '../bower/jquery-ui/themes/base/jquery-ui.min.css',
+], 'public/css/vendor.css');
 });
 

@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-
-
-class CreateTableDossierEnseignant extends Migration
+class CreateNoteEvolutivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +13,14 @@ class CreateTableDossierEnseignant extends Migration
      */
     public function up()
     {
-        Schema::create('dossier_enseignant', function (Blueprint $table) {
+        Schema::create('note_evolutives', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('current')->default(true);
-            $table->integer('dossier_id');
-            $table->integer('enseignant_id');
             $table->timestamps();
-        });
+            $table->date('date');
+            $table->integer('presence_enfant');
+            $table->integer('presence_parent');
+            $table->integer('ponctualite');
+            $table->string('ponctualite_motif');
     }
 
     /**
@@ -31,6 +30,6 @@ class CreateTableDossierEnseignant extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dossier_enseignant');
+        Schema::dropIfExists('note_evolutives');
     }
 }

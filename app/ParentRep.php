@@ -9,7 +9,7 @@ class ParentRep extends Model
 {
 	use Updater;
 	protected $table='parents';
-    protected $fillable=['prenom', 'nom', 'lien', 'lien_autre',  'lieuT1', 'courriel', 'tel', 'tel2'];
+    protected $fillable=['prenom', 'nom', 'lien', 'lien_autre', 'lieuT1', 'courriel', 'tel', 'tel2','ext','ext2'];
 
     public function dossier()
     {
