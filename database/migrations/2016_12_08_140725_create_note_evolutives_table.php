@@ -21,6 +21,7 @@ class CreateNoteEvolutivesTable extends Migration
             $table->integer('presence_parent');
             $table->integer('ponctualite');
             $table->string('ponctualite_motif');
+        });
     }
 
     /**
