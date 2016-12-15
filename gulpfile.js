@@ -17,8 +17,6 @@ elixir(mix => {
     mix.sass('app.scss')
     .webpack('app.js');
 mix.scripts([
-    '../bower/jquery/dist/jquery.min.js',
-    '../js/bootstrap.min.js',
     '../bower/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js',
     '../bower/moment/min/moment.min.js',
     '../bower/moment/locale/fr.js',
@@ -27,6 +25,7 @@ mix.scripts([
     '../js/maskedinput.js'
 ], 'public/js/vendor.js');
 mix.styles([
+    /*'../css/bootstrap.min.css',*/
     '../bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
     '../bower/jquery-ui/themes/base/jquery-ui.min.css',
 ], 'public/css/vendor.css');
