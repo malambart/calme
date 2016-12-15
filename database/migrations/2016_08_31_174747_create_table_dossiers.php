@@ -21,6 +21,7 @@ class CreateTableDossiers extends Migration
             $table->string('no_doss_chus')->unique();
             $table->date('date_naiss');
             $table->timestamps();
+            $table->softDeletes();
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();

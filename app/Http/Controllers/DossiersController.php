@@ -137,4 +137,25 @@ class DossiersController extends Controller {
         return redirect('dossiers/' . $dossier->id . '/show');
     }
 
+    public function delete(Dossier $dossier)
+    {
+        $dossier->delete();
+        return redirect('/');
+    }
+
+    public function supprimes()
+    {
+        $dossiers = Dossier::onlyTrashed()->select(['id', 'nom_complet'])->get();
+        return view('dossiers.supprimes', compact('dossiers'));
+    }
+
+    public function restore($dossier)
+    {
+        $d=Dossier::onlyTrashed()->findOrFail($dossier);
+        $d->restore();
+        $d->deleted_by=null;
+        $d->save();
+        return redirect('dossiers/' . $d->id . '/show');
+    }
+
 }
