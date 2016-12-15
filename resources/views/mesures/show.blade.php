@@ -6,6 +6,7 @@
 <div class="list-group">
 	@foreach($mesure->getTokens() as $q)
 	@if($q->rep=="PA" && !$mesure->dossier->currentParent())
+	@elseif($q->rep=="EN" && !$mesure->dossier->currentEnseignant())
 	@elseif($q->isCompleted()=="N")
 		<a class="list-group-item" href="{{url(env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$q->ls_id.'/token/'.$q->token.'/lang//newtest/Y')}}">{{$q->questionnaire->titre}}
 		</a>
@@ -21,6 +22,12 @@
 	<div class="alert alert-warning">
 	Le parent n'a pas été ajouté. 
 	<a class="alert-link" href="{{url('parents/'.$mesure->dossier->id.'/create')}}">Ajouter un parent répondant</a>
+	</div>
+@endif
+@if(!$mesure->dossier->exclu && !$mesure->dossier->currentEnseignant())
+	<div class="alert alert-warning">
+	L'enseignant n'a pas été ajouté
+	<a class="alert-link" href="{{url('enseignants/'.$mesure->dossier->id.'/create')}}">Ajouter un enseignant répondant</a>
 	</div>
 @endif
 @if($mesure->dossier->age<8)

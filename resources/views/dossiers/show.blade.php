@@ -86,24 +86,24 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myTab">
-        <li class="active"><a href="#home" role="tab" data-toggle="tab">Plan d'intervention</a></li>
-        <li><a href="#profile" role="tab" data-toggle="tab">Notes évolutives</a></li>
-        <li><a href="#messages" role="tab" data-toggle="tab">Journaux de bord</a></li>
-        <li><a href="#settings" role="tab" data-toggle="tab">Bilan final</a></li>
+        <li class="active"><a href="#plan-intervention" role="tab" data-toggle="tab">Plan d'intervention</a></li>
+        <li><a href="#notes-evolutives" role="tab" data-toggle="tab">Notes évolutives</a></li>
+        <li><a href="#journeaux-bord" role="tab" data-toggle="tab">Journaux de bord</a></li>
+        <li><a href="#bilan-final" role="tab" data-toggle="tab">Bilan final</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-            <div class="tab-pane active" id="home">
+            <div class="tab-pane active" id="plan-intervention">
                 <a href="" class="btn btn-primary">Compléter le plan d'intervention</a></div>
-            <div class="tab-pane" id="profile">
-                Profile
+            <div class="tab-pane" id="notes-evolutives">
+                Notes évolutives
             </div>
-            <div class="tab-pane" id="messages">
-                Messages
+            <div class="tab-pane" id="journeaux-bord">
+                Journeaux de bord
             </div>
-            <div class="tab-pane" id="settings">
-                Settings
+            <div class="tab-pane" id="bilan-final">
+                Bilan final
             </div>
     </div>
 

@@ -136,12 +136,21 @@
                 @endif
             </div>
         </div>
-        <button type="submit" class="btn btn-primary pull-right">
-            Sauvegarder
-        </button>
+        <ul class="list-inline pull-right">
+            <li>
+                <button type="submit" class="btn btn-primary">
+                    Sauvegarder
+                </button>
+            </li>
+            <li>
+                <a id="deleteButton" class="btn btn-danger"  data-href="{{url('parents/'.$parent->id.'/delete')}}" data-toggle="modal" data-target="#confirm-delete">Supprimer</a>
+            </li>
+        </ul>
+
     </form>
 @endsection
 @section('script')
+    @include('partials.confirmationSupression')
     <script type="text/javascript">
         if ($('#lien').val() == 'autre') {
             $('#input_lien_autre').show();

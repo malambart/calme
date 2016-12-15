@@ -8,10 +8,11 @@ use App\ParentRep;
 use App\Enseignant;
 use Carbon\Carbon;
 use Sofa\Eloquence\Eloquence;
-//use Illuminate\Support\Facades\Auth
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dossier extends Model
-{	
+{
+    use SoftDeletes;
 	use Updater;
 	use Eloquence;
 	protected $searchableColumns = ['id'=>30, 'nom'=>20, 'prenom'=>10];

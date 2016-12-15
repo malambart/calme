@@ -25,18 +25,18 @@ route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 route::post('login', 'Auth\LoginController@login');
 route::post('logout', 'Auth\LoginController@logout');
 
-        // Registration Routes...
+// Registration Routes...
 Route::get('utilisateurs/ajout', 'Auth\RegisterController@showRegistrationForm');
 route::post('register', 'Auth\RegisterController@register');
 
-        // Password Reset Routes...
+// Password Reset Routes...
 route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
 route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 
-Route::get('/user/create','UsersController@create');
+Route::get('/user/create', 'UsersController@create');
 
 Route::get('/accueil', 'HomeController@index');
 
@@ -44,10 +44,13 @@ Route::get('/accueil', 'HomeController@index');
 Route::get('dossiers', 'DossiersController@create');
 Route::get('dossiers/{dossier}/edit', 'DossiersController@edit');
 Route::patch('dossiers/{dossier}/edit', 'DossiersController@update');
+Route::get('dossiers/{dossier}/delete', 'DossiersController@delete');
 Route::get('dossiers/{dossier}/show', 'DossiersController@show');
 Route::get('dossiers/create', 'DossiersController@create');
 Route::post('dossiers/create', 'DossiersController@store');
 Route::get('dossiers/index', 'DossiersController@index');
+Route::get('dossiers/supprimes', 'DossiersController@supprimes');
+Route::get('dossiers/{dossier}/restore', 'DossiersController@restore');
 Route::get('parents/{dossier}/create', 'ParentsRepController@create');
 Route::post('parents/{dossier}/create', 'ParentsRepController@store');
 Route::get('parents/{parent}/show', 'ParentsRepController@show');
@@ -71,6 +74,6 @@ Route::get('utilisateurs/{user}/delete', 'UsersController@delete');
 
 Route::post('recherche', 'DossiersController@recherche');
 
-Route::get('enseignants/{dossier}/create',  'EnseignantsController@create');
-Route::post('enseignants/{dossier}/create',  'EnseignantsController@store');
-Route::get('enseignants/{enseignant}/{dossier}/show',  'EnseignantsController@show');
+Route::get('enseignants/{dossier}/create', 'EnseignantsController@create');
+Route::post('enseignants/{dossier}/create', 'EnseignantsController@store');
+Route::get('enseignants/{enseignant}/{dossier}/show', 'EnseignantsController@show');
