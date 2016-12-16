@@ -58,6 +58,7 @@
 
                     </li>
                     <li><a href="{{url('utilisateurs')}}">Usagers</a></li>
+                    <li><a href="{{url('tableau-de-bord')}}">Tableau de bord</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

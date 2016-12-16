@@ -77,3 +77,5 @@ Route::post('recherche', 'DossiersController@recherche');
 Route::get('enseignants/{dossier}/create', 'EnseignantsController@create');
 Route::post('enseignants/{dossier}/create', 'EnseignantsController@store');
 Route::get('enseignants/{enseignant}/{dossier}/show', 'EnseignantsController@show');
+
+Route::get('tableau-de-bord','HomeController@dashbord');

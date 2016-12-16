@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dossier;
+use Illuminate\Support\Facades\DB;
 
-class HomeController extends Controller
-{
+class HomeController extends Controller {
     /**
      * Create a new controller instance.
      *
@@ -24,7 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $dossiers=Dossier::count();
-        return view('home',compact('dossiers'));
+        return view('home', compact('dossiers', 'filles', 'garcons'));
+    }
+
+    public function dashbord()
+    {
+        $dossiers = Dossier::count();
+        $filles = Dossier::where('sexe', 2)->count();
+        $garcons = Dossier::where('sexe', 1)->count();
+        $ageMoyen = round(DB::table('dossiers')->select(DB::raw('AVG(DATEDIFF(premiere_seance,date_naiss)/365.25) as ageMoyen'))->first()->ageMoyen,2);
+        //dd($ageMoyen);
+        return view('dashbord', compact('dossiers', 'filles', 'garcons', 'ageMoyen'));
     }
 }
