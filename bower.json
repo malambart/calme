@@ -16,6 +16,7 @@
     "laravel-bootstrap-modal-form": "jerseymilker/laravel-bootstrap-modal-form",
     "eonasdan-bootstrap-datetimepicker": "~4.17.43",
     "jquery-ui": "~1.12.1",
-    "modernizr": "~3.3.1"
+    "modernizr": "~3.3.1",
+    "chart.js": "~2.4.0"
   }
 }

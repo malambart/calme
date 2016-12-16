@@ -22,7 +22,8 @@ mix.scripts([
     '../bower/moment/locale/fr.js',
     '../bower/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
     '../bower/jquery-ui/jquery-ui.min.js',
-    '../js/maskedinput.js'
+    '../js/maskedinput.js',
+    '../bower/chart.js/dist/chart.js'
 ], 'public/js/vendor.js');
 mix.styles([
     /*'../css/bootstrap.min.css',*/
