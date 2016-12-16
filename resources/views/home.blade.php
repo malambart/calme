@@ -35,10 +35,8 @@
             </div>
         @endif
     @endif
-    <hr>
-    <div class="panel panel-default col-md-6"><h1>N = {{$dossiers}}</h1></div>
+
 @endsection
 @section('script')
-    <script type="text/javascript">
-    </script>
+
 @endsection        
