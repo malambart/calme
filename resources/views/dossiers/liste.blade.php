@@ -6,7 +6,7 @@
 @section('body')
     <div class='list-group'>
         @foreach($dossiers as $dossier)
-            <a class="list-group-item" href={{url('dossiers/'.$dossier->id.'/show')}}>
+            <a class="list-group-item" href={{url('dossiers/show',$dossier->id)}}>
                 {{$dossier->nom_complet}}
                 <span class="pull-right">{{$dossier->id}}</span>
             </a>

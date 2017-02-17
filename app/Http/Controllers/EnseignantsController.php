@@ -47,7 +47,7 @@ class EnseignantsController extends Controller {
             $dossier->enseignants()->attach(Enseignant::create($request->all()));
 
         }
-        return redirect('dossiers/' . $dossier->id . '/show');
+        return redirect(url('dossiers/show', $dossier->id));
     }
 
     public function show(Enseignant $enseignant, Dossier $dossier)

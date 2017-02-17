@@ -6,9 +6,9 @@
 @section('body')
     <div ul='list-group'>
         @foreach($dossiers as $dossier)
-            <li class="list-group-item" href={{url('dossiers/'.$dossier->id.'/show')}}>
+            <li class="list-group-item" href={{url('dossiers/show',$dossier->id)}}>
                 {{$dossier->nom_complet}} ({{$dossier->id}})
-                <a href="{{url('dossiers/'.$dossier->id.'/restore')}}" class="pull-right">Restaurer</a>
+                <a href="{{url('dossiers/restore',$dossier->id)}}" class="pull-right">Restaurer</a>
             </li>
         @endforeach
     </div>

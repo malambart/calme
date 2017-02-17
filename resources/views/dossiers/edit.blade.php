@@ -3,7 +3,7 @@
     <h1>Éditer dossier {{$dossier->id.' ('.$dossier->nom_complet.')'}}</h1>
 @endsection
 @section('body')
-    <form role="form" method="POST" action="{{ url('/dossiers/'.$dossier->id.'/edit') }}">
+    <form role="form" method="POST" action="{{ url('/dossiers/edit',$dossier->id) }}">
         {{ csrf_field() }}
         {{ method_field('PATCH')}}
         <div class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">

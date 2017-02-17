@@ -20,6 +20,7 @@ class CreateMesuresTable extends Migration
             $table->integer('deleted_by')->nullable();
             $table->timestamps();
             $table->integer('temps')->unsigned();
+            $table->date('date')->nullable();
             $table->integer('dossier_id')->unsigned();
             $table->foreign('dossier_id')
                 ->references('id')

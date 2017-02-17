@@ -42,24 +42,28 @@ Route::get('/accueil', 'HomeController@index');
 
 
 Route::get('dossiers', 'DossiersController@create');
-Route::get('dossiers/{dossier}/edit', 'DossiersController@edit');
-Route::patch('dossiers/{dossier}/edit', 'DossiersController@update');
-Route::get('dossiers/{dossier}/delete', 'DossiersController@delete');
-Route::get('dossiers/{dossier}/show', 'DossiersController@show');
+Route::get('dossiers/edit/{dossier}', 'DossiersController@edit');
+Route::patch('dossiers/edit/{dossier}', 'DossiersController@update');
+Route::get('dossiers/delete/{dossier}', 'DossiersController@delete');
+Route::get('dossiers/show/{dossier}', 'DossiersController@show');
 Route::get('dossiers/create', 'DossiersController@create');
 Route::post('dossiers/create', 'DossiersController@store');
 Route::get('dossiers/index', 'DossiersController@index');
 Route::get('dossiers/supprimes', 'DossiersController@supprimes');
-Route::get('dossiers/{dossier}/restore', 'DossiersController@restore');
-Route::get('parents/{dossier}/create', 'ParentsRepController@create');
-Route::post('parents/{dossier}/create', 'ParentsRepController@store');
-Route::get('parents/{parent}/show', 'ParentsRepController@show');
-Route::get('parents/{parent}/edit', 'ParentsRepController@edit');
-Route::patch('parents/{parent}/edit', 'ParentsRepController@update');
+Route::get('dossiers/restore/{dossier}', 'DossiersController@restore');
 
-Route::get('mesures/{dossier}/create', 'MesuresController@create');
-Route::post('mesures/{dossier}/create', 'MesuresController@store');
-Route::get('mesures/{mesure}/show', 'MesuresController@show');
+Route::get('parents/create/{dossier}', 'ParentsRepController@create');
+Route::post('parents/create/{dossier}', 'ParentsRepController@store');
+Route::get('parents/show/{parent}', 'ParentsRepController@show');
+Route::get('parents/edit/{parent}', 'ParentsRepController@edit');
+Route::patch('parents/edit/{parent}', 'ParentsRepController@update');
+Route::get('parents/delete/{parent}','ParentsRepController@delete');
+
+Route::get('mesures/create/{dossier}', 'MesuresController@create');
+Route::post('mesures/create/{dossier}', 'MesuresController@store');
+Route::get('mesures/show/{mesure}', 'MesuresController@show');
+Route::get('mesures/ajoutdate/{mesure}','MesuresController@ajoutDate');
+Route::patch('mesures/storedate/{mesure}','MesuresController@storeDate');
 
 
 Route::get('ecoles/create', 'EcolesController@create');
@@ -67,15 +71,19 @@ Route::post('ecoles/create', 'EcolesController@store');
 
 
 Route::get('utilisateurs', 'UsersController@index');
-Route::get('utilisateurs/{user}', 'UsersController@show');
-Route::get('utilisateurs/{user}/edit', 'UsersController@edit');
-Route::patch('utilisateurs/{user}/edit', 'UsersController@update');
-Route::get('utilisateurs/{user}/delete', 'UsersController@delete');
+Route::get('utilisateurs/show/{user}', 'UsersController@show');
+Route::get('utilisateurs/edit/{user}', 'UsersController@edit');
+Route::patch('utilisateurs/edit/{user}', 'UsersController@update');
+Route::get('utilisateurs/delete/{user}', 'UsersController@delete');
 
 Route::post('recherche', 'DossiersController@recherche');
 
-Route::get('enseignants/{dossier}/create', 'EnseignantsController@create');
-Route::post('enseignants/{dossier}/create', 'EnseignantsController@store');
-Route::get('enseignants/{enseignant}/{dossier}/show', 'EnseignantsController@show');
+Route::get('enseignants/create/{dossier}', 'EnseignantsController@create');
+Route::post('enseignants/create/{dossier}', 'EnseignantsController@store');
+Route::get('enseignants/show/{enseignant}/{dossier}', 'EnseignantsController@show');
 
 Route::get('tableau-de-bord','HomeController@dashbord');
+
+Route::get('vue', function(){
+   return view('test_vue');
+});

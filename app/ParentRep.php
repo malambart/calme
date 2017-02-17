@@ -11,16 +11,11 @@ class ParentRep extends Model
 	use Updater;
 	use SoftDeletes;
 	protected $table='parents';
-    protected $fillable=['prenom', 'nom', 'lien', 'lien_autre', 'lieuT1', 'courriel', 'tel', 'tel2','ext','ext2'];
+    protected $fillable=['prenom', 'nom', 'lien', 'lien_autre', 'lieuT1', 'courriel', 'tel', 'tel2','ext','ext2','age','scolarite','repondant','emploi'];
 
     public function dossier()
     {
     	return $this->belongsTo(Dossier::class);
-    }
-    
-    public function current($query)	
-    {
-    	return $query->where('current', true);
     }
     public function getLien()
     {

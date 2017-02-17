@@ -15,7 +15,7 @@ class CreateParentsTable extends Migration
     {
         Schema::create('parents', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('current')->default(true);
+            $table->boolean('repondant')->default(false);
             $table->integer('created_by');
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
@@ -26,12 +26,15 @@ class CreateParentsTable extends Migration
             $table->string('nom');
             $table->string('lien');
             $table->string('lien_autre')->nullable();
-            $table->string('lieuT1');
-            $table->string('courriel');
-            $table->string('tel');
+            $table->string('lieuT1')->nullable();
+            $table->string('courriel')->nullable();
+            $table->string('tel')->nullable();
             $table->string('ext')->nullable();
             $table->string('tel2')->nullable();
             $table->string('ext2')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('scolarite')->nullable();
+            $table->string('emploi')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')
                 ->on('dossiers')
