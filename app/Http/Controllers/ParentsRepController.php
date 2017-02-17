@@ -11,8 +11,7 @@ use App\ParentRep;
 class ParentsRepController extends Controller {
     public function create(Dossier $dossier)
     {
-        $id = $dossier->id;
-        return view('parents.create', compact('id'));
+        return view('parents.create', compact('dossier'));
     }
 
     public function store(Dossier $dossier, Request $request)
@@ -21,24 +20,25 @@ class ParentsRepController extends Controller {
             'prenom' => 'required',
             'nom' => 'required',
             'lien' => 'required',
-            'lieuT1' => 'required',
-            'tel' => 'required',
         ];
+        if ($request->repondant == 1) {
+            $rules['lieuT1'] = 'required';
+            $rules['tel'] = 'required';
+            if ($request->lieuT1 == "maison") {
+                $rules['courriel'] = 'required';
+            }
+        }
         if ($request->lien == "autre") {
             $rules['lien_autre'] = 'required';
         }
-        if ($request->lieuT1 == "maison") {
-            $rules['courriel'] = 'required';
-        }
+
         $this->validate($request, $rules);
         $data = $request->all();
-        $dossier->parents()->update(['current' => false]);
+
         $parent = $dossier->parents()->create($data);
-        if ($dossier->enseignants()->first()) {
-            return redirect('dossiers/' . $dossier->id . '/show');
-        } else {
-            return redirect('enseignants/' . $dossier->id . '/create');
-        }
+
+        return redirect(url('dossiers/show',$dossier->id));
+
 
     }
 
@@ -57,6 +57,13 @@ class ParentsRepController extends Controller {
         $parent->update($request->all());
         return view('Parents.show', compact('parent'));
     }
+
+    public function delete(ParentRep $parent)
+        {
+            $dossier=$parent->dossier()->get();
+            $parent->delete();
+            return redirect(url('dossier/show',$dossier->id));
+        }
 
 
 }

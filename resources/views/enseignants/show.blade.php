@@ -2,8 +2,8 @@
 @section('panel-heading')
 <h1>{{$enseignant->prenom.' '.$enseignant->nom.' (enseignant)'}}</h1>
 <div class="pull-right">
-	<a class="btn btn-primary" href="{{url('enseignants/'.$enseignant->id.'/edit')}}">Éditer</a>
-	<a class="btn btn-primary" href="{{url('enseignants/'.$dossier->id.'/create')}}">Changer d'enseignant</a>
+	<a class="btn btn-primary" href="{{url('enseignants/edit',$enseignant->id)}}">Éditer</a>
+	<a class="btn btn-primary" href="{{url('enseignants/create',$enseignant->id)}}">Changer d'enseignant</a>
 </div>
 @endsection
 @section('body')

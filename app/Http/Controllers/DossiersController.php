@@ -31,9 +31,9 @@ class DossiersController extends Controller {
             'nom' => 'required',
             'prenom' => 'required',
             'no_doss_chus' => 'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/',
-            'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01',
-            'premiere_seance' => 'required|date_format:Y-m-d|after:today',
-            'bilan_final' => 'required|date_format:Y-m-d|after:today'
+            'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01'
+            /*'premiere_seance' => 'required|date_format:Y-m-d|after:today',
+            'bilan_final' => 'required|date_format:Y-m-d|after:today'*/
         ]);
         $data = $request->all();
         $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
@@ -67,9 +67,9 @@ class DossiersController extends Controller {
         }
 
         if (!$dossier->exclu) {
-            return redirect('parents/' . $dossier->id . '/create');
+            return redirect(url('parents/create', $dossier->id));
         } else {
-            return redirect('dossiers/' . $dossier->id . '/show');
+            return redirect(url('dossiers/show', $dossier->id));
         }
 
     }
@@ -78,9 +78,8 @@ class DossiersController extends Controller {
     {
         //$this->authorize('show', $dossier);
         $dossier->load('mesures');
-        $parent = $dossier->currentParent();
         $enseignant = $dossier->currentEnseignant();
-        return view('dossiers.show', compact('dossier', 'parent', 'enseignant'));
+        return view('dossiers.show', compact('dossier', 'enseignant'));
     }
 
     public function index()
@@ -134,7 +133,7 @@ class DossiersController extends Controller {
         $data = $request->all();
         $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
         $dossier->update($data);
-        return redirect('dossiers/' . $dossier->id . '/show');
+        return redirect(url('dossiers/show', $dossier->id));
     }
 
     public function delete(Dossier $dossier)
@@ -155,7 +154,7 @@ class DossiersController extends Controller {
         $d->restore();
         $d->deleted_by=null;
         $d->save();
-        return redirect('dossiers/' . $d->id . '/show');
+        return redirect(url('dossiers/show', $d->id));
     }
 
 }

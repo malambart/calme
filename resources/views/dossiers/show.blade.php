@@ -22,46 +22,62 @@
                 Féminin
             @endif</p>
         <p>Numéro de dossier au CHUS : {{$dossier->no_doss_chus}}</p>
-        <p>Date de la première séance de traitement : {{$dossier->premiere_seance->toDateString()}}</p>
-        <p>Date du bilan final : {{$dossier->bilan_final}}</p>
         <hr>
-        @if($parent)
-            <p>Parent répondant : <a
-                        href="{{url('parents/'.$parent->id.'/show')}}">{{$parent->prenom.' ('.$parent->getLien().')'}}</a>
-            </p>
-            @if($parent->courriel)
-                <p>Courriel du parent : <a href="mailto:{{$parent->courriel}}">{{$parent->courriel}}</a></p>
-            @endif
-            <p>
-                Numéro de téléphone: {{$parent->tel}}
-                @if($parent->ext)
-                    ({{$parent->ext}})
-                @endif
-            </p>
-            @if($parent->tel2)
+        @if($dossier->parents->count()>0)
+            @foreach($dossier->parents->sortByDesc('repondant') as $parent)
                 <p>
-                    Numéro de téléphone secondaire : {{$parent->tel2}}
-                    @if($parent->ext2)
-                        ($parent->ext2)
+                    @if($parent->repondant)
+                        <b>Parent répondant : </b>
+                    @else
+                        <b>Parent participant : </b>
+                    @endif
+
+                    <a href="{{url('parents/'.$parent->id.'/show')}}">{{$parent->prenom.' ('.$parent->getLien().')'}}</a>
+                </p>
+                @if($parent->courriel)
+                    <p>Courriel du parent : <a href="mailto:{{$parent->courriel}}">{{$parent->courriel}}</a></p>
+                @endif
+                <p>
+                    @if($parent->tel)
+                        Numéro de téléphone: {{$parent->tel}}
+                    @endif
+                    @if($parent->ext)
+                        ({{$parent->ext}})
                     @endif
                 </p>
-            @endif
-        @elseif(!$dossier->exclu)
+                @if($parent->tel2)
+                    <p>
+                        Numéro de téléphone secondaire : {{$parent->tel2}}
+                        @if($parent->ext2)
+                            ({{$parent->ext2}})
+                        @endif
+                    </p>
+                @endif
+            @endforeach
+
+        @endif
+        @if(!$dossier->exclu && !$dossier->hasRepondant())
             <div class="alert alert-warning">
                 Le parent n'a pas été ajouté.
-                <a class="alert-link" href="{{url('parents/'.$dossier->id.'/create')}}">Ajouter un parent répondant</a>
+                <a class="alert-link" href="{{url('parents/create',$dossier->id)}}">Ajouter un parent
+                    répondant</a>
             </div>
+        @else
+            <a class="btn btn-primary" href="{{url('parents/create',$dossier->id)}}">Ajouter un parent</a>
         @endif
+
+
         <hr>
         @if($enseignant)
             <?php ?>
             <p>Enseignant répondant : <a
-                        href="{{url('enseignants/'.$enseignant->id.'/'.$dossier->id.'/show')}}">{{$enseignant->prenom.' '.$enseignant->nom. ' (école '.$enseignant->ecole()->first()->nom.')'}}</a>
+                        href="{{url('enseignants/show/'.$enseignant->id.'/'.$dossier->id)}}">{{$enseignant->prenom.' '.$enseignant->nom. ' (école '.$enseignant->ecole()->first()->nom.')'}}</a>
             </p>
         @elseif(!$dossier->exclu)
             <div class="alert alert-warning">
                 L'enseignant n'a pas été ajouté.
-                <a class="alert-link" href="{{url('enseignants/'.$dossier->id.'/create')}}">Ajouter un enseignant</a>
+                <a class="alert-link" href="{{url('enseignants/create',$dossier->id)}}">Ajouter un
+                    enseignant</a>
             </div>
         @endif
 
@@ -70,15 +86,24 @@
     <div class="clearfix list-header">Questionnaires</div>
     <div class="list-group">
         @foreach($dossier->mesures as $mesure)
-            <a class="list-group-item" href={{url('mesures/'.$mesure->id.'/show')}}>
-                Temps {{$mesure->temps}}:
-                @if($mesure->temps===1)
-                    (avant le début du traitement)
-                @elseif($mesure->temps===2)
-                    (lors du bilan final)
-                @endif
-                <span class="badge">{{$mesure->qCompleted()['complet'].' / '.$mesure->qCompleted()['deno']}}</span>
-            </a>
+            @if(!$mesure->date)
+                <a class="list-group-item" href={{url('mesures/ajoutdate',$mesure->id)}}>
+                    @if($mesure->temps===1)
+                        Entrer la date du début du traitement
+                    @elseif($mesure->temps===2)
+                        Entrer la date du bilan final
+                    @endif
+                </a>
+            @else
+                <a class="list-group-item" href={{url('mesures/show',$mesure->id)}}>
+                    @if($mesure->temps===1)
+                        Début du traitement: <b>{{$mesure->date->toDateString()}}</b>
+                    @elseif($mesure->temps===2)
+                        Bilan final: <b>{{$mesure->date->toDateString()}}</b>
+                    @endif
+                    <span class="badge">{{$mesure->qCompleted()['complet'].' / '.$mesure->qCompleted()['deno']}}</span>
+                </a>
+            @endif
         @endforeach
     </div>
     <hr>
@@ -94,17 +119,17 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-            <div class="tab-pane active" id="plan-intervention">
-                <a href="" class="btn btn-primary">Compléter le plan d'intervention</a></div>
-            <div class="tab-pane" id="notes-evolutives">
-                Notes évolutives
-            </div>
-            <div class="tab-pane" id="journeaux-bord">
-                Journeaux de bord
-            </div>
-            <div class="tab-pane" id="bilan-final">
-                Bilan final
-            </div>
+        <div class="tab-pane active" id="plan-intervention">
+            <a href="" class="btn btn-primary">Compléter le plan d'intervention</a></div>
+        <div class="tab-pane" id="notes-evolutives">
+            Notes évolutives
+        </div>
+        <div class="tab-pane" id="journeaux-bord">
+            Journeaux de bord
+        </div>
+        <div class="tab-pane" id="bilan-final">
+            Bilan final
+        </div>
     </div>
 
 
@@ -117,15 +142,15 @@
 
         $('#section_plan_intervention').show();
 
-        $('#plan_intervention').click(function(){
+        $('#plan_intervention').click(function () {
             event.preventDefault();
-           $('.nav-tabs li').removeClass('active');
-           $(this).parent().addClass('active');
-           $('.doc_section').hide();
-           $('#section_plan_intervention').show();
+            $('.nav-tabs li').removeClass('active');
+            $(this).parent().addClass('active');
+            $('.doc_section').hide();
+            $('#section_plan_intervention').show();
         });
 
-        $('#notesEvolutives').click(function(){
+        $('#notesEvolutives').click(function () {
             event.preventDefault();
             $('.nav-tabs li').removeClass('active');
             $(this).parent().addClass('active');

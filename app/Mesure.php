@@ -15,6 +15,8 @@ class Mesure extends Model
 		return $this->hasMany(Questionnaire::class, 'temps', 'temps');
 	}
 
+	protected $dates=['date'];
+
 	public function dossier()
 	{
 		return $this->belongsTo(Dossier::class);
@@ -32,6 +34,10 @@ class Mesure extends Model
 		}
 		else {
 			$deno=$questionnaires->count();
+			// Pour les jeunes agés de moins de 8 ans au T1, le questionanire jeune n'est pas administré.
+            if ($this->age<8) {
+                $deno=$deno-1;
+            }
 		}
 		foreach($questionnaires as $q)
 			if ($q->isCompleted()!='N') {
@@ -50,4 +56,11 @@ class Mesure extends Model
 		}
 		return $tokens;
 	}
+    public function getAgeAttribute()
+    {
+        $naiss=$this->dossier->date_naiss;
+        $date=$this->date;
+        return round(($date->diff($naiss)->format('%a'))/365.25, 1);
+    }
+
 }

@@ -1,6 +1,6 @@
 @extends('layouts.row')
 @section('panel-heading')
-    <h1>Dossier {{$dossier->id}} : ajouter un enseignant</h1>
+    <h1><a href="{{$dossier->baseUrl()}}">Dossier {{$dossier->id}}</a> : ajouter un enseignant</h1>
 @endsection
 @section('body')
     <!-- Modal -->
@@ -46,7 +46,7 @@
         </div>
     </div>
     <form class="form-horizontal" id="form" role="form" method="POST"
-          action="{{ url('enseignants/'.$dossier->id.'/create') }}">
+          action="{{ url('enseignants/create',$dossier->id) }}">
         {{ csrf_field() }}
         <div class="form-group{{ $errors->has('ecole_id') ? ' has-error' : '' }}">
             <label for="ecole_id" class="col-md-4 control-label">École</label>
