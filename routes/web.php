@@ -84,6 +84,6 @@ Route::get('enseignants/show/{enseignant}/{dossier}', 'EnseignantsController@sho
 
 Route::get('tableau-de-bord','HomeController@dashbord');
 
-Route::get('vue', function(){
-   return view('test_vue');
-});
+Route::get('plans/{section}/{dossier}', 'PlansController@create');
+Route::patch('plans/{section}/{plan}', 'PlansController@store');
+Route::post('plans/create/section1/{dossier}', 'PlansController@store');

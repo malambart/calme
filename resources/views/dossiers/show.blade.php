@@ -120,7 +120,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane active" id="plan-intervention">
-            <a href="" class="btn btn-primary">Compléter le plan d'intervention</a></div>
+            <a href="{{url('plans/1',$dossier->id)}}" class="btn btn-primary">Compléter le plan d'intervention</a></div>
         <div class="tab-pane" id="notes-evolutives">
             Notes évolutives
         </div>
