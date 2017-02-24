@@ -9,7 +9,7 @@ use App\Updater;
 class Mesure extends Model
 {
 	use Updater;
-	protected $fillable=['prenom_ens', 'nom_ens', 'ecole_id', 'parent_id', 'courriel_ens', 'fax_ens', 'tel_ens', 'temps'];
+	protected $fillable=['temps'];
 	public function questionnaires()
 	{
 		return $this->hasMany(Questionnaire::class, 'temps', 'temps');
