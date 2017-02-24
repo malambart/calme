@@ -20,10 +20,11 @@ class CreatePlansTable extends Migration
             $table->integer('updated_by')->nullable();
             $table->integer('deleted_by')->nullable();
             $table->integer('dossier_id')->unsigned();
-            $table->string('famille');
-            $table->integer('nb_enfants');
-            $table->string('modalite_garde');
-            $table->string('langue');
+            $table->string('famille')->nullable();
+            $table->integer('nb_enfants')->nullable();
+            $table->string('modalite_garde')->nullable();
+            $table->string('responsable')->nullable();
+            $table->string('langue')->nullable();
             $table->date('date_eval')->nullable();
             $table->string('pedopsy')->nullable();
             $table->json('diagnostics')->nullable();
