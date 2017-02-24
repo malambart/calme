@@ -31,19 +31,23 @@ class DossiersController extends Controller {
             'nom' => 'required',
             'prenom' => 'required',
             'no_doss_chus' => 'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/',
-            'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01'
-            /*'premiere_seance' => 'required|date_format:Y-m-d|after:today',
-            'bilan_final' => 'required|date_format:Y-m-d|after:today'*/
+            'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01',
+            'premiere_seance' => 'required|date_format:Y-m-d|after:today',
+            'bilan_final' => 'required|date_format:Y-m-d|after:today'
         ]);
         $data = $request->all();
         $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
         $dossier = Dossier::create($data);
+
+        //dd($request->premiere_seance);
         //Mail::to('francislafort@gmail.com'->send(new NouveauDossier($dossier));
         //$user=User::findOrFail(1);
         //$user->notify(new NouveauDossier($dossier));
 
         //Creation du premier temps de mesure
         $mesure = $dossier->mesures()->create(['temps' => 1]);
+        $mesure->date=$request->premiere_seance;
+        $mesure->save();
         //On fetch les questionnaires associés
         $questionnaires = $mesure->questionnaires()->where('temps', 1)->get();
         // On cree l'invitation dans limeSurvey
@@ -56,6 +60,8 @@ class DossiersController extends Controller {
 
         //Creation du second temps de mesure
         $mesure = $dossier->mesures()->create(['temps' => 2]);
+        $mesure->date=$request->bilan_final;
+        $mesure->save();
         //On fetch les questionnaires associés
         $questionnaires = $mesure->questionnaires()->where('temps', 2)->get();
         // On cree l'invitation dans limeSurvey
