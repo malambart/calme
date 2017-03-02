@@ -91,10 +91,7 @@
         		</span>
             @endif
         </div>
-        <hr>
-        <button type="submit" class="btn btn-primary pull-right">
-            Suivant
-        </button>
+        @include('plans/nav')
     </form>
 @endsection
 @section('script')
