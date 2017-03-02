@@ -22,8 +22,8 @@ class CreatePlansTable extends Migration
             $table->integer('dossier_id')->unsigned();
             $table->string('famille')->nullable();
             $table->integer('nb_enfants')->nullable();
-            $table->string('modalite_garde')->nullable();
             $table->string('responsable')->nullable();
+            $table->string('modalite_garde')->nullable();
             $table->string('langue')->nullable();
             $table->date('date_eval')->nullable();
             $table->string('pedopsy')->nullable();
@@ -37,7 +37,8 @@ class CreatePlansTable extends Migration
             $table->string('ante_med_d')->nullable();
             $table->boolean('ante_bilan')->nullable();
             $table->date('ante_bilan_date')->nullable();
-            $table->tinyInteger('ante_psy')->nullable();
+            $table->string('ante_bilan_resultat')->nullable();
+            $table->string('ante_psy')->nullable();
             $table->string('ante_psy_d')->nullable();
             $table->boolean('antefam_med')->nullable();
             $table->string('antefam_med_d')->nullable();

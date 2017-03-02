@@ -16,13 +16,13 @@ class CreatePartenairesTable extends Migration
         Schema::create('partenaires', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('passe_actuel');
-            $table->string('partenaire');
-            $table->string('profession');
-            $table->string('frequence');
-            $table->string('but');
-            $table->string('quand');
-            $table->string('duree');
+            $table->string('passe_actuel')->nullable();
+            $table->string('partenaire')->nullable();
+            $table->string('profession')->nullable();
+            $table->string('frequence')->nullable();
+            $table->string('but')->nullable();
+            $table->string('quand')->nullable();
+            $table->string('duree')->nullable();
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')
                 ->references('id')
