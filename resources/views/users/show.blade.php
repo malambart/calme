@@ -13,10 +13,10 @@
 </dl>
 
 <div class="pull-right">
-	<a data-href="{{url('/utilisateurs/'.$user->id.'/delete')}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger" id="deleteButton">
+	<a data-href="{{url('/utilisateurs/delete', $user->id)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger" id="deleteButton">
 		Supprimer
 	</a>
-	<a href="{{url('/utilisateurs/'.$user->id.'/edit')}}" class="btn btn-primary" id="editbutton">
+	<a href="{{url('/utilisateurs/edit', $user->id)}}" class="btn btn-primary" id="editbutton">
 		Éditer
 	</a>
 
