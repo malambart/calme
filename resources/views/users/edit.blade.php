@@ -3,7 +3,7 @@
 <h1>Éditer : {{$user->name}}</h1>
 @endsection
 @section('body')
-<form class="form-horizontal" role="form" method="POST" action="{{ url('/utilisateurs/'.$user->id.'/edit') }}">
+<form class="form-horizontal" role="form" method="POST" action="{{ url('/utilisateurs/edit', $user->id) }}">
 	{{ csrf_field() }}
 	{{ method_field('PATCH')}}
 	<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
