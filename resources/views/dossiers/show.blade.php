@@ -8,7 +8,7 @@
             </i>
         @endif
     </h1>
-    <a class="btn btn-primary pull-right" href="{{url('dossiers/'.$dossier->id.'/edit')}}">Éditer</a>
+    <a class="btn btn-primary pull-right" href="{{url('dossiers/edit', $dossier->id)}}">Éditer</a>
 
 @endsection
 @section('body')

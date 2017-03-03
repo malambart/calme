@@ -62,6 +62,8 @@ Route::get('parents/delete/{parent}','ParentsRepController@delete');
 Route::get('mesures/create/{dossier}', 'MesuresController@create');
 Route::post('mesures/create/{dossier}', 'MesuresController@store');
 Route::get('mesures/show/{mesure}', 'MesuresController@show');
+Route::get('mesures/edit/{mesure}', 'MesuresController@edit');
+Route::patch('mesures/edit/{mesure}', 'MesuresController@update');
 Route::get('mesures/ajoutdate/{mesure}','MesuresController@ajoutDate');
 Route::patch('mesures/storedate/{mesure}','MesuresController@storeDate');
 
