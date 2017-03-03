@@ -9,7 +9,7 @@ use App\Updater;
 class Mesure extends Model
 {
 	use Updater;
-	protected $fillable=['temps'];
+	protected $fillable=['temps','date'];
 	public function questionnaires()
 	{
 		return $this->hasMany(Questionnaire::class, 'temps', 'temps');
@@ -62,5 +62,4 @@ class Mesure extends Model
         $date=$this->date;
         return round(($date->diff($naiss)->format('%a'))/365.25, 1);
     }
-
 }

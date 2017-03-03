@@ -1,6 +1,7 @@
 @extends('layouts.row')
 @section('panel-heading')
     <h1>{{$mesure->dossier->prenom.' '.$mesure->dossier->nom.': temps '.$mesure->temps}}</h1>
+    <a href="{{url('mesures/edit', $mesure->id)}}" class="btn btn-primary pull-right">Éditer</a>
 @endsection
 @section('body')
     <div class="list-group">

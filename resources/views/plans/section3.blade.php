@@ -189,9 +189,7 @@
             		</span>
                 @endif
             </div>
-    <button type="submit" class="btn btn-primary pull-right">
-        Suivant
-    </button>
+            @include('plans/nav')
     </form>
     </div>
 @endsection

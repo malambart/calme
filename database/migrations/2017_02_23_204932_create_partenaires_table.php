@@ -16,6 +16,7 @@ class CreatePartenairesTable extends Migration
         Schema::create('partenaires', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('passe_actuel')->nullable();
             $table->string('partenaire')->nullable();
             $table->string('profession')->nullable();

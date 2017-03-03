@@ -30,6 +30,7 @@ class DossiersController extends Controller {
         $this->validate($request, [
             'nom' => 'required',
             'prenom' => 'required',
+            'sexe' => 'required',
             'no_doss_chus' => 'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/',
             'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01',
             'premiere_seance' => 'required|date_format:Y-m-d|after:today',

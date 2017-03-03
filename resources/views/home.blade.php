@@ -30,7 +30,7 @@
             <div class="list-group">
                 @foreach($results as $result)
                     <a class="list-group-item"
-                       href="{{url('dossiers/'.$result->id.'/show')}}">{{$result->prenom.' '.$result->nom}}</a>
+                       href="{{url('dossiers/show', $result->id)}}">{{$result->prenom.' '.$result->nom}}</a>
                 @endforeach
             </div>
         @endif

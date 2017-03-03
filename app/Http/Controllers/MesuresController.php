@@ -58,4 +58,18 @@ class mesuresController extends Controller {
             return redirect(url('dossiers/show',$mesure->dossier->id));
         }
 
+    public function edit(Mesure $mesure)
+        {
+            return view('mesures/edit', compact('mesure'));
+        }
+
+    public function update(Mesure $mesure, Request $request)
+            {
+                $this->validate($request,[
+                    'date'=>'required|date_format:Y-m-d|after:today'
+                ]);
+                $mesure->update($request->all());
+                return view('mesures/show', compact('mesure'));
+            }
+
 }
