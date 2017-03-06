@@ -69,7 +69,7 @@ class PlansController extends Controller {
             }
 
         }
-        $plan->update($request->all());
+        $plan->update(Plan::sanitize($request->all()));
         $section = ++$section;
         $dossier = $plan->dossier()->first();
         return redirect(url('plans', [$section, $dossier->id]));
