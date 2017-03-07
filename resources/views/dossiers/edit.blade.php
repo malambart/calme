@@ -84,7 +84,7 @@
                 </button>
             </li>
             <li>
-                <a data-href="/dossiers/{{$dossier->id}}/delete" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger" id="deleteButton">
+                <a data-href="{{url('dossiers/delete', $dossier->id)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger" id="deleteButton">
                     Supprimer le dossier
                 </a>
             </li>

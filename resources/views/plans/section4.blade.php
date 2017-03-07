@@ -19,7 +19,7 @@
             <div v-for="partenaire in partenaires">
                 <hr v-show="partenaires.indexOf(partenaire) > 0">
                 <h2>@{{ partenaire.partenaire }}</h2>
-                <button @click.prevent="deletePartenaire(partenaire)" class="btn btn-danger btn-xs pull-right">X
+                <button @click.prevent="pToDelete(partenaire)" id="delete-button" class="btn btn-danger btn-xs pull-right">X
                 </button>
                 <input type="hidden" v-model="partenaire.id"
                        v-bind:name="'partenaires['+partenaires.indexOf(partenaire)+'][id]'">
@@ -111,11 +111,27 @@
         </form>
         <button class="btn btn-primary" @click.prevent="ajoutPartenaire()">Ajouter un partenaire</button>
 
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+             aria-labelledby="Confirmation de supression" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Veuillez confirmer la supression.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click.prevent="cancelDelete()" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="button" @click.prevent="deletePartenaire()" class="btn btn-danger btn-ok" id="confirmButton">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
 @endsection
 @section('script')
+    @include('partials.confirmationSupression')
     <script type="text/javascript">
         var stored = [];
         @foreach($plan->partenaires as $partenaire)
@@ -146,11 +162,21 @@
         }
         vm = new Vue({
             el: '#app',
+            data: {
+                partenaires: stored,
+                toDelete:'',
+                num:1,
+            },
+            computed: {
+                nombre: function () {
+                    return this.partenaires.length;
+                }
+            },
             methods: {
                 ajoutPartenaire: function () {
                     ++this.num
                     this.partenaires.push({
-                        num: this.nombre,
+                        num: this.num,
                         id: null,
                         passe_actuel: '',
                         partenaire: '',
@@ -161,19 +187,22 @@
                         duree: '',
                     });
                 },
-                deletePartenaire: function (partenaire) {
-                    this.partenaires.splice(this.partenaires.indexOf(partenaire), 1);
+                deletePartenaire: function () {
+                    if (this.toDelete.id) {
+                        $.get('{{url('partenaires/delete')}}/' + this.toDelete.id);
+                    }
+                    this.partenaires.splice(this.partenaires.indexOf(this.toDelete.partenaire), 1);
+                    $('#confirm-delete').modal('hide');
+                    this.toDelete = null;
+                },
+                pToDelete: function(num) {
+                    this.toDelete = num;
+                    $('#confirm-delete').modal('show');
+                },
+                cancelDelete: function(){
+                    this.toDelete = null;
                 }
-
             },
-            data: {
-                partenaires: stored,
-            },
-            computed: {
-                nombre: function () {
-                    return this.partenaires.length;
-                }
-            }
         })
     </script>
 @endsection
