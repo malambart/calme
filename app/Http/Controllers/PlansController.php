@@ -39,21 +39,6 @@ class PlansController extends Controller {
         }
         $this->validate($request, $rules);
         if ($section == 4) {
-            $stored = $plan->partenaires()->pluck('id')->toArray();
-            $posted = [];
-
-            if ($request->partenaires) {
-                $posted = array_column($request->partenaires, 'id');
-            }
-
-            $todelete = array_diff($stored, $posted);
-
-            // On supprime les partenaires
-            if (!empty($todelete)) {
-                foreach ($todelete as $d) {
-                    Partenaire::find($d)->delete();
-                }
-            }
 
             if ($request->partenaires) {
                 foreach ($request->partenaires as $partenaire) {
@@ -74,4 +59,15 @@ class PlansController extends Controller {
         $dossier = $plan->dossier()->first();
         return redirect(url('plans', [$section, $dossier->id]));
     }
+
+    public function PartenaireDelete(Partenaire $partenaire)
+    {
+        if ($partenaire->delete()) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+
 }
