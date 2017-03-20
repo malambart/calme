@@ -27,10 +27,10 @@ class CreatePlansTable extends Migration
             $table->string('langue')->nullable();
             $table->date('date_eval')->nullable();
             $table->string('pedopsy')->nullable();
-            $table->json('diagnostics')->nullable();
+            $table->string('diagnostics')->nullable();
             $table->string('anxiete')->nullable();
             $table->string('autres')->nullable();
-            $table->json('medication')->nullable();
+            $table->string('medication')->nullable();
             $table->date('reference')->nullable();
             $table->string('motif')->nullable();
             $table->boolean('ante_med')->nullable();
