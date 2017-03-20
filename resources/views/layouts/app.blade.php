@@ -11,9 +11,9 @@
     <title>Projet Calme</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/styles.css" rel="stylesheet">
-    <link href="/css/vendor.css" rel="stylesheet">
+    <link href="url('/css/app.css')" rel="stylesheet">
+    <link href="url('/css/styles.css')" rel="stylesheet">
+    <link href="url('/css/vendor.css')" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
