@@ -95,9 +95,9 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
-    <script src="/js/vendor.js"></script>
+    <script src="{{url('js/app.js')}}"></script>
+    <script src="{{url('js/vendor.js')}}"></script>
     @yield('script')
-    <script src="/js/myscript.js"></script>
+    <script src="{{url('js/myscript.js')}}"></script>
 </body>
 </html>
