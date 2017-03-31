@@ -39,9 +39,9 @@ class Plan extends Model {
         'lie_anxiete',
         'lie_anxiete_d',
         'facteurs_predisposants',
-        'facteurs_precipitant',
+        'facteurs_precipitants',
         'cognitions',
-        'sensations_psysiques',
+        'sensations_physiques',
         'comportements',
         'rassurance',
         'imp_maison',
@@ -72,6 +72,11 @@ class Plan extends Model {
         return $this->hasMany(Partenaire::class);
     }
 
+    public function impressions()
+        {
+            return $this->hasMany(Impression::class);
+        }
+
     public static function sanitize($request)
     {
         $numeric = [
@@ -82,7 +87,9 @@ class Plan extends Model {
             'ante_bilan',
             'antefam_med',
             'antefam_psy',
-            'ante_bilan_date'
+            'ante_bilan_date',
+            'plan_intervention_scolaire',
+            'lie_anxiete'
         ];
         foreach ($request as $element => $value) {
             if (in_array($element, $numeric) && $value == "")

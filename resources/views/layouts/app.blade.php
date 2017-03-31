@@ -12,8 +12,8 @@
 
     <!-- Styles -->
     <link href="{{url('/css/app.css')}}" rel="stylesheet">
-    <link href="{{url('/css/styles.css')}}" rel="stylesheet">
     <link href="{{url('/css/vendor.css')}}" rel="stylesheet">
+    <link href="{{url('/css/styles.css')}}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

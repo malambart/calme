@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\PlanInterventions;
 
 use Illuminate\Database\Eloquent\Model;
 

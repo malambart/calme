@@ -17,8 +17,8 @@ class CreateImpressionsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('diagnostic');
-            $table->boolean('confirme');
-            $table->integer('score_severite');
+            $table->string('confirme')->nullable();
+            $table->integer('score_severite')->nullable();
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')
                 ->references('id')

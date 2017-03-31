@@ -8,8 +8,8 @@
 
 @extends('layouts.row')
 @section('panel-heading')
-    <h1><h1><a href="{{$dossier->baseUrl()}}">Dossier {{$dossier->id}}</a>: compléter le plan d'intervention : Plan
-            d'intervention scolaire</h1></h1>
+    <h1><a href="{{$dossier->baseUrl()}}">Dossier {{$dossier->id}}</a>: compléter le plan d'intervention : Plan
+            d'intervention scolaire</h1>
 @endsection
 @section('body')
     <div id="app">

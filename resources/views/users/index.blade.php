@@ -13,7 +13,7 @@
     <ul class="list-group">
         @foreach($users as $user)
         <li class="list-group-item">
-            <a href="{{url('/utilisateurs/'.$user->id)}}">
+            <a href="{{url('/utilisateurs/show', $user->id)}}">
                 {{$user->name}} ({{$user->role}})
             </a>
         </li>
