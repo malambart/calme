@@ -36,8 +36,9 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('new_diagnostic') ? ' has-error' : '' }}">
-                <label for="new_diagnostic" class=" control-label">Diagnostics retenus</label>
-                <input name="new_diagnostic" value="{{old('new_diagnostic')}}" placeholder="Entrer un diagnostic et appuyez sur Enter" id="diagnostic" type="text"
+                <label for="new_diagnostic" class=" control-label">Troubles anxieux retenus</label>
+                <input name="new_diagnostic" value="{{old('new_diagnostic')}}"
+                       placeholder="Entrer un trouble anxieux et appuyez sur Enter" id="diagnostic" type="text"
                        class="form-control" v-model="new_diag" @keydown.enter.prevent="addDiag">
                 @if ($errors->has('new_diagnostic'))
                     <span class="help-block">
@@ -56,16 +57,6 @@
                    type="hidden"
                    v-bind:value="diagnostic"
                    v-bind:name="'diagnostics['+diagnostics.indexOf(diagnostic)+']'">
-            <div class="form-group{{ $errors->has('anxiete') ? ' has-error' : '' }}">
-                <label for="anxiete" class=" control-label">Anxiété</label>
-                <input id="anxiete" type="text" class="form-control" name="anxiete"
-                       value="{{ old('anxiete', $plan->anxiete) }}">
-                @if ($errors->has('anxiete'))
-                    <span class="help-block">
-        		    <strong>{{ $errors->first('anxiete') }}</strong>
-        		</span>
-                @endif
-            </div>
             <div class="form-group{{ $errors->has('autres') ? ' has-error' : '' }}">
                 <label for="autres" class=" control-label">Autres</label>
                 <input id="autres" type="text" class="form-control" name="autres"
@@ -76,26 +67,43 @@
         		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('new_medicament') ? ' has-error' : '' }}">
-                <label for="new_medicament" class=" control-label">Médication</label>
-                <input name="new_medicament" value="{{old('new_medicament')}}"placeholder="Entrer un medicament et appuyez sur Enter" id="medicament"
-                       type="text"
-                       class="form-control" v-model="new_medicament" @keydown.enter.prevent="addMedicament">
+            <div class="form-group{{ $errors->has('new_medicament') ? ' has-error' : '' }} clearfix">
+                <label class="control-label dual-input-label">Médication</label>
+                <div class="col-md-5 dual-input-input">
+                    <input name="new_medicament" value="{{old('new_medicament')}}" placeholder="Nom du médicament"
+                           id="medicament"
+                           type="text"
+                           class="form-control" v-model="new_medicament">
+                </div>
+                <div class="col-md-5 dual-input-input">
+                    <input type="text" name="new_posologie" value="{{old('new_posologie')}}" placeholder="Posologie"
+                           id="posologie" class="form-control" v-model="new_posologie">
+                </div>
+                <button class="btn btn-primary" @click.prevent="addMedicament">Ajouter</button>
+
                 @if ($errors->has('new_medicament'))
                     <span class="help-block"><strong>Le médicament n'a pas été soumis.</strong></span>
                 @endif
             </div>
             <ul class="list-group">
                 <li v-for="medicament in medication" class="list-group-item">
-                    @{{ medicament }}
+                    @{{ medicament.med_string }}
                     <button @click="deleteMedicament(medicament)" type="button" class="btn btn-danger btn-xs pull-right"
                     >X</button>
                 </li>
             </ul>
             <input v-for="medicament in medication"
                    type="hidden"
-                   v-bind:value="medicament"
-                   v-bind:name="'medication['+medication.indexOf(medicament)+']'">
+                   v-bind:value="medicament.nom"
+                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[nom]'">
+            <input v-for="medicament in medication"
+                   type="hidden"
+                   v-bind:value="medicament.posologie"
+                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[posologie]'">
+            <input v-for="medicament in medication"
+                   type="hidden"
+                   v-bind:value="medicament.med_string"
+                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[med_string]'">
             <div class="form-group{{ $errors->has('reference') ? ' has-error' : '' }}">
                 <label for="reference" class=" control-label">Date de la référence au module Calme<span
                             class="tip">(aaaa-mm-jj)</span></label>
@@ -107,7 +115,8 @@
             </div>
             <div class="form-group{{ $errors->has('motif') ? ' has-error' : '' }}">
                 <label for="motif" class=" control-label">Motif de la référence</label>
-                <input id="motif" type="text" class="form-control" name="motif" value="{{ old('motif', $plan->motif) }}">
+                <input id="motif" type="text" class="form-control" name="motif"
+                       value="{{ old('motif', $plan->motif) }}">
                 @if ($errors->has('motif'))
                     <span class="help-block">
             		    <strong>{{ $errors->first('motif') }}</strong>
@@ -129,8 +138,8 @@
                 @endif
         var oldMedication = [];
         @if($plan->medication != '')
-             @foreach(json_decode($plan->medication) as $medicament)
-                oldMedication.push('{{$medicament}}');
+        @foreach(json_decode($plan->medication) as $med)
+            oldMedication.push({nom:'{{$med->nom}}', posologie:'{{$med->posologie}}', med_string:'{{$med->med_string}}'})
         @endforeach
                 @endif
             vm = new Vue({
@@ -139,7 +148,8 @@
                 diagnostics: oldDiagnostics,
                 medication: oldMedication,
                 new_diag: '{{old('new_diagnostic')}}',
-                new_medicament:'{{old('new_medicament')}}',
+                new_medicament: '{{old('new_medicament')}}',
+                new_posologie: '{{old('new_posologie')}}',
             },
             methods: {
                 addDiag: function () {
@@ -147,8 +157,8 @@
                     if (!value) {
                         return;
                     }
-                    else if ($.inArray(value, this.diagnostics) != -1){
-                        alert ('Cet élément a déjà été entré.');
+                    else if ($.inArray(value, this.diagnostics) != -1) {
+                        alert('Cet élément a déjà été entré.');
                     }
                     else {
                         this.diagnostics.push(value)
@@ -156,24 +166,31 @@
                     }
 
                 },
-                deleteDiagnostic: function () {
+                deleteDiagnostic: function (diagnostic) {
                     this.diagnostics.splice(this.diagnostics.indexOf(diagnostic), 1);
                 },
                 addMedicament: function () {
-                    var value = this.new_medicament && this.new_medicament.trim()
-                    if (!value) {
+                    var med = this.new_medicament && this.new_medicament.trim()
+                    if (!med) {
                         return
                     }
-                    else if ($.inArray(value, this.medication) != -1){
-                        alert ('Cet élément a déjà été entré.');
+                    else if ($.inArray(med, this.medication) != -1) {
+                        alert('Cet élément a déjà été entré.');
                     }
                     else {
-                        this.medication.push(value)
+                        if (this.new_posologie != '') {
+                            var med_string = med + ' - ' + this.new_posologie;
+                        }
+                        else {
+                            var med_string = med;
+                        }
+                        this.medication.push({nom: med, posologie: this.new_posologie, med_string: med_string})
                         this.new_medicament = ''
+                        this.new_posologie = ''
                     }
 
                 },
-                deleteMedicament: function () {
+                deleteMedicament: function (medicament) {
                     this.medication.splice(this.medication.indexOf(medicament), 1);
                 },
             }

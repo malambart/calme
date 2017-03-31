@@ -28,7 +28,6 @@ class CreatePlansTable extends Migration
             $table->date('date_eval')->nullable();
             $table->string('pedopsy')->nullable();
             $table->string('diagnostics')->nullable();
-            $table->string('anxiete')->nullable();
             $table->string('autres')->nullable();
             $table->string('medication')->nullable();
             $table->date('reference')->nullable();
@@ -48,9 +47,9 @@ class CreatePlansTable extends Migration
             $table->boolean('lie_anxiete')->nullable();
             $table->string('lie_anxiete_d')->nullable();
             $table->string('facteurs_predisposants')->nullable();
-            $table->string('facteurs_precipitant')->nullable();
+            $table->string('facteurs_precipitants')->nullable();
             $table->string('cognitions')->nullable();
-            $table->string('sensations_psysiques')->nullable();
+            $table->string('sensations_physiques')->nullable();
             $table->string('comportements')->nullable();
             $table->string('rassurance')->nullable();
             $table->boolean('imp_maison')->nullable();

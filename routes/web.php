@@ -90,3 +90,4 @@ Route::get('plans/{section}/{dossier}', 'PlansController@edit');
 Route::patch('plans/{section}/{plan}', 'PlansController@store');
 Route::post('plans/create/section1/{dossier}', 'PlansController@store');
 Route::get('partenaires/delete/{partenaire}', 'PlansController@PartenaireDelete');
+Route::get('impressions/delete/{impression}', 'PlansController@ImpressionDelete');

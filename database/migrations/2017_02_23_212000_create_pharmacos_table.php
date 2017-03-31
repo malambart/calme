@@ -19,6 +19,7 @@ class CreatePharmacosTable extends Migration
             $table->integer('plan_id')->unsigned();
             $table->string('medicament');
             $table->string('posologie')->nullable();
+            $table->string('actuel_traitement');
             $table->foreign('plan_id')
                 ->references('id')
                 ->on('plans')

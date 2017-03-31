@@ -35,6 +35,12 @@
                         @endif>
                     Famille d'accueil
                 </option>
+                <option value="Famille d'adoption"
+                        @if(old('famille', $plan->famille)=="Famille d'adoption")
+                        selected
+                        @endif>
+                    Famille d'adoption
+                </option>
             </select>
             @if ($errors->has('famille'))
                 <span class="help-block"><strong>{{ $errors->first('famille') }}</strong></span>

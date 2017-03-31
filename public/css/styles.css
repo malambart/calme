@@ -36,3 +36,12 @@
 #app {
     visibility: hidden;
 }
+
+.dual-input-label {
+    width:100%;
+}
+.dual-input-input {
+    padding-left: 0;
+}
+
+

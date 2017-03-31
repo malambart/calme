@@ -54,6 +54,6 @@ class UsersController extends Controller
             'role'  => $request['role'], 
             'password' => bcrypt($request['password']),
         ]);
-        return redirect('/utilisateurs/'.$user->id);
+        return redirect(url('utilisateurs/show', $user->id));
     }
 }
