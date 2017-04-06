@@ -11,7 +11,7 @@
             @elseif($q->rep=="JE" && $mesure->age<8)
             @elseif($q->isCompleted()=="N")
                 <a class="list-group-item"
-                   href="{{url(env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$q->ls_id.'/token/'.$q->token.'/lang//newtest/Y')}}">{{$q->questionnaire->titre}}
+                   href="{{env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$q->ls_id.'/token/'.$q->token.'/lang//newtest/Y'}}">{{$q->questionnaire->titre}}
                 </a>
             @else
                 <div class="list-group-item list-group-item-success">

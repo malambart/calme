@@ -2,6 +2,7 @@
 
 namespace App\PlanInterventions;
 
+use App\Antecedent;
 use Illuminate\Database\Eloquent\Model;
 use App\Updater;
 use App\Dossier;
@@ -23,18 +24,9 @@ class Plan extends Model {
         'medication',
         'reference',
         'motif',
-        'ante_med',
-        'ante_med_d',
         'ante_bilan',
         'ante_bilan_date',
         'ante_bilan_resultat',
-        'ante_psy',
-        'ante_psy_d',
-        'antefam_med',
-        'antefam_med_d',
-        'antefam_med_d',
-        'antefam_psy',
-        'antefam_psy_d',
         'plan_intervention_scolaire',
         'lie_anxiete',
         'lie_anxiete_d',
@@ -65,6 +57,11 @@ class Plan extends Model {
     public function dossier()
     {
         return $this->belongsTo(Dossier::class);
+    }
+
+    public function antecedents()
+    {
+        return $this->hasMany(Antecedent::class);
     }
 
     public function partenaires()

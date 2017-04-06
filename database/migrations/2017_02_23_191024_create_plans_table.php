@@ -32,17 +32,9 @@ class CreatePlansTable extends Migration
             $table->string('medication')->nullable();
             $table->date('reference')->nullable();
             $table->string('motif')->nullable();
-            $table->boolean('ante_med')->nullable();
-            $table->string('ante_med_d')->nullable();
             $table->boolean('ante_bilan')->nullable();
             $table->date('ante_bilan_date')->nullable();
             $table->string('ante_bilan_resultat')->nullable();
-            $table->string('ante_psy')->nullable();
-            $table->string('ante_psy_d')->nullable();
-            $table->boolean('antefam_med')->nullable();
-            $table->string('antefam_med_d')->nullable();
-            $table->boolean('antefam_psy')->nullable();
-            $table->string('antefam_psy_d')->nullable();
             $table->boolean('plan_intervention_scolaire')->nullable();
             $table->boolean('lie_anxiete')->nullable();
             $table->string('lie_anxiete_d')->nullable();
