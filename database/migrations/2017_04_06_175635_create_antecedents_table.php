@@ -19,6 +19,7 @@ class CreateAntecedentsTable extends Migration
             $table->softDeletes();
             $table->string('fam_perso');
             $table->string('type');
+            $table->string('antecedent');
             $table->string('motifs');
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')

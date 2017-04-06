@@ -2,11 +2,11 @@
 
 namespace App\PlanInterventions;
 
-use App\Antecedent;
 use Illuminate\Database\Eloquent\Model;
 use App\Updater;
 use App\Dossier;
-use App\PlanInterventions\Partenaire;
+
+
 
 class Plan extends Model {
     use Updater;

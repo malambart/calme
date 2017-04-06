@@ -16,38 +16,68 @@
         <form role="form" method="POST" action="{{ url('plans',[$section,$plan->id]) }}">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
-            <h2>Antécédents personnels</h2>
-            <div class="form-group{{ $errors->has('ante_med') ? ' has-error' : '' }}">
-                <label for="ante_med" class="control-label">Médicaux et chirurgicaux</label>
-                <select class="form-control" name="ante_med" v-model="ante_med">
-                    <option value="" selected>Veuillez choisir</option>
-                    <option value="1"
-                            @if(old('ante_med', $plan->ante_med)=="1")
-                            selected
-                            @endif>
-                        Oui
-                    </option>
-                    <option value="0"
-                            @if(old('ante_med', $plan->ante_med)=="0")
-                            selected
-                            @endif>
-                        Non
-                    </option>
-                </select>
-                @if ($errors->has('ante_med'))
-                    <span class="help-block"><strong>{{ $errors->first('ante_med') }}</strong></span>
-                @endif
+            <div v-for="antecedent in antecedents">
+                <hr v-show="antecedents.indexOf(antecedent) > 0">
+                <button @click.prevent="pToDelete(antecedent)" id="delete-button"
+                        class="btn btn-danger btn-xs pull-right">X
+                </button>
+                <input type="hidden" v-model="antecedent.id"
+                       v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][id]'">
+                <div class="form-group">
+                    <label for="antecedent" class=" control-label">Dexcription de l'antécédent</label>
+                    <input id="antecedent" type="text" class="form-control"
+                           v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][antecedent]'"
+                           v-model="antecedent.antecedent">
+                    @if ($errors->has('antecedent'))
+                        <span class="help-block"><strong>{{ $errors->first('antecedent') }}</strong></span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Antécédent personnel ou familial</label>
+                    <select
+                            class="form-control"
+                            v-model="antecedent.fam_perso"
+                            v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][fam_perso]'"
+                    >
+                        <option value="" selected>Veuillez choisir</option>
+                        <option value="Personnel">
+                            Personnel
+                        </option>
+                        <option value="Familial">
+                            Familial
+                        </option>
+                    </select>
+                </div>
+                <input type="hidden" v-model="antecedent.fam_perso"
+                       v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][fam_perso]'">
+                <div class="form-group">
+                    <label class="control-label">Type d'antécédent</label>
+                    <select class="form-control" v-model="antecedent.type"
+                            v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][type]'">
+                        <option value="" selected>Veuillez choisir</option>
+                        <option value="Medical">
+                            Médical
+                        </option>
+                        <option value="Chirurgical">
+                            Chirurgical
+                        </option>
+                        <option value="Psychiatrique">
+                            Psychiatrique
+                        </option>
+                        <option value="Module Calme">
+                            Module Calme
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group" v-show="antecedent.type=='Module Calme'">
+                    <label class="control-label">Motifs</label>
+                    <textarea v-model="antecedent.motifs" class="form-control" v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][motifs]'" rows="5">@{{ antecedent.motifs }}</textarea>
+
+                </div>
             </div>
-            <div class="form-group{{ $errors->has('ante_med_d') ? ' has-error' : '' }}" v-show="ante_med==1">
-                <label for="ante_med_d" class=" control-label">Description</label>
-                <input id="ante_med_d" type="text" class="form-control" name="ante_med_d"
-                       value="{{ old('ante_med_d', $plan->ante_med_d) }}">
-                @if ($errors->has('ante_med_d'))
-                    <span class="help-block">
-            		    <strong>{{ $errors->first('ante_med_d') }}</strong>
-            		</span>
-                @endif
-            </div>
+
+            <button class="btn btn-primary" @click.prevent="ajoutantecedent()">Ajouter un antécédent</button>
+            <hr>
 
             <div class="form-group{{ $errors->has('ante_bilan') ? ' has-error' : '' }}">
                 <label for="ante_bilan" class="control-label">Dernier bilan sanguin</label>
@@ -89,122 +119,32 @@
             		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('ante_psy') ? ' has-error' : '' }}">
-                <label for="ante_psy" class="control-label">Psychiatriques</label>
-                <select class="form-control" name="ante_psy" v-model="ante_psy">
-                    <option value="" selected>Veuillez choisir</option>
-                    <option value="Oui"
-                            @if(old('ante_psy', $plan->ante_psy)=="Oui")
-                            selected
-                            @endif>
-                        Oui
-                    </option>
-                    <option value="Non"
-                            @if(old('ante_psy', $plan->ante_psy)=="Non")
-                            selected
-                            @endif>
-                        Non
-                    </option>
-                    <option value="Module Calme"
-                            @if(old('ante_psy', $plan->ante_psy)=="Module Calme")
-                            selected
-                            @endif>
-                        Module Calme
-                    </option>
-                </select>
-                @if ($errors->has('ante_psy'))
-                    <span class="help-block"><strong>{{ $errors->first('ante_psy') }}</strong></span>
-                @endif
-            </div>
-            <div class="form-group{{ $errors->has('ante_psy_d') ? ' has-error' : '' }}" v-show="ante_psy=='Oui' || ante_psy=='Module Calme'">
-                <label for="ante_psy_d" class=" control-label">Description / motif</label>
-                <input id="ante_psy_d" type="text" class="form-control" name="ante_psy_d"
-                       value="{{ old('ante_psy_d', $plan->ante_psy_d) }}">
-                @if ($errors->has('ante_psy_d'))
-                    <span class="help-block">
-            		    <strong>{{ $errors->first('ante_psy_d') }}</strong>
-            		</span>
-                @endif
-            </div>
-            <h2>Antécédents familiaux</h2>
-            <div class="form-group{{ $errors->has('antefam_med') ? ' has-error' : '' }}">
-                <label for="antefam_med" class="control-label">Médicaux et chirurgicaux</label>
-                <select class="form-control" name="antefam_med" v-model="antefam_med">
-                    <option value="" selected>Veuillez choisir</option>
-                    <option value="1"
-                            @if(old('antefam_med', $plan->antefam_med)=="1")
-                            selected
-                            @endif>
-                        Oui
-                    </option>
-                    <option value="0"
-                            @if(old('antefam_med', $plan->antefam_med)=="0")
-                            selected
-                            @endif>
-                        Non
-                    </option>
-                </select>
-                @if ($errors->has('antefam_med'))
-                    <span class="help-block"><strong>{{ $errors->first('antefam_med') }}</strong></span>
-                @endif
-            </div>
-            <div class="form-group{{ $errors->has('antefam_med_d') ? ' has-error' : '' }}" v-show="antefam_med==1">
-                <label for="antefam_med_d" class=" control-label">Description</label>
-                <input id="antefam_med_d" type="text" class="form-control" name="antefam_med_d"
-                       value="{{ old('antefam_med_d', $plan->antefam_med_d) }}">
-                @if ($errors->has('antefam_med_d'))
-                    <span class="help-block">
-            		    <strong>{{ $errors->first('antefam_med_d') }}</strong>
-            		</span>
-                @endif
-            </div>
-            <div class="form-group{{ $errors->has('antefam_psy') ? ' has-error' : '' }}">
-                <label for="antefam_psy" class="control-label">Psychiatriques</label>
-                <select class="form-control" name="antefam_psy" v-model="antefam_psy">
-                    <option value="" selected>Veuillez choisir</option>
-                    <option value="1"
-                            @if(old('antefam_psy', $plan->antefam_psy)=="1")
-                            selected
-                            @endif>
-                        Oui
-                    </option>
-                    <option value="0"
-                            @if(old('antefam_psy', $plan->antefam_psy)=="0")
-                            selected
-                            @endif>
-                        Non
-                    </option>
-                </select>
-                @if ($errors->has('antefam_psy'))
-                    <span class="help-block"><strong>{{ $errors->first('antefam_psy') }}</strong></span>
-                @endif
-            </div>
-            <div class="form-group{{ $errors->has('antefam_psy_d') ? ' has-error' : '' }}" v-show="antefam_psy==1">
-                <label for="antefam_psy_d" class=" control-label">Description</label>
-                <input id="antefam_psy_d" type="text" class="form-control" name="antefam_psy_d"
-                       value="{{ old('antefam_psy_d', $plan->antefam_psy_d) }}">
-                @if ($errors->has('antefam_psy_d'))
-                    <span class="help-block">
-            		    <strong>{{ $errors->first('antefam_psy_d') }}</strong>
-            		</span>
-                @endif
-            </div>
+
             @include('plans/nav')
-    </form>
+        </form>
+
+
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+             aria-labelledby="Confirmation de supression" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Veuillez confirmer la supression.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click.prevent="cancelDelete()" class="btn btn-default"
+                                data-dismiss="modal">Annuler
+                        </button>
+                        <button type="button" @click.prevent="deleteantecedent()" class="btn btn-danger btn-ok"
+                                id="confirmButton">Supprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
     @include('partials.dateSupport')
-    <script type="text/javascript">
-        vm = new Vue({
-            el: '#app',
-            data: {
-                ante_med: '{{$plan->ante_med}}',
-                ante_bilan: '{{$plan->ante_bilan}}',
-                ante_psy: '{{$plan->ante_psy}}',
-                antefam_med: '{{$plan->antefam_med}}',
-                antefam_psy: '{{$plan->antefam_psy}}'
-            },
-        })
-    </script>
+    @include('partials.js.section3')
 @endsection

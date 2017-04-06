@@ -7,6 +7,7 @@ use App\Dossier;
 use App\PlanInterventions\Plan;
 use App\PlanInterventions\Partenaire;
 use App\PlanInterventions\Impression;
+use App\PlanInterventions\Antecedent;
 
 class PlansController extends Controller {
 
@@ -52,6 +53,24 @@ class PlansController extends Controller {
         }
 
         $this->validate($request, $rules);
+
+        if ($section == 3) {
+            if ($request->antecedents) {
+                foreach ($request->antecedents as $antecedent) {
+                    if ($antecedent['id'] == "") {
+                        // J'evite de creer des objets vides
+
+                        if (count(array_filter($antecedent))) {
+                            $plan->antecedents()->create($antecedent);
+                        }
+                    } else {
+                        antecedent::find($antecedent['id'])->update($antecedent);
+                    }
+                }
+            }
+        }
+
+
         if ($section == 4) {
             if ($request->partenaires) {
                 foreach ($request->partenaires as $partenaire) {
@@ -107,6 +126,15 @@ class PlansController extends Controller {
     public function ImpressionDelete(Impression $impression)
     {
         if ($impression->delete()) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+    public function AntecedentDelete(Antecedent $antecedent)
+    {
+        if ($antecedent->delete()) {
             return 'true';
         } else {
             return 'false';
