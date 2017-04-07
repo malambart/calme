@@ -20,6 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->string('model');
             $table->string('name');
             $table->integer('user_id')->unsigned();
+            $table->longText('backup');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');

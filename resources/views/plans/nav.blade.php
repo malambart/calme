@@ -6,7 +6,7 @@
     @endif
     <li>
         <button type="submit" class="btn btn-primary">
-            Suivant
+            Sauvegarder et continuer
         </button>
     </li>
 </ul>

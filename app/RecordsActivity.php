@@ -42,6 +42,7 @@ trait RecordsActivity
     {
         Activity::create([
             'model_id' => $this->id,
+            'backup' => $this->toJson(),
             'model' => get_class($this),
             'name' => $this->getActivityName($this, $event),
             'user_id' => Auth::user()->id,

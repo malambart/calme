@@ -13,5 +13,6 @@ class Activity extends Model
         'model',
         'name',
         'user_id',
+        'backup'
         ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\PlanInterventions;
 
+use App\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 use App\Updater;
 use App\Dossier;
@@ -10,6 +11,7 @@ use App\Dossier;
 
 class Plan extends Model {
     use Updater;
+    Use RecordsActivity;
     protected $fillable = [
         'famille',
         'modalite_garde',
