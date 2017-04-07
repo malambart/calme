@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Updater;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ParentRep extends Model
 {
+    use RecordsActivity;
 	use Updater;
 	use SoftDeletes;
 	protected $table='parents';

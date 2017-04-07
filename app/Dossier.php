@@ -12,6 +12,7 @@ use Sofa\Eloquence\Eloquence;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dossier extends Model {
+    use RecordsActivity;
     use SoftDeletes;
     use Updater;
     use Eloquence;
