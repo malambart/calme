@@ -57,8 +57,9 @@ class CreatePlansTable extends Migration
             $table->string('non_retenu_redirige')->nullable();
             $table->string('suivi')->nullable();
             $table->string('type_suivi')->nullable();
-            $table->string('suivi_duree')->nullable();
-            $table->string('suivi_frequence')->nullable();
+            $table->string('objectifs')->nullable();
+            $table->boolean('traitement_pharmaco')->nullable();
+            $table->string('pharmaco_liste')->nullable();
             $table->string('recommendations')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')

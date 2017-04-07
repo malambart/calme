@@ -53,7 +53,10 @@ class Plan extends Model {
         'type_suivi',
         'suivi_duree',
         'suivi_frequence',
-        'recommendations'
+        'recommendations',
+        'objectifs',
+        'traitement_pharmaco',
+        'pharmaco_liste'
     ];
 
     public function dossier()

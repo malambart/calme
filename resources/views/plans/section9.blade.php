@@ -37,7 +37,8 @@
                     <span class="help-block"><strong>{{ $errors->first('retenu') }}</strong></span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('non_retenu_motif') ? ' has-error' : '' }}" v-show="retenu=='Non retenu(e)'">
+            <div class="form-group{{ $errors->has('non_retenu_motif') ? ' has-error' : '' }}"
+                 v-show="retenu=='Non retenu(e)'">
                 <label for="non_retenu_motif" class=" control-label">Motifs</label>
                 <input id="non_retenu_motif" type="text" class="form-control" name="non_retenu_motif"
                        value="{{ old('non_retenu_motif') }}">
@@ -47,7 +48,8 @@
             		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('non_retenu_redirige') ? ' has-error' : '' }}" v-show="retenu=='Non retenu(e)'">
+            <div class="form-group{{ $errors->has('non_retenu_redirige') ? ' has-error' : '' }}"
+                 v-show="retenu=='Non retenu(e)'">
                 <label for="non_retenu_redirige" class=" control-label">Redirigé(e)</label>
                 <textarea id="non_retenu_redirige" class="form-control"
                           name="non_retenu_redirige">{{ old('non_retenu_redirige', $plan->non_retenu_redirige) }}</textarea>
@@ -57,7 +59,8 @@
             		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('date_premiere_seance') ? ' has-error' : '' }}" v-show="retenu=='Retenu(e)'">
+            <div class="form-group{{ $errors->has('date_premiere_seance') ? ' has-error' : '' }}"
+                 v-show="retenu=='Retenu(e)'">
                 <p style="color:red;">Cette information est déjà entrée à la création du dossier...</p>
                 <label for="date_premiere_seance" class=" control-label">Date de la première séance<span class="tip">(aaaa-mm-jj)</span></label>
                 <input id="date_premiere_seance" type="date" class="form-control datepicker" name="date_premiere_seance"
@@ -66,6 +69,106 @@
                     <span class="help-block"><strong>{{ $errors->first('date_premiere_seance') }}</strong></span>
                 @endif
             </div>
+            <div class="form-group{{ $errors->has('suivi') ? ' has-error' : '' }}">
+                <label for="suivi" class="control-label">Suivi</label>
+                <select class="form-control" name="suivi">
+                    <option value="" selected>Veuillez choisir</option>
+                    <option value="Individuel"
+                            @if(old('suivi')=="Individuel")
+                            selected
+                            @endif>
+                        Individuel
+                    </option>
+                    <option value="De groupe"
+                            @if(old('suivi')=="De groupe")
+                            selected
+                            @endif>
+                        De groupe
+                    </option>
+                </select>
+                @if ($errors->has('suivi'))
+                    <span class="help-block"><strong>{{ $errors->first('suivi') }}</strong></span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('type_suivi') ? ' has-error' : '' }}">
+                <label for="type_suivi" class="control-label">Type de suivi</label>
+                <select class="form-control" name="type_suivi">
+                    <option value="" selected>Veuillez choisir</option>
+                    <option value="Super Actif"
+                            @if(old('type_suivi')=="Super Actif")
+                            selected
+                            @endif>
+                        Super Actif
+                    </option>
+                    <option value="Pic qui Toc"
+                            @if(old('type_suivi')=="Pic qui Toc")
+                            selected
+                            @endif>
+                        Pic qui Toc
+                    </option>
+                    <option value="Perroquet Muet"
+                            @if(old('type_suivi')=="Perroquet Muet")
+                            selected
+                            @endif>
+                        Perroquet Muet
+                    </option>
+                    <option value="ZAK et ZOE"
+                            @if(old('type_suivi')=="ZAK et ZOE")
+                            selected
+                            @endif>
+                        ZAK et ZOE
+                    </option>
+                    <option value="ESPT"
+                            @if(old('type_suivi')=="ESPT")
+                            selected
+                            @endif>
+                        ESPT
+                    </option>
+                </select>
+                @if ($errors->has('type_suivi'))
+                    <span class="help-block"><strong>{{ $errors->first('type_suivi') }}</strong></span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('duree') ? ' has-error' : '' }}">
+                <label for="duree" class=" control-label">Durée</label>
+                <input id="duree" type="text" class="form-control" name="duree" value="{{ old('duree') }}">
+                @if ($errors->has('duree'))
+                    <span class="help-block">
+                		    <strong>{{ $errors->first('duree') }}</strong>
+                		</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('frequence') ? ' has-error' : '' }}">
+                <label for="frequence" class=" control-label">Fréquence</label>
+                <input id="frequence" type="text" class="form-control" name="frequence"
+                       value="{{ old('frequence') }}">
+                @if ($errors->has('frequence'))
+                    <span class="help-block">
+                		    <strong>{{ $errors->first('frequence') }}</strong>
+                		</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('objectifs') ? ' has-error' : '' }}">
+                <label for="objectifs_input" class=" control-label">Objectifs</label>
+                <input name=objectifs_input placeholder="Entrer un objectif et appuyez sur Enter" id="objectif"
+                       type="text"
+                       class="form-control"
+                       v-model="new_objectif" @keydown.enter.prevent="addObjectif">
+                @if ($errors->has('objectifs'))
+                    <span class="help-block"><strong>{{ $errors->first('objectifs') }}</strong></span>
+                @endif
+            </div>
+            <ul class="list-group">
+                <li v-for="objectif in objectifs" class="list-group-item">
+                    @{{ objectif }}
+                    <button @click="deleteobjectif(objectif)" type="button" class="btn btn-danger btn-xs pull-right">
+                    X</button>
+                </li>
+            </ul>
+            <input v-for="objectif in objectifs"
+                   type="hidden"
+                   v-bind:value="objectif"
+                   v-bind:name="'objectifs['+objectifs.indexOf(objectif)+']'">
             @include('plans/nav')
         </form>
     </div>
@@ -73,11 +176,34 @@
 @section('script')
     @include('partials.dateSupport')
     <script type="text/javascript">
-        vm = new Vue({
+        var oldObjectifs = [];
+        @if($plan->Objectifs != '')
+            @foreach(json_decode($plan->Objectifs) as $objectif)
+                oldObjectifs.push('{{$objectif}}');
+        @endforeach
+                @endif
+            vm = new Vue({
             el: '#app',
             data: {
-                retenu:''
+                retenu: '',
+                objectifs: oldObjectifs,
+                new_objectif: '{{old('new_diagnostic')}}',
             },
+            methods: {
+                addObjectif: function () {
+                    var value = this.new_objectif && this.new_objectif.trim()
+                    if (!value) {
+                        return;
+                    }
+                    else if ($.inArray(value, this.Objectifs) != -1) {
+                        alert('Cet élément a déjà été entré.');
+                    }
+                    else {
+                        this.objectifs.push(value)
+                        this.new_objectif = ''
+                    }
+                }
+            }
         })
     </script>
 @endsection
