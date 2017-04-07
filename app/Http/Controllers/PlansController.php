@@ -30,7 +30,6 @@ class PlansController extends Controller {
     public function store($section, Plan $plan, Request $request)
     {
         $donnees = $request->all();
-        //dd($donnees);
         $rules = [];
         if ($section == 2) {
             $rules = [
@@ -42,8 +41,14 @@ class PlansController extends Controller {
             if (isset($donnees['diagnostics'])) {
                 $donnees['diagnostics'] = json_encode($donnees['diagnostics']);
             }
+            else {
+                $donnees['diagnostics'] = null;
+            }
             if (isset($donnees['medication'])) {
                 $donnees['medication'] = json_encode($donnees['medication']);
+            }
+            else {
+                $donnees['medication'] = null;
             }
         }
         if ($section == 8 ){
