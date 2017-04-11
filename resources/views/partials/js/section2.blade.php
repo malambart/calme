@@ -8,7 +8,12 @@
     var oldMedication = [];
     @if($plan->medication != '')
     @foreach(json_decode($plan->medication) as $med)
-        oldMedication.push({nom:'{{$med->nom}}', posologie:'{{$med->posologie}}', med_string:'{{$med->med_string}}'})
+        oldMedication.push({
+        nom: '{{$med->nom}}',
+        posologie: '{{$med->posologie}}',
+        unit: '{{$med->unit}}',
+        med_string: '{{$med->med_string}}'
+    })
     @endforeach
             @endif
         vm = new Vue({
@@ -19,6 +24,7 @@
             new_diag: '{{old('new_diagnostic')}}',
             new_medicament: '{{old('new_medicament')}}',
             new_posologie: '{{old('new_posologie')}}',
+            new_unit: '{{old('new_unit', 'mg/jour')}}'
         },
         methods: {
             addDiag: function () {
@@ -48,14 +54,20 @@
                 }
                 else {
                     if (this.new_posologie != '') {
-                        var med_string = med + ' - ' + this.new_posologie;
+                        var med_string = med + ' - ' + this.new_posologie + ' ' + this.new_unit;
                     }
                     else {
                         var med_string = med;
                     }
-                    this.medication.push({nom: med, posologie: this.new_posologie, med_string: med_string})
-                    this.new_medicament = ''
-                    this.new_posologie = ''
+
+                    this.medication.push({
+                        nom: med,
+                        posologie: this.new_posologie,
+                        unit: this.new_unit,
+                        med_string: med_string});
+                    this.new_medicament = '';
+                    this.new_posologie = '';
+                    this.new_unit= 'mg/jour';
                 }
 
             },

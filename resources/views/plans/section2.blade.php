@@ -69,15 +69,22 @@
             </div>
             <div class="form-group{{ $errors->has('new_medicament') ? ' has-error' : '' }} clearfix">
                 <label class="control-label dual-input-label">Médication</label>
-                <div class="col-md-5 dual-input-input">
+                <div class="col-md-6 dual-input-input">
                     <input name="new_medicament" value="{{old('new_medicament')}}" placeholder="Nom du médicament"
                            id="medicament"
                            type="text"
                            class="form-control" v-model="new_medicament">
                 </div>
-                <div class="col-md-5 dual-input-input">
-                    <input type="text" name="new_posologie" value="{{old('new_posologie')}}" placeholder="Posologie"
+                <div class="col-md-2 dual-input-input">
+                    <input type="number" name="new_posologie" value="{{old('new_posologie')}}" placeholder="Posologie"
                            id="posologie" class="form-control" v-model="new_posologie">
+                </div>
+                <div class="col-md-2 dual-input-input">
+                    <select name="new_unit" id="input" class="form-control" v-model="new_unit">
+                        <option value="mg/jour">
+                            mg/jour
+                        </option>
+                    </select>
                 </div>
                 <button class="btn btn-primary" @click.prevent="addMedicament">Ajouter</button>
 
@@ -100,6 +107,10 @@
                    type="hidden"
                    v-bind:value="medicament.posologie"
                    v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[posologie]'">
+            <input v-for="medicament in medication"
+                   type="hidden"
+                   v-bind:value="medicament.unit"
+                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[unit]'">
             <input v-for="medicament in medication"
                    type="hidden"
                    v-bind:value="medicament.med_string"

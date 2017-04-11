@@ -91,7 +91,8 @@ class Plan extends Model {
             'antefam_psy',
             'ante_bilan_date',
             'plan_intervention_scolaire',
-            'lie_anxiete'
+            'lie_anxiete',
+            'traitement_pharmaco'
         ];
         foreach ($request as $element => $value) {
             if (in_array($element, $numeric) && $value == "")

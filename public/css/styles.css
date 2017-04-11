@@ -40,8 +40,17 @@
 .dual-input-label {
     width:100%;
 }
+
+
 .dual-input-input {
     padding-left: 0;
+    margin-bottom:7px;
+}
+
+@media screen and (min-width: 992px) {
+    .dual-input-input {
+        margin-bottom:0px;
+    }
 }
 
 

@@ -116,7 +116,13 @@ class PlansController extends Controller {
         $plan->update(Plan::sanitize($donnees));
         $section = ++$section;
         $dossier = $plan->dossier()->first();
-        return redirect(url('plans', [$section, $dossier->id]));
+        if($section<10) {
+            return redirect(url('plans', [$section, $dossier->id]));
+        }
+        else {
+            return redirect (url('dossiers/show', $dossier->id));
+        }
+
     }
 
     public function PartenaireDelete(Partenaire $partenaire)

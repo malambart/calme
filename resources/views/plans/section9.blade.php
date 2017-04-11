@@ -13,7 +13,7 @@
 @endsection
 @section('body')
     <div id="app">
-        <form role="form" method="POST" action="{{ url('') }}">
+        <form role="form" method="POST" action="{{ url('plans',[$section,$plan->id]) }}">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
             <div class="form-group{{ $errors->has('retenu') ? ' has-error' : '' }}">
@@ -169,6 +169,84 @@
                    type="hidden"
                    v-bind:value="objectif"
                    v-bind:name="'objectifs['+objectifs.indexOf(objectif)+']'">
+            <div class="form-group{{ $errors->has('traitement_pharmaco') ? ' has-error' : '' }}">
+                <label for="traitement_pharmaco" class="control-label">Un traitement pharmacologique a-t-il été
+                    proposé?</label>
+                <select class="form-control" name="traitement_pharmaco" v-model="traitement">
+                    <option value="">Veuillez choisir</option>
+                    <option value="1">
+                        Oui
+                    </option>
+                    <option value="0">
+                        Non
+                    </option>
+                </select>
+                @if ($errors->has('traitement_pharmaco'))
+                    <span class="help-block"><strong>{{ $errors->first('traitement_pharmaco') }}</strong></span>
+                @endif
+            </div>
+            <div v-show="traitement==1">
+                <div class="form-group{{ $errors->has('new_medicament') ? ' has-error' : '' }} clearfix">
+                    <label class="control-label dual-input-label">Médication</label>
+                    <div class="col-md-6 dual-input-input">
+                        <input name="new_medicament" value="{{old('new_medicament')}}" placeholder="Nom du médicament"
+                               id="medicament"
+                               type="text"
+                               class="form-control" v-model="new_medicament">
+                    </div>
+                    <div class="col-md-2 dual-input-input">
+                        <input type="number" name="new_posologie" value="{{old('new_posologie')}}"
+                               placeholder="Posologie"
+                               id="posologie" class="form-control" v-model="new_posologie">
+                    </div>
+                    <div class="col-md-2 dual-input-input">
+                        <select name="new_unit" id="input" class="form-control" v-model="new_unit">
+                            <option value="mg/jour">
+                                mg/jour
+                            </option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" @click.prevent="addMedicament">Ajouter</button>
+
+                    @if ($errors->has('new_medicament'))
+                        <span class="help-block"><strong>Le médicament n'a pas été soumis.</strong></span>
+                    @endif
+                </div>
+                <ul class="list-group">
+                    <li v-for="medicament in medication" class="list-group-item">
+                        @{{ medicament.med_string }}
+                        <button @click="deleteMedicament(medicament)" type="button" class="
+                        btn btn-danger btn-xs pull-right"
+                        >X</button>
+                    </li>
+                </ul>
+                <input v-for="medicament in medication"
+                       type="hidden"
+                       v-bind:value="medicament.nom"
+                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[nom]'">
+                <input v-for="medicament in medication"
+                       type="hidden"
+                       v-bind:value="medicament.posologie"
+                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[posologie]'">
+                <input v-for="medicament in medication"
+                       type="hidden"
+                       v-bind:value="medicament.unit"
+                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[unit]'">
+                <input v-for="medicament in medication"
+                       type="hidden"
+                       v-bind:value="medicament.med_string"
+                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[med_string]'">
+            </div>
+            <div class="form-group{{ $errors->has('recommendations') ? ' has-error' : '' }}">
+                <label for="recommendations" class=" control-label">Recommendations concernant les parents ou la
+                    famille</label>
+                <textarea name="recommendations" id="recommendations" rows="4" class="form-control">{{old('recommendations')}}</textarea>
+                @if ($errors->has('recommendations'))
+                    <span class="help-block">
+            		    <strong>{{ $errors->first('recommendations') }}</strong>
+            		</span>
+                @endif
+            </div>
             @include('plans/nav')
         </form>
     </div>
