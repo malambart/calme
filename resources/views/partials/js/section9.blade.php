@@ -1,7 +1,7 @@
 <script type="text/javascript">
     var oldObjectifs = [];
-    @if($plan->Objectifs != '')
-        @foreach(json_decode($plan->Objectifs) as $objectif)
+    @if($plan->objectifs != '')
+        @foreach(json_decode($plan->objectifs) as $objectif)
             oldObjectifs.push('{{$objectif}}');
     @endforeach
             @endif
@@ -21,7 +21,7 @@
         data: {
             retenu: '',
             objectifs: oldObjectifs,
-            traitement: '',
+            traitement: '{{old('traitement_pharmaco', $plan->traitement_pharmaco)}}',
             new_objectif: '{{old('new_diagnostic')}}',
             medication: oldMedication,
             new_medicament: '{{old('new_medicament')}}',

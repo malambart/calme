@@ -223,19 +223,19 @@
                 <input v-for="medicament in medication"
                        type="hidden"
                        v-bind:value="medicament.nom"
-                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[nom]'">
+                       v-bind:name="'pharmaco_liste['+medication.indexOf(medicament)+']'+'[nom]'">
                 <input v-for="medicament in medication"
                        type="hidden"
                        v-bind:value="medicament.posologie"
-                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[posologie]'">
+                       v-bind:name="'pharmaco_liste['+medication.indexOf(medicament)+']'+'[posologie]'">
                 <input v-for="medicament in medication"
                        type="hidden"
                        v-bind:value="medicament.unit"
-                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[unit]'">
+                       v-bind:name="'pharmaco_liste['+medication.indexOf(medicament)+']'+'[unit]'">
                 <input v-for="medicament in medication"
                        type="hidden"
                        v-bind:value="medicament.med_string"
-                       v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[med_string]'">
+                       v-bind:name="'pharmaco_liste['+medication.indexOf(medicament)+']'+'[med_string]'">
             </div>
             <div class="form-group{{ $errors->has('recommendations') ? ' has-error' : '' }}">
                 <label for="recommendations" class=" control-label">Recommendations concernant les parents ou la

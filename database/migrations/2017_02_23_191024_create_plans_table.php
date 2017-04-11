@@ -27,9 +27,9 @@ class CreatePlansTable extends Migration
             $table->string('langue')->nullable();
             $table->date('date_eval')->nullable();
             $table->string('pedopsy')->nullable();
-            $table->string('diagnostics')->nullable();
+            $table->mediumText('diagnostics')->nullable();
             $table->string('autres')->nullable();
-            $table->string('medication')->nullable();
+            $table->mediumText('medication')->nullable();
             $table->date('reference')->nullable();
             $table->string('motif')->nullable();
             $table->boolean('ante_bilan')->nullable();
@@ -57,9 +57,9 @@ class CreatePlansTable extends Migration
             $table->string('non_retenu_redirige')->nullable();
             $table->string('suivi')->nullable();
             $table->string('type_suivi')->nullable();
-            $table->string('objectifs')->nullable();
+            $table->mediumText('objectifs')->nullable();
             $table->boolean('traitement_pharmaco')->nullable();
-            $table->string('pharmaco_liste')->nullable();
+            $table->mediumText('pharmaco_liste')->nullable();
             $table->string('recommendations')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')

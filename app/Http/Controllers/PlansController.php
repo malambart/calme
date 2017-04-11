@@ -112,6 +112,16 @@ class PlansController extends Controller {
             }
         }
 
+        if ($section==9) {
+
+            if (isset($donnees['objectifs'])) {
+                $donnees['objectifs']=json_encode($donnees['objectifs']);
+            }
+
+            if (isset($donnees['pharmaco_liste'])) {
+                $donnees['pharmaco_liste']=json_encode($donnees['pharmaco_liste']);
+            }
+        }
 
         $plan->update(Plan::sanitize($donnees));
         $section = ++$section;
