@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 
-class DossiersController extends Controller {
+class DossiersController extends Controller
+{
     public function __construct()
     {
         $this->middleware('auth');
@@ -46,31 +47,32 @@ class DossiersController extends Controller {
         //$user->notify(new NouveauDossier($dossier));
 
         //Creation du premier temps de mesure
-        $mesure = $dossier->mesures()->create(['temps' => 1]);
-        $mesure->date=$request->premiere_seance;
-        $mesure->save();
-        //On fetch les questionnaires associés
-        $questionnaires = $mesure->questionnaires()->where('temps', 1)->get();
-        // On cree l'invitation dans limeSurvey
-        foreach ($questionnaires as $q) {
-            $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
-            $token = $mesure->id . $q->ls_id . str_random(12);
-            DB::connection('ls')->insert('insert into ' . $table . ' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
-            $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
-        }
 
-        //Creation du second temps de mesure
-        $mesure = $dossier->mesures()->create(['temps' => 2]);
-        $mesure->date=$request->bilan_final;
-        $mesure->save();
-        //On fetch les questionnaires associés
-        $questionnaires = $mesure->questionnaires()->where('temps', 2)->get();
-        // On cree l'invitation dans limeSurvey
-        foreach ($questionnaires as $q) {
-            $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
-            $token = $mesure->id . $q->ls_id . str_random(12);
-            DB::connection('ls')->insert('insert into ' . $table . ' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
-            $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
+        $temps_mesure = [1, 2];
+
+        foreach ($temps_mesure as $tm) {
+
+            $mesure = $dossier->mesures()->create(['temps' => $tm]);
+
+            if ($tm == 1) {
+                $date = $request->premiere_seance;
+            }
+            elseif ($tm == 2) {
+                $date = $request->bilan_final;
+            }
+
+            $mesure->date = $date;
+            $mesure->save();
+            //On fetch les questionnaires associés
+            $questionnaires = $mesure->questionnaires()->where('temps', $tm)->get();
+            // On cree l'invitation dans limeSurvey
+            foreach ($questionnaires as $q) {
+                $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
+                $token = $mesure->id . $q->ls_id . str_random(12);
+                DB::connection('ls')->insert('insert into ' . $table . ' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
+                $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
+            }
+
         }
 
         if (!$dossier->exclu) {
@@ -108,6 +110,7 @@ class DossiersController extends Controller {
         return view('dossiers.edit', compact('dossier'));
     }
 
+
     public function update(Dossier $dossier, Request $request)
     {
         $this->validate($request, [
@@ -116,6 +119,7 @@ class DossiersController extends Controller {
             'no_doss_chus' => ['required', Rule::unique('dossiers')->ignore($dossier->id), 'regex:/^[0-9]{7}$/'],
             'date_naiss' => 'required|date',
         ]);
+        /*
         // Si dossier était précédemment exclu,  on créé les token pour les parents et enseignants au besoin...
         if ($dossier->exclu && !$request->exclu) {
             $parent = $dossier->getCurrentMesure()->tokens()->where('rep', 'PA')->count();
@@ -136,12 +140,14 @@ class DossiersController extends Controller {
                 }
             }
         }
+        */
 
         $data = $request->all();
         $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
         $dossier->update($data);
         return redirect(url('dossiers/show', $dossier->id));
     }
+
 
     public function delete(Dossier $dossier)
     {
@@ -157,9 +163,9 @@ class DossiersController extends Controller {
 
     public function restore($dossier)
     {
-        $d=Dossier::onlyTrashed()->findOrFail($dossier);
+        $d = Dossier::onlyTrashed()->findOrFail($dossier);
         $d->restore();
-        $d->deleted_by=null;
+        $d->deleted_by = null;
         $d->save();
         return redirect(url('dossiers/show', $d->id));
     }

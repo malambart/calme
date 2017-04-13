@@ -3,8 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Token;
-use App\Updater;
 
 class Mesure extends Model
 {
@@ -25,6 +23,7 @@ class Mesure extends Model
 	{
 		return $this->hasMany(Token::class);
 	}
+
 	public function qCompleted()
 	{
 		$count=0;

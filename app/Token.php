@@ -10,7 +10,7 @@ use App\Updater;
 class Token extends Model
 {
 	use Updater;
-	protected $fillable=['token', 'ls_id', 'rep'];
+	protected $fillable=['token', 'ls_id', 'rep', 'tid'];
 
 	public function mesure()
 	{
@@ -20,9 +20,10 @@ class Token extends Model
 	{
 		return $this->hasOne(Questionnaire::class, 'ls_id', 'ls_id');
 	}
+
 	public function isCompleted()
 	{
-		$table=env('LS_PREFIX').'tokens_'.$this->ls_id;
+	    $table=env('LS_PREFIX').'tokens_'.$this->ls_id;
 		$state=DB::connection('ls')->select(DB::raw("
 			SELECT completed 
 			FROM $table
