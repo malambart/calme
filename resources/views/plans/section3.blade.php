@@ -24,7 +24,7 @@
                 <input type="hidden" v-model="antecedent.id"
                        v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][id]'">
                 <div class="form-group">
-                    <label for="antecedent" class=" control-label">Dexcription de l'antécédent</label>
+                    <label for="antecedent" class=" control-label">Description de l'antécédent</label>
                     <input id="antecedent" type="text" class="form-control"
                            v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][antecedent]'"
                            v-model="antecedent.antecedent">
