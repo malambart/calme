@@ -20,7 +20,7 @@
                 <label for="date_eval" class=" control-label">Date de l'évaluation<span
                             class="tip">(aaaa-mm-jj)</span></label>
                 <input id="date_eval" type="date" class="form-control datepicker" name="date_eval"
-                       value="{{ old('date_eval', $plan->date_eval) }}">
+                       value="{{ old('date_eval', $plan->date_eval) }}" autofocus>
                 @if ($errors->has('date_eval'))
                     <span class="help-block"><strong>{{ $errors->first('date_eval') }}</strong></span>
                 @endif

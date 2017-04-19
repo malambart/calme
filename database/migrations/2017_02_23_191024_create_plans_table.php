@@ -60,7 +60,9 @@ class CreatePlansTable extends Migration
             $table->mediumText('objectifs')->nullable();
             $table->boolean('traitement_pharmaco')->nullable();
             $table->mediumText('pharmaco_liste')->nullable();
-            $table->string('recommendations')->nullable();
+            $table->mediumText('recommendations')->nullable();
+            $table->string('suivi_duree')->nullable();
+            $table->string('suivi_frequence')->nullable();
             $table->foreign('dossier_id')
                 ->references('id')
                 ->on('dossiers')

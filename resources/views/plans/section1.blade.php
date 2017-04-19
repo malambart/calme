@@ -16,7 +16,7 @@
             {{ method_field('PATCH') }}
             <div class="form-group{{ $errors->has('famille') ? ' has-error' : '' }}">
                 <label for="famille" class="control-label">Situation familiale</label>
-                <select class="form-control" name="famille" v-model="famille">
+                <select class="form-control" name="famille" v-model="famille" autofocus>
                     <option value="">Veuillez choisir</option>
                     <option value="Monoparentale">
                         Monoparentale

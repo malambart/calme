@@ -27,7 +27,7 @@
                     <label for="antecedent" class=" control-label">Description de l'antécédent</label>
                     <input id="antecedent" type="text" class="form-control"
                            v-bind:name="'antecedents['+antecedents.indexOf(antecedent)+'][antecedent]'"
-                           v-model="antecedent.antecedent">
+                           v-model="antecedent.antecedent" autofocus>
                     @if ($errors->has('antecedent'))
                         <span class="help-block"><strong>{{ $errors->first('antecedent') }}</strong></span>
                     @endif

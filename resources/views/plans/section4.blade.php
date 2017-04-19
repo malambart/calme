@@ -15,7 +15,7 @@
                 <button @click.prevent="pToDelete(partenaire)" id="delete-button" class="btn btn-danger btn-xs pull-right">X
                 </button>
                 <input type="hidden" v-model="partenaire.id"
-                       v-bind:name="'partenaires['+partenaires.indexOf(partenaire)+'][id]'">
+                       v-bind:name="'partenaires['+partenaires.indexOf(partenaire)+'][id]'" autofocus>
                 <div class="form-group{{ $errors->has('partenaire') ? ' has-error' : '' }}">
                     <label for="partenaire" class=" control-label">Nom du partenaire</label>
                     <input id="partenaire" type="text" class="form-control"

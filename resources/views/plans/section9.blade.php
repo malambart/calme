@@ -20,16 +20,10 @@
                 <label for="retenu" class="control-label">Retenu(e) ou non retenu(e)</label>
                 <select class="form-control" name="retenu" v-model="retenu">
                     <option value="" selected>Veuillez choisir</option>
-                    <option value="Retenu(e)"
-                            @if(old('retenu', $plan->retenu)=="Retenu(e)")
-                            selected
-                            @endif>
+                    <option value="Retenu(e)">
                         Retenu(e)
                     </option>
-                    <option value="Non retenu(e)"
-                            @if(old('retenu', $plan->retenu)=="Non retenu(e)")
-                            selected
-                            @endif>
+                    <option value="Non retenu(e)">
                         Non retenu(e)
                     </option>
                 </select>
@@ -37,14 +31,14 @@
                     <span class="help-block"><strong>{{ $errors->first('retenu') }}</strong></span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('non_retenu_motif') ? ' has-error' : '' }}"
+            <div class="form-group{{ $errors->has('non_retenu_motifs') ? ' has-error' : '' }}"
                  v-show="retenu=='Non retenu(e)'">
-                <label for="non_retenu_motif" class=" control-label">Motifs</label>
-                <input id="non_retenu_motif" type="text" class="form-control" name="non_retenu_motif"
-                       value="{{ old('non_retenu_motif') }}">
-                @if ($errors->has('non_retenu_motif'))
+                <label for="non_retenu_motifs" class=" control-label">Motifs</label>
+                <input id="non_retenu_motifs" type="text" class="form-control" name="non_retenu_motifs"
+                       value="{{ old('non_retenu_motifs', $plan->non_retenu_motifs) }}">
+                @if ($errors->has('non_retenu_motifs'))
                     <span class="help-block">
-            		    <strong>{{ $errors->first('non_retenu_motif', $plan->non_retenu_motif) }}</strong>
+            		    <strong>{{ $errors->first('non_retenu_motifs', $plan->non_retenu_motifs) }}</strong>
             		</span>
                 @endif
             </div>
@@ -74,13 +68,13 @@
                 <select class="form-control" name="suivi">
                     <option value="" selected>Veuillez choisir</option>
                     <option value="Individuel"
-                            @if(old('suivi')=="Individuel")
+                            @if(old('suivi', $plan->suivi)=="Individuel")
                             selected
                             @endif>
                         Individuel
                     </option>
                     <option value="De groupe"
-                            @if(old('suivi')=="De groupe")
+                            @if(old('suivi', $plan->suivi)=="De groupe")
                             selected
                             @endif>
                         De groupe
@@ -95,31 +89,31 @@
                 <select class="form-control" name="type_suivi">
                     <option value="" selected>Veuillez choisir</option>
                     <option value="Super Actif"
-                            @if(old('type_suivi')=="Super Actif")
+                            @if(old('type_suivi', $plan->type_suivi)=="Super Actif")
                             selected
                             @endif>
                         Super Actif
                     </option>
                     <option value="Pic qui Toc"
-                            @if(old('type_suivi')=="Pic qui Toc")
+                            @if(old('type_suivi', $plan->type_suivi)=="Pic qui Toc")
                             selected
                             @endif>
                         Pic qui Toc
                     </option>
                     <option value="Perroquet Muet"
-                            @if(old('type_suivi')=="Perroquet Muet")
+                            @if(old('type_suivi', $plan->type_suivi)=="Perroquet Muet")
                             selected
                             @endif>
                         Perroquet Muet
                     </option>
                     <option value="ZAK et ZOE"
-                            @if(old('type_suivi')=="ZAK et ZOE")
+                            @if(old('type_suivi', $plan->type_suivi)=="ZAK et ZOE")
                             selected
                             @endif>
                         ZAK et ZOE
                     </option>
                     <option value="ESPT"
-                            @if(old('type_suivi')=="ESPT")
+                            @if(old('type_suivi', $plan->type_suivi)=="ESPT")
                             selected
                             @endif>
                         ESPT
@@ -129,22 +123,22 @@
                     <span class="help-block"><strong>{{ $errors->first('type_suivi') }}</strong></span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('duree') ? ' has-error' : '' }}">
+            <div class="form-group{{ $errors->has('suivi_duree') ? ' has-error' : '' }}">
                 <label for="duree" class=" control-label">Durée</label>
-                <input id="duree" type="text" class="form-control" name="duree" value="{{ old('duree') }}">
-                @if ($errors->has('duree'))
+                <input id="suivi_duree" type="text" class="form-control" name="suivi_duree" value="{{ old('suivi_duree', $plan->suivi_duree) }}">
+                @if ($errors->has('suivi_duree'))
                     <span class="help-block">
-                		    <strong>{{ $errors->first('duree') }}</strong>
+                		    <strong>{{ $errors->first('suivi_duree') }}</strong>
                 		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('frequence') ? ' has-error' : '' }}">
-                <label for="frequence" class=" control-label">Fréquence</label>
-                <input id="frequence" type="text" class="form-control" name="frequence"
-                       value="{{ old('frequence') }}">
-                @if ($errors->has('frequence'))
+            <div class="form-group{{ $errors->has('suivi_frequence') ? ' has-error' : '' }}">
+                <label for="suivi_frequence" class=" control-label">Fréquence</label>
+                <input id="suivi_frequence" type="text" class="form-control" name="suivi_frequence"
+                       value="{{ old('suivi_frequence', $plan->suivi_frequence) }}">
+                @if ($errors->has('suivi_frequence'))
                     <span class="help-block">
-                		    <strong>{{ $errors->first('frequence') }}</strong>
+                		    <strong>{{ $errors->first('suivi_frequence') }}</strong>
                 		</span>
                 @endif
             </div>
@@ -240,7 +234,7 @@
             <div class="form-group{{ $errors->has('recommendations') ? ' has-error' : '' }}">
                 <label for="recommendations" class=" control-label">Recommendations concernant les parents ou la
                     famille</label>
-                <textarea name="recommendations" id="recommendations" rows="4" class="form-control">{{old('recommendations')}}</textarea>
+                <textarea name="recommendations" id="recommendations" rows="4" class="form-control">{{old('recommendations', $plan->recommendations)}}</textarea>
                 @if ($errors->has('recommendations'))
                     <span class="help-block">
             		    <strong>{{ $errors->first('recommendations') }}</strong>

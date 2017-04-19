@@ -19,7 +19,7 @@
         vm = new Vue({
         el: '#app',
         data: {
-            retenu: '',
+            retenu: '{{old('retenu', $plan->retenu)}}',
             objectifs: oldObjectifs,
             traitement: '{{old('traitement_pharmaco', $plan->traitement_pharmaco)}}',
             new_objectif: '{{old('new_diagnostic')}}',
