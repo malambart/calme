@@ -100,7 +100,15 @@ class DossiersController extends Controller
     public function recherche(Request $request)
     {
         $this->validate($request, ['recherche' => 'required']);
-        $results = Dossier::search($request->recherche)->take(100)->get();
+
+        $results=DB::table('dossiers')
+            -> whereRaw("MATCH (nom, prenom, no_doss_chus) AGAINST ('$request->recherche')")
+            -> orWhere('id', $request->recherche)
+            ->get();
+
+        //$results = Dossier::search($request->recherche)->take(100)->get();
+
+
         $chaine = $request->recherche;
         return view('home', compact('results', 'chaine'));
     }

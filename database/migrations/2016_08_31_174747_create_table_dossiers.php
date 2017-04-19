@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateTableDossiers extends Migration
 {
@@ -14,11 +15,11 @@ class CreateTableDossiers extends Migration
     public function up()
     {
         Schema::create('dossiers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nom');
-            $table->string('prenom');
+            $table->increments('id')->index();
+            $table->string('nom')->index();
+            $table->string('prenom')->index();
             $table->string('nom_complet');
-            $table->string('no_doss_chus')->unique();
+            $table->string('no_doss_chus')->unique()->index();
             $table->date('date_naiss');
             $table->timestamps();
             $table->softDeletes();
@@ -28,6 +29,7 @@ class CreateTableDossiers extends Migration
             $table->integer('sexe');
             $table->boolean('exclu')->nullable();
         });
+        DB::statement('ALTER TABLE dossiers ADD FULLTEXT recherche (prenom, nom, no_doss_chus);');
     }
 
     /**
