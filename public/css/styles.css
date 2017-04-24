@@ -53,4 +53,28 @@
     }
 }
 
+.rapport h1 {
+    font-size:18px;
+    font-style: italic;
+}
 
+.rapport h2 {
+    font-size:16px;
+}
+
+
+.ligne-rapport {
+    line-height: 1.8em;
+}
+
+.rapport span {
+    font-weight: 600;
+}
+
+.rapport li {
+    margin-bottom: 2px;
+}
+
+.rapport {
+    margin-bottom:25px;
+}

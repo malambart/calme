@@ -15,7 +15,7 @@ class PlansController extends Controller {
     {
         $plan = $dossier->getPlan();
         if (!$plan && $section == 1) {
-            $plan = $dossier->plans()->create([]);
+            $plan = $dossier->plan()->create([]);
         }
         if ($section==9) {
             $premiere_seance=$dossier->mesures()->where('temps','1')->first();

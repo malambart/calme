@@ -88,7 +88,8 @@ class DossiersController extends Controller
         //$this->authorize('show', $dossier);
         $dossier->load('mesures');
         $enseignant = $dossier->currentEnseignant();
-        return view('dossiers.show', compact('dossier', 'enseignant'));
+        $plan=$dossier->plan()->first();
+        return view('dossiers.show', compact('dossier', 'enseignant', 'plan'));
     }
 
     public function index()
@@ -100,6 +101,7 @@ class DossiersController extends Controller
     public function recherche(Request $request)
     {
         $this->validate($request, ['recherche' => 'required']);
+        //dd($request->recherche);
 
         $results=DB::table('dossiers')
             -> whereRaw("MATCH (nom, prenom, no_doss_chus) AGAINST ('$request->recherche')")
