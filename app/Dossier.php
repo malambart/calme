@@ -19,14 +19,14 @@ class Dossier extends Model {
     protected $searchableColumns = ['id' => 30, 'nom' => 20, 'prenom' => 10];
     protected $fillable = ['nom', 'prenom', 'nom_complet', 'no_doss_chus', 'date_naiss', 'sexe', 'exclu'];
 
-    public function plans()
+    public function plan()
     {
         return $this->hasOne(Plan::class);
     }
 
     public function getPlan()
         {
-            $plan=$this->plans()->first();
+            $plan=$this->plan()->first();
             return $plan;
         }
 
