@@ -22,8 +22,9 @@ const { mix } = require('laravel-mix');
 mix.scripts([
     'resources/assets/bower/jquery-ui/jquery-ui.js',
     'resources/assets/js/dateSupport.js',
-    'ressources/assets/js/hideApp.js'
+    'resources/assets/js/maskedInput.js'
 ], 'public/js/script.js');
+
 
 mix.styles([
     'resources/assets/bower/jquery-ui/themes/base/jquery-ui.min.css'

@@ -12,7 +12,7 @@ use Sofa\Eloquence\Eloquence;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dossier extends Model {
-    use RecordsActivity;git ass
+    use RecordsActivity;
     use SoftDeletes;
     use Updater;
     protected $searchableColumns = ['id' => 30, 'nom' => 20, 'prenom' => 10];

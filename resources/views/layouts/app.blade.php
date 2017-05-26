@@ -101,6 +101,11 @@
 <!-- Scripts -->
 <script src="{{ url('js/app.js') }}"></script>
 <script src="{{ url('js/script.js') }}"></script>
-@yield('pagescript')
+@yield('script')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#app").css("visibility", "visible");
+    });
+</script>
 </body>
 </html>

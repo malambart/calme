@@ -11,37 +11,43 @@
         <div class="ligne-rapport"><span>Date de l'évaluation : </span>{{$plan->date_eval}}</div>
         <div class="ligne-rapport"><span>Pédopsychiatre : </span>{{$plan->pedopsy}}</div>
         <div class="ligne-rapport"><span>Troubles anxieux retenus :
-        </span>{{strtolower(implode(', ', json_decode($plan->diagnostics)))}}
+            @if($plan->diagnostic)
+                </span>{{strtolower(implode(', ', json_decode($plan->diagnostics)))}}
+            @endif
         </div>
         <div class="ligne-rapport"><span>Autres : </span>{{$plan->autres}}</div>
-        <div class="ligne-rapport"><span>Médication :
-        </span>
-            <ul>
-            @foreach((array_column(json_decode($plan->medication), 'med_string')) as $med)
-                <li>
-                    {{$med}}
-                </li>
-            @endforeach
-            </ul>
+        <div class="ligne-rapport"><span>Médication :</span>
+            @if($plan->medication)
+                <ul>
+                    @foreach((array_column(json_decode($plan->medication), 'med_string')) as $med)
+                        <li>
+                            {{$med}}
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </div>
         <div class="ligne-rapport"><span>Date de la référence au module Calme : </span>{{$plan->reference}}</div>
         <div class="ligne-rapport"><span>Motifs : </span>{{$plan->motif}}</div>
         <hr>
         <h1>Antécédents</h1>
-        <ul>
-        @foreach($plan->antecedents as $antecedent)
-            <li>
-            <div class="ligne-rapport"><span> Description : </span>{{$antecedent->antecedent}}</div>
-            <div class="ligne-rapport"><span>Personnel ou familial : </span>{{$antecedent->fam_perso}}</div>
-            <div class="ligne-rapport"><span> Type : </span>{{$antecedent->type}}</div>
-            @if($antecedent->type=='Module Calme')
-                    <div class="ligne-rapport"><span> Motifs : </span>{{$antecedent->motifs}}</div>
-            @endif
-            </li>
-        @endforeach
+        @if($plan->antecedent)
+            <ul>
+                @foreach($plan->antecedents as $antecedent)
+                    <li>
+                        <div class="ligne-rapport"><span> Description : </span>{{$antecedent->antecedent}}</div>
+                        <div class="ligne-rapport"><span>Personnel ou familial : </span>{{$antecedent->fam_perso}}</div>
+                        <div class="ligne-rapport"><span> Type : </span>{{$antecedent->type}}</div>
+                        @if($antecedent->type=='Module Calme')
+                            <div class="ligne-rapport"><span> Motifs : </span>{{$antecedent->motifs}}</div>
+                        @endif
+                    </li>
+                @endforeach
+        @endif
         </ul>
         <hr>
         <h1>Partenaires impliqués</h1>
+        @if($plan->partenaires)
         <ul>
             @foreach($plan->partenaires as $partenaire)
                 <li>
@@ -55,6 +61,7 @@
                 </li>
             @endforeach
         </ul>
+        @endif
         <hr>
         <h1>Plan d'intervention scolaire</h1>
         <div class="ligne-rapport"><span>Plan d'intervention scolaire : </span>{{$plan->plan_intervention_acolaire}}</div>
@@ -115,11 +122,13 @@
         <div class="ligne-rapport"><span>Suivi : </span>{{$plan->suivi}}</div>
         <div class="ligne-rapport"><span>Type de suivi : </span>{{$plan->type_suivi}}</div>
         <div class="ligne-rapport"><span>Objectifs : </span>
+            @if($plan->objectifs)
             <ul>
                 @foreach(json_decode($plan->objectifs) as $obj)
                     <li>{{$obj}}</li>
                 @endforeach
             </ul>
+            @endif
         </div>
         <div class="ligne-rapport"><span>Traitement pharmacologique proposé : </span>
             @if($plan->traitement_pharmaco==1)
