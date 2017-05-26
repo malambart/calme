@@ -8,5 +8,5 @@ use App\Updater;
 class Ecole extends Model
 {
 	use Updater;
-    protected $fillable=['nom', 'ville'];
+    protected $fillable=['nom', 'ville', 'telephone', 'fax'];
 }

@@ -849,6 +849,10 @@ Vue.component('list-input', __webpack_require__(37));
     el: '#app'
 });*/
 
+jQuery(function ($) {
+  $(".tel-mask").mask("999 999-9999");
+});
+
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {

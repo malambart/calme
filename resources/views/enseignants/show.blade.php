@@ -10,7 +10,7 @@
 <div class="alert alert-warning">
   Pour modifier les infos de l'enseignant (ex. : corriger une erreur dans le nom,  changer l'adresse courriel,  etc),  utiliser le bouton "Edit". Si l'enseignant répondant <b>change au cours du projet</b>,  utilisez le bouton "changer d'enseignant".
 </div>
-<p>École : {{$ecole->nom}}</p>
+<p>École : <a href="{{url('ecoles/show', $ecole->id)}}">{{$ecole->nom}}</a></p>
 <p>Courriel : <a href="mailto:{{$enseignant->courriel}}">{{$enseignant->courriel}}</a></p>
 @endsection
 @section('script')

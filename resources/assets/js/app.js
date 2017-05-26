@@ -22,3 +22,6 @@ Vue.component('list-input', require('./components/list-input.vue'));
     el: '#app'
 });*/
 
+jQuery(function ($) {
+    $(".tel-mask").mask("999 999-9999");
+});

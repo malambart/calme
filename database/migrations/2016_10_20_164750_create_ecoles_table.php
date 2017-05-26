@@ -21,6 +21,8 @@ class CreateEcolesTable extends Migration
             $table->timestamps();
             $table->string('nom')->unique();
             $table->string('ville');
+            $table->string('telephone')->nullable();
+            $table->string('fax')->nullable();
         });
     }
 

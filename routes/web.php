@@ -56,6 +56,9 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('ecoles/create', 'EcolesController@create');
     Route::post('ecoles/create', 'EcolesController@store');
+    Route::get('ecoles/show/{ecole}', 'EcolesController@show');
+    Route::get('ecoles/edit/{ecole}', 'EcolesController@edit');
+    Route::patch('ecoles/edit/{ecole}', 'EcolesController@update');
 
 
     Route::get('utilisateurs', 'UsersController@index');

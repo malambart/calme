@@ -195,7 +195,7 @@
                     <div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
                         <label for="tel" class="col-md-4 control-label">Téléphone principal</label>
                         <div class="col-md-6">
-                            <input id="tel" type="text" class="form-control tel-mask" name="tel"
+                            <input id="tel" type="text" class="form-control tel-mask tel-parent" name="tel"
                                    value="{{ old('tel') }}"
                             >
                             <input id="ext" type="text" class="form-control tel-ext" name="ext" value="{{ old('ext') }}"
@@ -210,7 +210,7 @@
                     <div class="form-group{{ $errors->has('tel2') ? ' has-error' : '' }}">
                         <label for="tel2" class="col-md-4 control-label">Téléphone secondaire</label>
                         <div class="col-md-6">
-                            <input id="tel2" type="text" class="form-control tel-mask" name="tel2"
+                            <input id="tel2" type="text" class="form-control tel-mask tel-parent" name="tel2"
                                    value="{{ old('tel2') }}"
                             >
                             <input id="ext" type="text" class="form-control tel-ext" name="ext2"
@@ -240,8 +240,6 @@
                 repondant: true
             },
         });
-        jQuery(function ($) {
-            $(".tel-mask").mask("999 999-9999");
-        });
+
     </script>
 @endsection
