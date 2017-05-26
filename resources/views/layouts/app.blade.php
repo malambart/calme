@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="{{url('/css/app.css')}}" rel="stylesheet">
     <link href="{{url('/css/vendor.css')}}" rel="stylesheet">
-    <link href="{{url('/css/styles.css')}}" rel="stylesheet">
+
 
     <!-- Scripts -->
     <script>
@@ -99,9 +99,8 @@
 @yield('content')
 
 <!-- Scripts -->
-<script src="{{url('js/app.js')}}"></script>
-<script src="{{url('js/vendor.js')}}"></script>
-@yield('script')
-<script src="{{url('js/myscript.js')}}"></script>
+<script src="{{ url('js/app.js') }}"></script>
+<script src="{{ url('js/script.js') }}"></script>
+@yield('pagescript')
 </body>
 </html>
