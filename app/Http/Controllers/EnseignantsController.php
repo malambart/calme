@@ -9,6 +9,8 @@ use App\Enseignant;
 use Illuminate\Support\Facades\DB;
 
 class EnseignantsController extends Controller {
+
+
     public function create(Dossier $dossier)
     {
         $ecoles = Ecole::all();
@@ -25,7 +27,7 @@ class EnseignantsController extends Controller {
     {
         //$this->validate($request, ['prenom'=>'required', 'nom'=>'required', 'ecole_id'=>'required']);
         //On cherche si un enseignant du même nom existe déjà...
-        $this->validate($request,['ecole_id'=>'required','prenom'=>'required','nom'=>'required']);
+        $this->validate($request,['ecole_id'=>'required','prenom'=>'required','nom'=>'required', 'courriel'=>'email']);
         //dd($request->all());
         $enseignant = Enseignant::where('nom', $request->nom)->where('prenom', $request->prenom)->where('ecole_id',$request->ecole_id)->first();
         if ($enseignant) {
@@ -54,5 +56,21 @@ class EnseignantsController extends Controller {
     {
         $ecole = $enseignant->ecole()->first();
         return view('enseignants.show', compact('enseignant', 'ecole', 'dossier'));
+    }
+
+    public function edit(Enseignant $enseignant)
+    {
+        $ecoles=Ecole::all();
+        return view('enseignants.edit', compact('enseignant', 'ecoles'));
+
+    }
+
+    public function update(Enseignant $enseignant, Request $request)
+    {
+        $this->validate($request,['ecole_id'=>'required','prenom'=>'required','nom'=>'required', 'courriel'=>'email']);
+
+        $enseignant->update($request->all());
+
+        return redirect (url('/'));
     }
 }

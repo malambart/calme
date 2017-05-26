@@ -22,7 +22,8 @@ const { mix } = require('laravel-mix');
 mix.scripts([
     'resources/assets/bower/jquery-ui/jquery-ui.js',
     'resources/assets/js/dateSupport.js',
-    'resources/assets/js/maskedInput.js'
+    'resources/assets/js/maskedInput.js',
+    'resources/assets/bower/laravel-bootstrap-modal-form/src/laravel-bootstrap-modal-form.js'
 ], 'public/js/script.js');
 
 

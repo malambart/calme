@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('enseignants/create/{dossier}', 'EnseignantsController@create');
     Route::post('enseignants/create/{dossier}', 'EnseignantsController@store');
     Route::get('enseignants/show/{enseignant}/{dossier}', 'EnseignantsController@show');
+    Route::get('enseignants/edit/{enseignant}', 'EnseignantsController@edit');
+    Route::patch('enseignants/edit/{enseignant}', 'EnseignantsController@update');
 
     Route::get('tableau-de-bord','HomeController@dashbord');
 

@@ -9,7 +9,7 @@ use App\Dossier;
 class Enseignant extends Model
 {
 	use Updater;
-	protected $fillable=['nom', 'prenom', 'ecole_id'];
+	protected $fillable=['nom', 'prenom', 'ecole_id', 'courriel'];
 
     public function dossiers()
 	{

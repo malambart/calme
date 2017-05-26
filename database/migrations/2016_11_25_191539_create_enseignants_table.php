@@ -20,6 +20,7 @@ class CreateEnseignantsTable extends Migration
             $table->integer('deleted_by')->nullable();
             $table->string('nom');
             $table->string('prenom');
+            $table->string('courriel')->nullable();
             $table->integer('ecole_id')->unsigned();
             $table->timestamps();
         });
