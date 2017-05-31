@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNoteEvolutivesTable extends Migration
+class CreateContenuSeancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateNoteEvolutivesTable extends Migration
      */
     public function up()
     {
-        Schema::create('note_evolutives', function (Blueprint $table) {
+        Schema::create('contenu_seances', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->date('date');
-            $table->integer('presence_enfant');
-            $table->integer('presence_parent');
-            $table->integer('ponctualite');
-            $table->string('ponctualite_motif');
+            $table->integer('no_seance');
+            $table->string('categories');
+            $table->string('label');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateNoteEvolutivesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('note_evolutives');
+        Schema::dropIfExists('contenu_seances');
     }
 }

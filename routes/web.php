@@ -83,6 +83,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('partenaires/delete/{partenaire}', 'PlansController@PartenaireDelete');
     Route::get('impressions/delete/{impression}', 'PlansController@ImpressionDelete');
     Route::get('antecedents/delete/{antecedent}', 'PlansController@AntecedentDelete');
+
+    Route::get('notes/create/{dossier}/{no}', 'NotesController@create');
+    Route::post('notes/create/{dossier}', 'NotesController@store');
+
+
 });
 
 

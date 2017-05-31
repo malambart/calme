@@ -123,7 +123,7 @@
             @include('dossiers.plan_intervention')
         </div>
         <div class="tab-pane" id="notes-evolutives">
-            Notes évolutives
+            @include('dossiers.notes-evolutives')
         </div>
         <div class="tab-pane" id="journeaux-bord">
             Journeaux de bord

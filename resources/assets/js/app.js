@@ -17,11 +17,9 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('list-input', require('./components/list-input.vue'));
+Vue.component('sub-form', require('./components/sub-form.vue'));
 
 /*const app = new Vue({
     el: '#app'
 });*/
 
-jQuery(function ($) {
-    $(".tel-mask").mask("999 999-9999");
-});
