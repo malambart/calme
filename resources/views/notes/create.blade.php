@@ -35,7 +35,8 @@
                     </div>
                 @endforeach
             </div>
-            <sub-form titre="Retour sur l'exercise fait à la maison" button="Ajouter un exercice" name="exercises"></sub-form>
+            <sub-form titre="Retour sur l'exercise fait à la maison" button="Ajouter un exercice"
+                      name="exercises"></sub-form>
             <label for="">Évaluation du comportement du jeune pendant la séance</label>
             <div class="checkbox-list">
                 <div class="checkbox">
@@ -74,63 +75,48 @@
                         Autre
                     </label>
                 </div>
-                <input type="text" class="form-control small-input" v-show="autre" name="comportement_autre" placeholder="Précisez autre">
+                <input type="text" class="form-control small-input" v-show="autre" name="comportement_autre"
+                       placeholder="Précisez autre">
             </div>
             <h1>Contenu abordé durant la séance</h1>
-            <div class="form-group">
-                <label>Objectifs enfants</label>
-                <div class="checkbox-list">
-                    @foreach($enf as $e)
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="{{$e->id}}" name="contenus[]">
-                                {{$e->label}}
-                            </label>
+            @foreach($contenus as $cat => $contenu)
+                @if (count($contenu)>=1)
+                    <div class="form-group">
+                        <label>{{ $cat }}</label>
+                        <div class="checkbox-list">
+                            @foreach($contenu as $c)
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{$c['id']}}" name="contenus[]">
+                                        {{$c['label']}}
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endif
+            @endforeach
+
+            <div class="form-group{{ $errors->has('commentaires') ? ' has-error' : '' }}">
+                <label for="commentaires" class=" control-label">Commentaires</label>
+                <textarea id="commentaires" class="form-control"
+                          name="commentaires">{{ old('commentaires') }}</textarea>
+                @if ($errors->has('commentaires'))
+                    <span class="help-block">
+            		    <strong>{{ $errors->first('commentaires') }}</strong>
+            		</span>
+                @endif
             </div>
-           <div class="form-group">
-               <label>Objectifs parents</label>
-               <div class="checkbox-list">
-                   @foreach($par as $p)
-                       <div class="checkbox">
-                           <label>
-                               <input type="checkbox" value="{{$p->id}}" name="contenus[]">
-                               {{$p->label}}
-                           </label>
-                       </div>
-                   @endforeach
-               </div>
-           </div>
-            <div class="form-group">
-                <label>Activité(s) d'intégration</label>
-                <div class="checkbox-list">
-                    @foreach($integration as $int)
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="{{$int->id}}" name="contenus[]">
-                                {{$int->label}}
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
-           </div>
-            @if($exercices->count()>=1)
-            <div class="form-group">
-                <label>Exercises à faire à la maison</label>
-                <div class="checkbox-list">
-                    @foreach($exercices as $exc)
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="{{$exc->id}}" name="contenus[]">
-                                {{$exc->label}}
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
+
+            <div class="form-group{{ $errors->has('prochaine_rencontre') ? ' has-error' : '' }}">
+                <label for="prochaine_rencontre" class=" control-label">Date de la prochaine rencontre<span class="tip">(aaaa-mm-jj)</span></label>
+                <input id="prochaine_rencontre" type="date" class="form-control datepicker" name="prochaine_rencontre"
+                       value="{{ old('prochaine_rencontre') }}">
+                @if ($errors->has('prochaine_rencontre'))
+                    <span class="help-block"><strong>{{ $errors->first('prochaine_rencontre') }}</strong></span>
+                @endif
             </div>
-            @endif
+
             <button type="submit" class="btn btn-primary pull-right">
                 Sauvegarder
             </button>
@@ -141,6 +127,7 @@
 
 
 @section('script')
+    @include('partials.dateSupport')
     <script type="text/x-template" id="form">
         <div>
             <div class="form-group">
@@ -169,13 +156,13 @@
 
     <script>
         Vue.component('subform-form', {
-            template:'#form',
+            template: '#form',
             props: ['name', 'id']
         })
         vm = new Vue({
             el: '#app',
             data: {
-                autre:""
+                autre: ""
             }
 
         })
