@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('notes/create/{dossier}/{no}', 'NotesController@create');
     Route::post('notes/create/{dossier}', 'NotesController@store');
-
+    Route::get('notes/show/{note}', 'NotesController@show');
 
 });
 

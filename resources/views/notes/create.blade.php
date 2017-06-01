@@ -18,7 +18,7 @@
             <label>Personnes présentes</label>
             <div class="checkbox-list">
                 <div class="checkbox">
-                    <label><input type="checkbox" value="1" name="presence[{{$dossier->prenom}}]"
+                    <label><input type="checkbox" value="{{$dossier->prenom}}" name="presence[]"
                                   @if(old("presence[{{$dossier->prenom}}]")==1))
                                   checked
                                 @endif
@@ -27,7 +27,7 @@
                 @foreach($dossier->parents as $parent)
 
                     <div class="checkbox">
-                        <label><input type="checkbox" value="1" name="presence[{{$parent->prenom}}]"
+                        <label><input type="checkbox" value="{{$parent->prenom}}" name="presence[]"
                                       @if(old("presence[{{$parent->prenom}}]")==1))
                                       checked
                                     @endif
@@ -41,37 +41,37 @@
             <div class="checkbox-list">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="Lever la main" name="comportement[0]">
+                        <input type="checkbox" value="Lever la main" name="comportement[]">
                         Lever la main
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="Demeurer assis" name="comportement[0]">
+                        <input type="checkbox" value="Demeurer assis" name="comportement[]">
                         Demeurer assis
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="Être attentif" name="comportement[0]">
+                        <input type="checkbox" value="Être attentif" name="comportement[]">
                         Être attentif
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="Collaboration" name="comportement[0]">
+                        <input type="checkbox" value="Collaboration" name="comportement[]">
                         Collaboration
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="Écouter" name="comportement[0]">
+                        <input type="checkbox" value="Écouter" name="comportement[]">
                         Écouter
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="Autre" name="comportement[0]" v-model="autre">
+                        <input type="checkbox" value="Autre" name="comportement[]" v-model="autre">
                         Autre
                     </label>
                 </div>
@@ -87,7 +87,7 @@
                             @foreach($contenu as $c)
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="{{$c['id']}}" name="contenus[]">
+                                        <input type="checkbox" value="{{$c['id']}}" name="contenu[]">
                                         {{$c['label']}}
                                     </label>
                                 </div>
@@ -127,7 +127,6 @@
 
 
 @section('script')
-    @include('partials.dateSupport')
     <script type="text/x-template" id="form">
         <div>
             <div class="form-group">

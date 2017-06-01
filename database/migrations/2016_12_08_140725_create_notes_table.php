@@ -16,6 +16,7 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('dossier_id');
             $table->integer('no_seance');
             $table->date('date')->nullable();
             $table->string('presence')->nullable();
@@ -25,7 +26,7 @@ class CreateNotesTable extends Migration
             $table->string('comportement_autre')->nullable();
             $table->mediumText('contenu')->nullable();
             $table->mediumText('commentaires')->nullable();
-            $table->date('prochaine_rencontre)')->nullanle();
+            $table->date('prochaine_rencontre')->nullable();
         });
     }
 

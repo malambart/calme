@@ -8,7 +8,6 @@ use App\ParentRep;
 use App\Enseignant;
 use App\PlanInterventions\Plan;
 use Carbon\Carbon;
-use Sofa\Eloquence\Eloquence;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dossier extends Model {
@@ -71,6 +70,11 @@ class Dossier extends Model {
     public function baseUrl()
     {
         return url('dossiers/show', $this->id);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
     }
 
 }
