@@ -18,37 +18,37 @@ class DatabaseSeeder extends Seeder
     {
 
         Questionnaire::create([
-            'ls_id' => 243656,
+            'ls_id' => env('QUEST_JEUNE'),
             'rep' => 'JE',
             'temps' => 1,
             'titre' => 'Questionnaire aux jeunes',
         ]);
         Questionnaire::create([
-            'ls_id' => 685656,
+            'ls_id' => env('QUEST_PARENT'),
             'rep' => 'PA',
             'temps' => 1,
             'titre' => 'Questionnaire aux parents',
         ]);
         Questionnaire::create([
-            'ls_id' => 165315,
+            'ls_id' => env('QUEST_ENSEIGNANT'),
             'rep' => 'EN',
             'temps' => 1,
             'titre' => 'Questionnaire aux enseignant',
         ]);
         Questionnaire::create([
-            'ls_id' => 243656,
+            'ls_id' => env('QUEST_JEUNE'),
             'rep' => 'JE',
             'temps' => 2,
             'titre' => 'Questionnaire aux jeunes',
         ]);
         Questionnaire::create([
-            'ls_id' => 685656,
+            'ls_id' => env('QUEST_PARENT'),
             'rep' => 'PA',
             'temps' => 2,
             'titre' => 'Questionnaire aux parents',
         ]);
         Questionnaire::create([
-            'ls_id' => 165315,
+            'ls_id' => env('QUEST_ENSEIGNANT'),
             'rep' => 'EN',
             'temps' => 2,
             'titre' => 'Questionnaire aux enseignant',
