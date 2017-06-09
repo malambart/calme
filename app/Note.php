@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
+    use RecordsActivity;
     protected $fillable=[
         'no_seance',
         'date',

@@ -99,7 +99,7 @@
   font-size: 16px;
 }
 
-.panel-body div {
+.panel-body .info {
   margin: 5px 0 5px 0;
 }
 
@@ -110,4 +110,11 @@
 
 .small-input {
   width:180px;
+}
+
+.subform-button {
+}
+
+.subform-list:nth-child(even) {
+  //background:red;
 }

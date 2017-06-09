@@ -13,7 +13,7 @@
 
 <script>
     module.exports = {
-        props: ['name', 'titre', 'tip', 'button'],
+        props: ['name', 'titre', 'tip', 'button', 'items'],
         data: function () {
             return {
                 list: [0],

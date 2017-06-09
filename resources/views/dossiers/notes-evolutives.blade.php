@@ -1,6 +1,9 @@
 <?php
 if ($dossier->notes()->orderBy('no_seance', 'desc')->first()) {
-    $next = $dossier->notes()->orderBy('no_seance', 'desc')->first()->no_seance + 1;
+    $next = 1 + $dossier->notes()->orderBy('no_seance', 'desc')->first()->no_seance;
+    if( $next==9 ) {
+        $next = 1+$next;
+    }
 } else {
     $next = 1;
 }

@@ -18,6 +18,7 @@ window.Vue = require('vue');
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('list-input', require('./components/list-input.vue'));
 Vue.component('sub-form', require('./components/sub-form.vue'));
+Vue.component('exercises', require('./components/exercises.vue'));
 
 /*const app = new Vue({
     el: '#app'
