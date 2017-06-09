@@ -107,33 +107,67 @@
         @endforeach
     </div>
     <hr>
+        <div class="panel-group menu-accordeon" id="accordion">
+            <div class="panel panel-default">
+                <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#plan-intervention">
+                    <div class="panel-heading">
+                    <div class="panel-title">
+                        Plan d'intervention
+                    </div>
+                    </div>
+                </a>
+                <div class="panel-collapse collapse" id="plan-intervention">
+                    <div class="panel-body">
+                        @include('dossiers.plan_intervention')
+                    </div>
 
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#notes-evolutives">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Note évolutives
+                        </div>
+                    </div>
+                </a>
+                <div class="panel-collapse collapse" id="notes-evolutives">
+                    <div class="panel-body">
+                        @include('dossiers.notes-evolutives')
+                    </div>
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" id="myTab">
-        <li class="active"><a href="#plan-intervention" role="tab" data-toggle="tab">Plan d'intervention</a></li>
-        <li><a href="#notes-evolutives" role="tab" data-toggle="tab">Notes évolutives</a></li>
-        <li><a href="#journeaux-bord" role="tab" data-toggle="tab">Journaux de bord</a></li>
-        <li><a href="#bilan-final" role="tab" data-toggle="tab">Bilan final</a></li>
-    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#journeaux-bord">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Journeaux de bord
+                        </div>
+                    </div>
+                </a>
+                <div class="panel-collapse collapse" id="journeaux-bord">
+                    <div class="panel-body">
+                       Journeaux de bord
+                    </div>
 
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div class="tab-pane active" id="plan-intervention">
-            @include('dossiers.plan_intervention')
-        </div>
-        <div class="tab-pane" id="notes-evolutives">
-            @include('dossiers.notes-evolutives')
-        </div>
-        <div class="tab-pane" id="journeaux-bord">
-            Journeaux de bord
-        </div>
-        <div class="tab-pane" id="bilan-final">
-            Bilan final
-        </div>
-    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#bilan-final">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Bilan final
+                        </div>
+                    </div>
+                </a>
+                <div class="panel-collapse collapse" id="bilan-final">
+                    <div class="panel-body">
+                        Bilan final
+                    </div>
 
-
+                </div>
+            </div>
 
 @endsection
 @section('script')
