@@ -82,7 +82,7 @@
                         <form role="form" method="POST" action="{{ url('recherche') }}">
                             {{ csrf_field() }}
                             <div class="input-group">
-                                <input placeholder="Recherche par nom,  id,  etc..." id="name" type="text"
+                                <input required placeholder="Recherche par nom,  id,  etc..." id="name" type="text"
                                        class="form-control"
                                        name="recherche" value="{{ old('name') }}" autofocus>
                                 <span class="input-group-btn">

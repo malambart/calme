@@ -15,7 +15,8 @@ class HomeController extends Controller {
      */
     public function index()
     {
-        return view('home', compact('dossiers', 'filles', 'garcons'));
+       $last = Dossier::all()->sortByDesc('created_at')->take(5);
+        return view('home', compact('last'));
     }
 
     public function dashbord()
