@@ -1,13 +1,8 @@
 @extends('layouts.row')
 @section('panel-heading')
-<ul class="nav nav-pills">
-<li id="liste_utilisateurs">
-		<a href="{{url('/utilisateurs')}}">Liste</a>
-	</li>
-	<li id="gestion_dossiers">
-		<a href="{{url('/utilisateurs/ajout')}}">Ajouter</a>
-	</li>
-</ul>
+    <h1>
+        Liste des utilisateurs
+    </h1>
 @endsection
 @section('body')
     <ul class="list-group">

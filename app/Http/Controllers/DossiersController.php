@@ -81,7 +81,6 @@ class DossiersController extends Controller
 
     public function show(Dossier $dossier)
     {
-        //$this->authorize('show', $dossier);
         $dossier->load('mesures');
         $enseignant = $dossier->currentEnseignant();
         $plan=$dossier->plan()->first();
@@ -102,9 +101,12 @@ class DossiersController extends Controller
         $results=DB::table('dossiers')
             -> whereRaw("MATCH (nom, prenom, no_doss_chus) AGAINST ('$request->recherche')")
             -> orWhere('id', $request->recherche)
+            -> where('deleted_at', null)
             ->get();
 
-        //$results = Dossier::search($request->recherche)->take(100)->get();
+        if ($results->count() == 1) {
+            return redirect(url('dossiers/show', $results->first()->id));
+        }
 
 
         $chaine = $request->recherche;

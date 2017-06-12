@@ -7,10 +7,6 @@
                 <div class="panel-heading">
                     @yield('panel-heading')
                 </div>
-                    @yield('navLevel2')
-                    @yield('navLevel3')
-                    @yield('navLevel4')
-                    @yield('navLevel5')
                 <div class="panel-body">
                     @yield('body')
                 </div>
