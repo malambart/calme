@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Questionnaire;
 use App\ContenuSeance;
+use App\User;
 
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,41 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        $users = [
+            [
+                'name' => env('USER1_NAME'),
+                'role' => env('USER1_ROLE'),
+                'email' => env('USER1_EMAIL'),
+                'password' => bcrypt(env('USER1_PASSWORD')),
+                'created_by' => 1
+            ],
+            [
+                'name' => env('USER2_NAME'),
+                'role' => env('USER2_ROLE'),
+                'email' => env('USER2_EMAIL'),
+                'password' => bcrypt(env('USER2_PASSWORD')),
+                'created_by' => 1
+            ],
+            [
+                'name' => env('USER3_NAME'),
+                'role' => env('USER3_ROLE'),
+                'email' => env('USER3_EMAIL'),
+                'password' => bcrypt(env('USER3_PASSWORD')),
+                'created_by' => 1
+            ],
+        ];
+        
+
+        foreach ($users as $u) {
+            DB::table('users')->insert([
+                'name' => $u['name'],
+                'email' => $u['email'],
+                'password' => $u['password'],
+                'role' => $u['role'],
+                'created_by' => $u['created_by']
+            ]);
+        }
+
 
         Questionnaire::create([
             'ls_id' => env('QUEST_JEUNE'),
@@ -54,7 +90,7 @@ class DatabaseSeeder extends Seeder
             'titre' => 'Questionnaire aux enseignant',
         ]);
 
-        $contenus=[
+        $contenus = [
             ['no_seance' => 1, 'categories' => 'Objectifs enfants', 'label' => 'Introduction du programme'],
             ['no_seance' => 1, 'categories' => 'Objectifs enfants', 'label' => 'Règles du groupe'],
             ['no_seance' => 1, 'categories' => 'Objectifs enfants', 'label' => "Définition de l'anxiété"],
