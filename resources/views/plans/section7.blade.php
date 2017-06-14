@@ -39,7 +39,7 @@
     </form>
 @endsection
 @section('script')
-    @include('partials.dateSupport')
+
     <script type="text/javascript">
     </script>
 @endsection

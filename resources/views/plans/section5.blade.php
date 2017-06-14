@@ -74,7 +74,7 @@
     </div>
 @endsection
 @section('script')
-    @include('partials.dateSupport')
+
     <script type="text/javascript">
         vm = new Vue({
             el: '#app',

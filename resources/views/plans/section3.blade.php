@@ -145,6 +145,6 @@
     </div>
 @endsection
 @section('script')
-    @include('partials.dateSupport')
+
     @include('partials.js.section3')
 @endsection
