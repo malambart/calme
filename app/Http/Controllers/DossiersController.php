@@ -110,7 +110,7 @@ class DossiersController extends Controller
 
 
         $chaine = $request->recherche;
-        return view('home', compact('results', 'chaine'));
+        return view('recherche', compact('results', 'chaine'));
     }
 
     public function edit(Dossier $dossier)

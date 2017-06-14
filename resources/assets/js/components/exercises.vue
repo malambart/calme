@@ -30,7 +30,7 @@
 
         </div>
 
-        <button class="btn btn-primary" @click.prevent="add()">Ajoutre un exercise</button>
+        <button class="btn btn-primary" @click.prevent="add()">Ajouter un exercise</button>
     </div>
 </template>
 

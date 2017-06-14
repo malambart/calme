@@ -217,9 +217,7 @@
                                    value="{{ old('ext2') }}"
                                    placeholder="ext. / commentaires">
                             @if ($errors->has('tel2'))
-                                <span class="help-block">
-				<strong>{{ $errors->first('tel2') }}</strong>
-			</span>
+                                <span class="help-block"><strong>{{ $errors->first('tel2') }}</strong></span>
                             @endif
                         </div>
                     </div>

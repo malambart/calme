@@ -200,10 +200,10 @@
                     <div class="form-group{{ $errors->has('tel') ? ' has-error' : '' }}">
                         <label for="tel" class="col-md-4 control-label">Téléphone principal</label>
                         <div class="col-md-6">
-                            <input id="tel" type="text" class="form-control tel-mask" name="tel"
-                                   value="{{ old('tel',$parent->tel) }}"
+                            <input id="tel" type="text" class="form-control tel-mask tel-parent" name="tel"
+                                   value="{{ old('tel', $parent->tel) }}"
                             >
-                            <input id="ext" type="text" class="form-control tel-ext" name="ext" value="{{ old('ext',$parent->ext) }}"
+                            <input id="ext" type="text" class="form-control tel-ext" name="ext" value="{{ old('ext', $parent->ext) }}"
                                    placeholder="ext. / commentaires">
                             @if ($errors->has('tel'))
                                 <span class="help-block">
@@ -215,16 +215,14 @@
                     <div class="form-group{{ $errors->has('tel2') ? ' has-error' : '' }}">
                         <label for="tel2" class="col-md-4 control-label">Téléphone secondaire</label>
                         <div class="col-md-6">
-                            <input id="tel2" type="text" class="form-control tel-mask" name="tel2"
-                                   value="{{ old('tel2',$parent->tel2) }}"
+                            <input id="tel2" type="text" class="form-control tel-mask tel-parent" name="tel2"
+                                   value="{{ old('tel2', $parent->tel2) }}"
                             >
                             <input id="ext" type="text" class="form-control tel-ext" name="ext2"
-                                   value="{{ old('ext2',$parent->ext2) }}"
+                                   value="{{ old('ext2', $parent->ext2) }}"
                                    placeholder="ext. / commentaires">
                             @if ($errors->has('tel2'))
-                                <span class="help-block">
-				<strong>{{ $errors->first('tel2') }}</strong>
-			</span>
+                                <span class="help-block"><strong>{{ $errors->first('tel2') }}</strong></span>
                             @endif
                         </div>
                     </div>

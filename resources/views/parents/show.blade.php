@@ -33,7 +33,7 @@
         <p>
             Numéro de téléphone secondaire : {{$parent->tel2}}
             @if($parent->ext2)
-                ($parent->ext2)
+                ({{$parent->ext2}})
             @endif
         </p>
     @endif

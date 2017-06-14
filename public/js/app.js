@@ -32278,7 +32278,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.add()
       }
     }
-  }, [_vm._v("Ajoutre un exercise")])], 2)
+  }, [_vm._v("Ajouter un exercise")])], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

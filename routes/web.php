@@ -72,6 +72,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('notes/edit/{note}', 'NotesController@edit');
     Route::patch('notes/edit/{note}', 'NotesController@update');
 
+    Route::get('journals/create/{dossier}', 'JournalsController@create');
+    Route::post('journals/create/{dossier}', 'JournalsController@store');
+    Route::get('journals/show/{journal}', 'JournalsController@show');
+    Route::get('journals/edit/{journal}', 'JournalsController@edit');
+    Route::patch('journals/edit/{journal}', 'JournalsController@update');
+
+
+
 });
 
 

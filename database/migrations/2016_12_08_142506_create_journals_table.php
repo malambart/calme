@@ -18,6 +18,12 @@ class CreateJournalsTable extends Migration
             $table->timestamps();
             $table->date('date');
             $table->integer('duree');
+            $table->mediumText('intervenants');
+            $table->string('modalité');
+            $table->string('modalite_autre');
+            $table->mediumText('destinataires');
+            $table->mediumText('sujet');
+            $table->mediumText('commentaires');
         });
     }
 

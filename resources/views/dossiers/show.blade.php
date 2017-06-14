@@ -32,7 +32,7 @@
                         <b>Parent participant : </b>
                     @endif
 
-                    <a href="{{url('parents/'.$parent->id.'/show')}}">{{$parent->prenom.' ('.$parent->getLien().')'}}</a>
+                    <a href="{{url('parents/show', $parent->id)}}">{{$parent->prenom.' ('.$parent->getLien().')'}}</a>
                 </p>
                 @if($parent->courriel)
                     <p>Courriel du parent : <a href="mailto:{{$parent->courriel}}">{{$parent->courriel}}</a></p>
@@ -127,7 +127,7 @@
                 <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#notes-evolutives">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Note évolutives
+                            Notes évolutives
                         </div>
                     </div>
                 </a>
@@ -139,16 +139,16 @@
                 </div>
             </div>
             <div class="panel panel-default">
-                <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#journeaux-bord">
+                <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#journaux-bord">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Journeaux de bord
+                            Journaux de bord
                         </div>
                     </div>
                 </a>
-                <div class="panel-collapse collapse" id="journeaux-bord">
+                <div class="panel-collapse collapse" id="journaux-bord">
                     <div class="panel-body">
-                       Journeaux de bord
+                       Journaux de bord
                     </div>
 
                 </div>

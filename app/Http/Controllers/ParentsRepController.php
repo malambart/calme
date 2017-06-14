@@ -49,13 +49,14 @@ class ParentsRepController extends Controller {
 
     public function edit(ParentRep $parent)
     {
-        return view('parents.edit', compact('parent'));
+        $dossier=$parent->dossier()->first();
+        return view('parents.edit', compact('parent', 'dossier'));
     }
 
     public function update(ParentRep $parent, Request $request)
     {
         $parent->update($request->all());
-        return view('Parents.show', compact('parent'));
+        return redirect(url('parents/show', $parent->id));
     }
 
     public function delete(ParentRep $parent)
