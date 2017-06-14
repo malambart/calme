@@ -84,7 +84,7 @@
                             <div class="input-group">
                                 <input required placeholder="Recherche par nom,  id,  etc..." id="name" type="text"
                                        class="form-control"
-                                       name="recherche" value="{{ old('name') }}" autofocus>
+                                       name="recherche" value="{{ old('name') }}">
                                 <span class="input-group-btn">
                     <button class="btn btn-primary">Recherche</button>
                             </span>
