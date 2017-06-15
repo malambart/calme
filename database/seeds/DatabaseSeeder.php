@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Questionnaire;
 use App\ContenuSeance;
 use App\User;
+use App\Dossier;
 
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,16 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        DB::table('dossiers')->insert([
+           'nom' => 'Lafortune',
+           'prenom' => 'Léon',
+           'nom_complet' => 'Léon Lafortune',
+           'no_doss_chus' => '0123456',
+           'date_naiss' => '2000-03-01',
+           'created_by' => 1,
+            'sexe' =>1
+        ]);
+
         $users = [
             [
                 'name' => env('USER1_NAME'),

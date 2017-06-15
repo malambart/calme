@@ -77,4 +77,8 @@ class Dossier extends Model {
         return $this->hasMany(Note::class);
     }
 
+    public function journals() {
+        return $this->hasMany(Journal::class);
+    }
+
 }

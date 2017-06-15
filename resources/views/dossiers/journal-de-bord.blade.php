@@ -1,0 +1,1 @@
+<a href="{{ url('journals/create', $dossier->id) }}" class="btn btn-primary">Ajouter une entrée</a>

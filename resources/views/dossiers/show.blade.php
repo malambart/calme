@@ -148,7 +148,7 @@
                 </a>
                 <div class="panel-collapse collapse" id="journaux-bord">
                     <div class="panel-body">
-                       Journaux de bord
+                       @include('dossiers.journal-de-bord')
                     </div>
 
                 </div>

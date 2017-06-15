@@ -79,7 +79,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::patch('journals/edit/{journal}', 'JournalsController@update');
 
 
-
 });
 
 
