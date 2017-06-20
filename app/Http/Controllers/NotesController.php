@@ -26,11 +26,10 @@ class NotesController extends Controller
             $query->where('dossier_id', $dossier->id);
            })
         ]);
-        $note=$dossier->notes()->create($request->except('exercices'));
+        $note=$dossier->notes()->create($request->except('exercises'));
 
         foreach ($request->exercises as $ex) {
-
-            if (non_empty_array($ex)) {
+            if (non_empty_array($ex, 1)) {
                 $note->exercises()->create($ex);
             }
 
@@ -73,7 +72,7 @@ class NotesController extends Controller
 
                 }
                 else {
-                    if (non_empty_array($ex)) {
+                    if (non_empty_array($ex, 1)) {
                         $note->exercises()->create($ex);
                     }
                 }

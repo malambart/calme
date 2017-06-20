@@ -18,18 +18,19 @@ function toCSL($arr = [], $casse = null) {
 }
 
 /**
- * Vérifie si un array est vide
+ * Vérifie si un array est vide. Le paramètre default sert a indiquer le nombre d'éléments non mull par défaut.
  * @param $arr
+ * @param $default
  * @return bool
  */
-function non_empty_array($arr) {
+function non_empty_array($arr, $default = 0) {
     $el = 0;
-    foreach ($arr as $k) {
-        if(!is_null($k)) {
-            $el = $el++;
+    foreach ($arr as $value) {
+        if(!is_null($value)) {
+            $el = $el+1;
         }
     }
-    if ($el >= 1) {
+    if ($el >= 1+$default) {
         return true;
     }
     else {
