@@ -5,14 +5,14 @@
     <a class="btn btn-primary pull-right" href="{{ url('/notes/edit', $note->id) }}">Éditer</a>
 @endsection
 @section('body')
-    <div class="info">Date: {{$note->date}}</div>
-    <div class="info">Personne présentes:
+    <div class="info"><span class="titre">Date : </span>{{$note->date}}</div>
+    <div class="info"><span class="titre">Personnes présentes :</span>
         @if($note->presence)
             {{toCSL($note->presence)}}
         @endif
     </div>
-    <h1>Retour sur les exercises</h1>
     @if(count($note->exercises)>=1)
+        <h1>Retour sur les exercises</h1>
         @foreach($note->exercises as $e)
             <div class="well">
                 <div>{{ $e->nom }}</div>
@@ -22,7 +22,11 @@
             </div>
         @endforeach
     @endif
-    <div class="info">Évaluation du comportement du jeune pendant la séance :</div>
+    <div class="info">
+        <span class="titre">
+            Évaluation du comportement du jeune pendant la séance :
+        </span>
+    </div>
     <ul>
         @if($note->comportement)
             @foreach($note->comportement as $c)
@@ -30,7 +34,10 @@
             @endforeach
         @endif
     </ul>
-    <div class="info">Contenu abordé dans la séance</div>
+    <div class="info">
+        <span class="titre">
+            Contenus abordé dans la séance :
+        </span></div>
     <ul>
         @if($note->contenu)
             @foreach($note->contenu as $c)
@@ -41,9 +48,14 @@
             @endforeach
         @endif
     </ul>
-    <div class="info">Commentaires :</div>
+    <div class="info">
+        <span class="titre">Commentaires :</span>
+    </div>
     <div class="info">{{$note->commentaires}}</div>
-    <div class="info">Date de la prochaine rencontre: {{$note->prochaine_rencontre}}</div>
+    <div class="info">
+        <span class="titre">Date de la prochaine rencontre :</span>
+        {{$note->prochaine_rencontre}}
+    </div>
 
 
 

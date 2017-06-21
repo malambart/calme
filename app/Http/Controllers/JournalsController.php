@@ -53,9 +53,10 @@ class JournalsController extends Controller
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function show(Dossier $dossier, Journal $journal)
+    public function show(Journal $journal)
     {
-        //
+        $dossier = $journal->dossier;
+        return view('journals.show', compact('dossier', 'journal'));
     }
 
     /**
@@ -65,9 +66,10 @@ class JournalsController extends Controller
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dossier $dossier, Journal $journal)
+    public function edit(Journal $journal)
     {
-        //
+        $dossier = $journal->dossier;
+        return view('journals/edit', compact('dossier', 'journal'));
     }
 
     /**
@@ -78,9 +80,13 @@ class JournalsController extends Controller
      * @param  \App\Journal  $journal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dossier $dossier, Journal $journal)
+    public function update(Request $request, Journal $journal)
     {
-        //
+        $this->validate($request, [
+            'date' => 'required'
+        ]);
+        $journal->update($request->all());
+        return redirect(url('journals/show', $journal->id));
     }
 
     /**

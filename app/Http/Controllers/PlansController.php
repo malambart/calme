@@ -29,12 +29,13 @@ class PlansController extends Controller {
 
     public function store($section, Plan $plan, Request $request)
     {
+        //dd($request->all());
         $donnees = $request->all();
         $rules = [];
         if ($section == 2) {
             $rules = [
-                'date_eval' => 'Date',
-                'reference' => 'Date',
+                'date_eval' => 'nullable|Date',
+                'reference' => 'nullable|Date',
                 'new_diagnostic' => 'in:""',
                 'new_medicament' => 'in:""'
             ];
@@ -53,7 +54,7 @@ class PlansController extends Controller {
         }
         if ($section == 8 ){
             $rules=[
-                'impressions.*.score_severite'=> 'numeric|min:0|max:100'
+                'impressions.*.score_severite'=> 'nullable|numeric|min:0|max:100'
             ];
         }
 
