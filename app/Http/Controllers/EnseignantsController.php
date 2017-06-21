@@ -27,7 +27,7 @@ class EnseignantsController extends Controller {
     {
         //$this->validate($request, ['prenom'=>'required', 'nom'=>'required', 'ecole_id'=>'required']);
         //On cherche si un enseignant du même nom existe déjà...
-        $this->validate($request,['ecole_id'=>'required','prenom'=>'required','nom'=>'required', 'courriel'=>'email']);
+        $this->validate($request,['ecole_id'=>'required','prenom'=>'required','nom'=>'required', 'courriel'=>'nullable|email']);
         //dd($request->all());
         $enseignant = Enseignant::where('nom', $request->nom)->where('prenom', $request->prenom)->where('ecole_id',$request->ecole_id)->first();
         if ($enseignant) {

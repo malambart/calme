@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 57);
+/******/ 	return __webpack_require__(__webpack_require__.s = 51);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -528,7 +528,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(40)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
 
 /***/ }),
 /* 3 */
@@ -832,9 +832,9 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(36);
+__webpack_require__(34);
 
-window.Vue = __webpack_require__(55);
+window.Vue = __webpack_require__(49);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -842,10 +842,11 @@ window.Vue = __webpack_require__(55);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(41));
-Vue.component('list-input', __webpack_require__(45));
-Vue.component('sub-form', __webpack_require__(47));
-Vue.component('exercises', __webpack_require__(43));
+Vue.component('example', __webpack_require__(39));
+Vue.component('list-input', __webpack_require__(41));
+Vue.component('sub-form', __webpack_require__(43));
+Vue.component('exercises', __webpack_require__(40));
+Vue.component('list-med', __webpack_require__(42));
 
 /*const app = new Vue({
     el: '#app'
@@ -1728,8 +1729,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 30 */,
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 //
@@ -1811,8 +1811,67 @@ module.exports = {
 };
 
 /***/ }),
-/* 32 */,
-/* 33 */
+/* 31 */
+/***/ (function(module, exports) {
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+module.exports = {
+    props: ['name', 'titre', 'tip', 'inputname', 'items', 'value'],
+    created: function created() {
+        var items = [];
+        if (this.items !== "null") {
+            items = JSON.parse(this.items);
+        }
+        this.list = items;
+    },
+    data: function data() {
+        return {
+            list: [],
+            new_input: this.value
+        };
+    },
+    methods: {
+        add: function add() {
+            var value = this.new_input && this.new_input.trim();
+
+            if (!value) {
+                return;
+            } else if (jQuery.inArray(value, this.list) != -1) {
+                alert('Cet élément a déjà été entré.');
+            } else {
+                this.list.push(value);
+                this.new_input = '';
+            }
+        },
+        deleteItem: function deleteItem(item) {
+            this.list.splice(this.list.indexOf(item), 1);
+        }
+    }
+};
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports) {
 
 //
@@ -1838,37 +1897,86 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 module.exports = {
-    props: ['name', 'titre', 'tip'],
+    props: ['name', 'inputname', 'items', 'value', 'old_med', 'old_posologie', 'old_unit'],
+    created: function created() {
+        var items = [];
+        if (this.items !== 'null') {
+            items = JSON.parse(this.items);
+        }
+        this.medication = items;
+        if (this.old_unit !== "") {
+            this.new_unit = this.old_unit;
+        }
+    },
     data: function data() {
         return {
-            list: [],
-            new_input: ''
+            medication: [],
+            new_medicament: this.old_med,
+            new_posologie: this.old_posologie,
+            new_unit: 'mg/jour'
         };
     },
     methods: {
-        add: function add() {
-            var value = this.new_input && this.new_input.trim();
+        addMedicament: function addMedicament() {
+            var med = this.new_medicament && this.new_medicament.trim();
+            if (!med) {}
+            //TODO Voir pourquoi ce else if ne marche pas...
+            else if (jQuery.inArray(med, this.medication) !== -1) {
+                    alert('Cet élément a déjà été entré.');
+                } else {
+                    var med_string = med;
+                    if (this.new_posologie !== '') {
+                        med_string = med + ' - ' + this.new_posologie + ' ' + this.new_unit;
+                    }
 
-            if (!value) {
-                return;
-            } else if (jQuery.inArray(value, this.list) != -1) {
-                alert('Cet élément a déjà été entré.');
-            } else {
-                this.list.push(value);
-                this.new_input = '';
-            }
+                    this.medication.push({
+                        nom: med,
+                        posologie: this.new_posologie,
+                        unit: this.new_unit,
+                        med_string: med_string });
+                    this.new_medicament = '';
+                    this.new_posologie = '';
+                    this.new_unit = 'mg/jour';
+                }
         },
-        deleteItem: function deleteItem(item) {
-            this.list.splice(this.list.indexOf(item), 1);
+        deleteMedicament: function deleteMedicament(medicament) {
+            this.medication.splice(this.medication.indexOf(medicament), 1);
         }
     }
 };
 
 /***/ }),
-/* 34 */,
-/* 35 */
+/* 33 */
 /***/ (function(module, exports) {
 
 //
@@ -1906,11 +2014,11 @@ module.exports = {
 };
 
 /***/ }),
-/* 36 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(39);
+window._ = __webpack_require__(37);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1919,9 +2027,9 @@ window._ = __webpack_require__(39);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(38);
+  window.$ = window.jQuery = __webpack_require__(36);
 
-  __webpack_require__(37);
+  __webpack_require__(35);
 } catch (e) {}
 
 /**
@@ -1951,7 +2059,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 /***/ }),
-/* 37 */
+/* 35 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4334,7 +4442,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 38 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14594,7 +14702,7 @@ return jQuery;
 
 
 /***/ }),
-/* 39 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31683,10 +31791,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(56)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(50)(module)))
 
 /***/ }),
-/* 40 */
+/* 38 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -31876,14 +31984,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 41 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(29),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(45),
   /* scopeId */
   null,
   /* cssModules */
@@ -31910,15 +32018,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 42 */,
-/* 43 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(31),
+  __webpack_require__(30),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(48),
   /* scopeId */
   null,
   /* cssModules */
@@ -31945,15 +32052,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */,
-/* 45 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(33),
+  __webpack_require__(31),
   /* template */
-  __webpack_require__(48),
+  __webpack_require__(44),
   /* scopeId */
   null,
   /* cssModules */
@@ -31980,15 +32086,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 46 */,
-/* 47 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(32),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(46),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/laff3601/Projets/calme/resources/assets/js/components/list-med.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] list-med.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-20a5b6ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-20a5b6ea", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(33),
+  /* template */
+  __webpack_require__(47),
   /* scopeId */
   null,
   /* cssModules */
@@ -32015,7 +32154,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 48 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32037,7 +32176,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": _vm.name,
       "type": "text",
-      "name": _vm.name,
+      "name": _vm.inputname,
       "placeholder": _vm.tip
     },
     domProps: {
@@ -32059,7 +32198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.list), function(item) {
     return _c('li', {
       staticClass: "list-group-item"
-    }, [_vm._v("\n            " + _vm._s(item) + "\n\n            "), _c('button', {
+    }, [_vm._v("\n            " + _vm._s(item) + "\n            "), _c('button', {
       staticClass: "btn btn-danger btn-xs pull-right",
       attrs: {
         "type": "button"
@@ -32091,7 +32230,7 @@ if (false) {
 }
 
 /***/ }),
-/* 49 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32120,9 +32259,173 @@ if (false) {
 }
 
 /***/ }),
-/* 50 */,
-/* 51 */,
-/* 52 */
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "form-group clearfix"
+  }, [_c('label', {
+    staticClass: "control-label dual-input-label"
+  }, [_vm._v("Médication")]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6 dual-input-input"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.new_medicament),
+      expression: "new_medicament"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "new_medicament",
+      "placeholder": "Nom du médicament",
+      "id": "medicament",
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.new_medicament)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.new_medicament = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2 dual-input-input"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.new_posologie),
+      expression: "new_posologie"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "number",
+      "name": "new_posologie",
+      "placeholder": "Posologie",
+      "id": "posologie"
+    },
+    domProps: {
+      "value": (_vm.new_posologie)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.new_posologie = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2 dual-input-input"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.new_unit),
+      expression: "new_unit"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "new_unit",
+      "id": "input"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.new_unit = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "mg/jour",
+      "selected": ""
+    }
+  }, [_vm._v("\n                    mg/jour\n                ")])])]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.addMedicament($event)
+      }
+    }
+  }, [_vm._v("Ajouter")])]), _vm._v(" "), _c('ul', {
+    staticClass: "list-group"
+  }, _vm._l((_vm.medication), function(medicament) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_vm._v("\n            " + _vm._s(medicament.med_string) + "\n"), _c('button', {
+      staticClass: "btn btn-danger btn-xs pull-right",
+      attrs: {
+        "type": "button"
+      },
+      on: {
+        "click": function($event) {
+          _vm.deleteMedicament(medicament)
+        }
+      }
+    }, [_vm._v("X")])])
+  })), _vm._v(" "), _vm._l((_vm.medication), function(medicament) {
+    return _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": _vm.name + '[' + _vm.medication.indexOf(medicament) + ']' + '[nom]'
+      },
+      domProps: {
+        "value": medicament.nom
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.medication), function(medicament) {
+    return _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": _vm.name + '[' + _vm.medication.indexOf(medicament) + ']' + '[posologie]'
+      },
+      domProps: {
+        "value": medicament.posologie
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.medication), function(medicament) {
+    return _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": _vm.name + '[' + _vm.medication.indexOf(medicament) + ']' + '[unit]'
+      },
+      domProps: {
+        "value": medicament.unit
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.medication), function(medicament) {
+    return _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": _vm.name + '[' + _vm.medication.indexOf(medicament) + ']' + '[med_string]'
+      },
+      domProps: {
+        "value": medicament.med_string
+      }
+    })
+  })], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-20a5b6ea", module.exports)
+  }
+}
+
+/***/ }),
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32162,7 +32465,7 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32297,8 +32600,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */,
-/* 55 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41996,7 +42298,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 56 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42024,7 +42326,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 57 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);

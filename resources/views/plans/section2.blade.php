@@ -1,10 +1,3 @@
-<!--
- * Created by PhpStorm.
- * Project: calme
- * User: laff3601
- * Date: 24/02/17
- * Time: 15:25
--->
 
 @extends('layouts.row')
 @section('panel-heading')
@@ -35,28 +28,21 @@
         		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('new_diagnostic') ? ' has-error' : '' }}">
-                <label for="new_diagnostic" class=" control-label">Troubles anxieux retenus</label>
-                <input name="new_diagnostic" value="{{old('new_diagnostic')}}"
-                       placeholder="Entrer un trouble anxieux et appuyez sur Enter" id="diagnostic" type="text"
-                       class="form-control" v-model="new_diag" @keydown.enter.prevent="addDiag">
+
+            <div class="{{ $errors->has('new_diagnostic') ? ' has-error' : '' }}">
+                <list-input name="diagnostics"
+                            titre="Troubles anxieux retenus"
+                            tip="Entrez un trouble anxieux et appuyer sur Enter"
+                            inputname="new_diagnostic"
+                            items="{{ json_encode($plan->diagnostics) }}"
+                            value="{{old('new_diagnostic')}}"
+                ></list-input>
                 @if ($errors->has('new_diagnostic'))
                     <span class="help-block">
         		    <strong>Ce diagnostic n'a pas été soumis.</strong>
         		</span>
                 @endif
             </div>
-            <ul class="list-group">
-                <li v-for="diagnostic in diagnostics" class="list-group-item">
-                    @{{ diagnostic }}
-                    <button @click="deleteDiagnostic(diagnostic)" type="button" class="btn btn-danger btn-xs pull-right"
-                    >X</button>
-                </li>
-            </ul>
-            <input v-for="diagnostic in diagnostics"
-                   type="hidden"
-                   v-bind:value="diagnostic"
-                   v-bind:name="'diagnostics['+diagnostics.indexOf(diagnostic)+']'">
             <div class="form-group{{ $errors->has('autres') ? ' has-error' : '' }}">
                 <label for="autres" class=" control-label">Autres</label>
                 <input id="autres" type="text" class="form-control" name="autres"
@@ -67,54 +53,19 @@
         		</span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('new_medicament') ? ' has-error' : '' }} clearfix">
-                <label class="control-label dual-input-label">Médication</label>
-                <div class="col-md-6 dual-input-input">
-                    <input name="new_medicament" value="{{old('new_medicament')}}" placeholder="Nom du médicament"
-                           id="medicament"
-                           type="text"
-                           class="form-control" v-model="new_medicament">
-                </div>
-                <div class="col-md-2 dual-input-input">
-                    <input type="number" name="new_posologie" value="{{old('new_posologie')}}" placeholder="Posologie"
-                           id="posologie" class="form-control" v-model="new_posologie">
-                </div>
-                <div class="col-md-2 dual-input-input">
-                    <select name="new_unit" id="input" class="form-control" v-model="new_unit">
-                        <option value="mg/jour">
-                            mg/jour
-                        </option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" @click.prevent="addMedicament">Ajouter</button>
 
+            <div class="{{ $errors->has('new_medicament') ? ' has-error' : '' }} clearfix">
+                <list-med
+                        name="medication"
+                        items="{{old('medication', json_encode($plan->medication))}}"
+                        old_med="{{ old('new_medicament') }}"
+                        old_posologie="{{ old('new_posologie') }}"
+                        old_unit="{{ old('new_unit') }}"
+                ></list-med>
                 @if ($errors->has('new_medicament'))
                     <span class="help-block"><strong>Le médicament n'a pas été soumis.</strong></span>
                 @endif
             </div>
-            <ul class="list-group">
-                <li v-for="medicament in medication" class="list-group-item">
-                    @{{ medicament.med_string }}
-                    <button @click="deleteMedicament(medicament)" type="button" class="btn btn-danger btn-xs pull-right"
-                    >X</button>
-                </li>
-            </ul>
-            <input v-for="medicament in medication"
-                   type="hidden"
-                   v-bind:value="medicament.nom"
-                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[nom]'">
-            <input v-for="medicament in medication"
-                   type="hidden"
-                   v-bind:value="medicament.posologie"
-                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[posologie]'">
-            <input v-for="medicament in medication"
-                   type="hidden"
-                   v-bind:value="medicament.unit"
-                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[unit]'">
-            <input v-for="medicament in medication"
-                   type="hidden"
-                   v-bind:value="medicament.med_string"
-                   v-bind:name="'medication['+medication.indexOf(medicament)+']'+'[med_string]'">
             <div class="form-group{{ $errors->has('reference') ? ' has-error' : '' }}">
                 <label for="reference" class=" control-label">Date de la référence au module Calme<span
                             class="tip">(aaaa-mm-jj)</span></label>
@@ -139,6 +90,9 @@
     </div>
 @endsection
 @section('script')
-
-    @include('partials.js.section2')
+    <script>
+        vm = new Vue({
+            el: '#app',
+        })
+    </script>
 @endsection

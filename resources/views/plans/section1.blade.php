@@ -1,9 +1,3 @@
-<!--
- * Created by PhpStorm.
- * User: laff3601
- * Date: 24/02/17
- * Time: 10:13
--->
 
 @extends('layouts.row')
 @section('panel-heading')

@@ -8,8 +8,8 @@ use App\Updater;
 use App\Dossier;
 
 
-
-class Plan extends Model {
+class Plan extends Model
+{
     use Updater;
     Use RecordsActivity;
     protected $fillable = [
@@ -75,31 +75,16 @@ class Plan extends Model {
     }
 
     public function impressions()
-        {
-            return $this->hasMany(Impression::class);
-        }
-
-    public static function sanitize($request)
     {
-        $numeric = [
-            'nb_enfants',
-            'date_eval',
-            'reference',
-            'ante_med',
-            'ante_bilan',
-            'antefam_med',
-            'antefam_psy',
-            'ante_bilan_date',
-            'plan_intervention_scolaire',
-            'lie_anxiete',
-            'traitement_pharmaco'
-        ];
-        foreach ($request as $element => $value) {
-            if (in_array($element, $numeric) && $value == "")
-                $request[$element] = null;
-        }
-        return $request;
+        return $this->hasMany(Impression::class);
     }
+
+    protected $casts =[
+            'diagnostics' => 'array',
+            'medication' => 'array',
+            'objectifs' => 'array',
+            'pharmaco_list' => 'array',
+        ];
 
 
 }

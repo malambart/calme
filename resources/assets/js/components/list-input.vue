@@ -2,13 +2,12 @@
     <div>
         <div class="form-group">
             <label v-bind:for="name" class="control-label">{{titre}}</label>
-            <input v-bind:id="name" type="text" class="form-control" v-bind:name="name" v-model="new_input" v-bind:placeholder='tip'
+            <input v-bind:id="name" type="text" class="form-control" :name="inputname" v-model="new_input" v-bind:placeholder='tip'
                    @keydown.enter.prevent="add">
         </div>
         <ul class="list-group">
             <li v-for="item in list" class="list-group-item">
                 {{ item }}
-
                 <button @click="deleteItem(item)" type="button" class="btn btn-danger btn-xs pull-right"
                 >X
                 </button>
@@ -20,14 +19,20 @@
                v-bind:name="name+'['+list.indexOf(item)+']'">
     </div>
 </template>
-
 <script>
     module.exports = {
-        props: ['name', 'titre', 'tip'],
+        props: ['name', 'titre', 'tip', 'inputname', 'items', 'value'],
+        created: function() {
+          var items = [];
+          if(this.items !== "null") {
+              items = JSON.parse(this.items);
+          }
+          this.list=items;
+        },
         data: function () {
             return {
                 list: [],
-                new_input: ''
+                new_input: this.value
             }
         },
         methods: {

@@ -37,20 +37,10 @@ class PlansController extends Controller {
                 'date_eval' => 'nullable|Date',
                 'reference' => 'nullable|Date',
                 'new_diagnostic' => 'in:""',
-                'new_medicament' => 'in:""'
+                'new_medicament' => 'in:""',
+                'new_input' => 'in:""',
             ];
-            if (isset($donnees['diagnostics'])) {
-                $donnees['diagnostics'] = json_encode($donnees['diagnostics']);
-            }
-            else {
-                $donnees['diagnostics'] = null;
-            }
-            if (isset($donnees['medication'])) {
-                $donnees['medication'] = json_encode($donnees['medication']);
-            }
-            else {
-                $donnees['medication'] = null;
-            }
+
         }
         if ($section == 8 ){
             $rules=[
@@ -113,18 +103,8 @@ class PlansController extends Controller {
             }
         }
 
-        if ($section==9) {
 
-            if (isset($donnees['objectifs'])) {
-                $donnees['objectifs']=json_encode($donnees['objectifs']);
-            }
-
-            if (isset($donnees['pharmaco_liste'])) {
-                $donnees['pharmaco_liste']=json_encode($donnees['pharmaco_liste']);
-            }
-        }
-
-        $plan->update(Plan::sanitize($donnees));
+        $plan->update($donnees);
         $section = ++$section;
         $dossier = $plan->dossier()->first();
         if($section<10) {

@@ -142,7 +142,7 @@
                 <a class="menu-link" data-toggle="collapse" data-parent="#accordion" href="#journaux-bord">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Journaux de bord
+                            Journal de bord
                         </div>
                     </div>
                 </a>

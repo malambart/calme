@@ -11,15 +11,15 @@
         <div class="ligne-rapport"><span>Date de l'évaluation : </span>{{$plan->date_eval}}</div>
         <div class="ligne-rapport"><span>Pédopsychiatre : </span>{{$plan->pedopsy}}</div>
         <div class="ligne-rapport"><span>Troubles anxieux retenus :
-            @if($plan->diagnostic)
-                </span>{{strtolower(implode(', ', json_decode($plan->diagnostics)))}}
+            @if($plan->diagnostics)
+                {{toCSL($plan->diagnostics, 'min')}}
             @endif
         </div>
         <div class="ligne-rapport"><span>Autres : </span>{{$plan->autres}}</div>
         <div class="ligne-rapport"><span>Médication :</span>
             @if($plan->medication)
                 <ul>
-                    @foreach((array_column(json_decode($plan->medication), 'med_string')) as $med)
+                    @foreach((array_column($plan->medication, 'med_string')) as $med)
                         <li>
                             {{$med}}
                         </li>
