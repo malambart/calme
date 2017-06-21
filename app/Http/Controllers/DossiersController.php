@@ -52,8 +52,7 @@ class DossiersController extends Controller
 
             if ($tm == 1) {
                 $date = $request->premiere_seance;
-            }
-            elseif ($tm == 2) {
+            } elseif ($tm == 2) {
                 $date = $request->bilan_final;
             }
 
@@ -65,7 +64,14 @@ class DossiersController extends Controller
             foreach ($questionnaires as $q) {
                 $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
                 $token = $mesure->id . $q->ls_id . str_random(12);
-                DB::connection('ls')->insert('insert into ' . $table . ' (firstname, lastname, token) values (?, ?, ?)', [$mesure->temps, $mesure->id, $token]);
+                DB::connection('ls')->insert('insert into ' . $table . ' (attribute_1, attribute_2, firstname, lastname, token) values (?, ?, ?, ?, ?)',
+                    [
+                        $mesure->temps,
+                        $mesure->id,
+                        $dossier->prenom,
+                        $dossier->nom,
+                        $token]
+                );
                 $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
             }
 
@@ -83,7 +89,7 @@ class DossiersController extends Controller
     {
         $dossier->load('mesures');
         $enseignant = $dossier->currentEnseignant();
-        $plan=$dossier->plan()->first();
+        $plan = $dossier->plan()->first();
         return view('dossiers.show', compact('dossier', 'enseignant', 'plan'));
     }
 
@@ -98,10 +104,10 @@ class DossiersController extends Controller
         $this->validate($request, ['recherche' => 'required']);
         //dd($request->recherche);
 
-        $results=DB::table('dossiers')
-            -> whereRaw("MATCH (nom, prenom, no_doss_chus) AGAINST ('$request->recherche')")
-            -> orWhere('id', $request->recherche)
-            -> where('deleted_at', null)
+        $results = DB::table('dossiers')
+            ->whereRaw("MATCH (nom, prenom, no_doss_chus) AGAINST ('$request->recherche')")
+            ->orWhere('id', $request->recherche)
+            ->where('deleted_at', null)
             ->get();
 
         if ($results->count() == 1) {
