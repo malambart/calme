@@ -124,7 +124,7 @@
         <div class="ligne-rapport"><span>Objectifs : </span>
             @if($plan->objectifs)
             <ul>
-                @foreach(json_decode($plan->objectifs) as $obj)
+                @foreach($plan->objectifs as $obj)
                     <li>{{$obj}}</li>
                 @endforeach
             </ul>
@@ -140,7 +140,7 @@
         @if ($plan->traitement_pharmaco==1)
             <div class="ligne-rapport"><span>Médicaments : </span>
                 <ul>
-                    @foreach((array_column(json_decode($plan->pharmaco_liste), 'med_string')) as $med)
+                    @foreach((array_column($plan->pharmaco_liste, 'med_string')) as $med)
                         <li>
                             {{$med}}
                         </li>
