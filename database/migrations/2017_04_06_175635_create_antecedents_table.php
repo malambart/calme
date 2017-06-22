@@ -17,10 +17,10 @@ class CreateAntecedentsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
-            $table->string('fam_perso');
-            $table->string('type');
-            $table->string('antecedent');
-            $table->string('motifs');
+            $table->string('fam_perso')->nullable();
+            $table->string('type')->nullable();
+            $table->string('antecedent')->nullable();
+            $table->string('motifs')->nullable();
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')
                 ->references('id')
