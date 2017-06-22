@@ -24,6 +24,16 @@ class Mesure extends Model
 		return $this->hasMany(Token::class);
 	}
 
+    public function ete()
+	{
+        // On vérifie si la date est en été, donc pas de questionnaire enseignant
+        $ete = false;
+        if ($this->date->month >= 7 && $this->date->month < 10){
+            $ete = true;
+        }
+        return $ete;
+	}
+
 	public function qCompleted()
 	{
 		$count=0;
@@ -35,6 +45,9 @@ class Mesure extends Model
 			$deno=$questionnaires->count();
 			// Pour les jeunes agés de moins de 8 ans au T1, le questionanire jeune n'est pas administré.
             if ($this->age<8) {
+                $deno=$deno-1;
+            }
+            if ($this->ete()) {
                 $deno=$deno-1;
             }
 		}

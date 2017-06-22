@@ -55,13 +55,8 @@
             </div>
             <div class="form-group{{ $errors->has('date_premiere_seance') ? ' has-error' : '' }}"
                  v-show="retenu=='Retenu(e)'">
-                <p style="color:red;">Cette information est déjà entrée à la création du dossier...</p>
                 <label for="date_premiere_seance" class=" control-label">Date de la première séance<span class="tip">(aaaa-mm-jj)</span></label>
-                <input id="date_premiere_seance" type="date" class="form-control datepicker" name="date_premiere_seance"
-                       value="{{ old('date_premiere_seance', $premiere_seance->date->toDateString()) }}">
-                @if ($errors->has('date_premiere_seance'))
-                    <span class="help-block"><strong>{{ $errors->first('date_premiere_seance') }}</strong></span>
-                @endif
+                <div>{{$premiere_seance->date->toDateString()}}</div>
             </div>
             <div class="form-group{{ $errors->has('suivi') ? ' has-error' : '' }}">
                 <label for="suivi" class="control-label">Suivi</label>

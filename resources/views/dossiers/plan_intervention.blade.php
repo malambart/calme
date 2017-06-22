@@ -111,7 +111,7 @@
         </ul>
         <div class="ligne-rapport"><span>Autre(s) : </span>{{$plan->impressions_autres}}</div>
         <hr>
-        <h1>Recommendations concernant l'enfant</h1>
+        <h1>Recommandations concernant l'enfant</h1>
         <div class="ligne-rapport"><span>Retenu : </span>{{$plan->retenu}}</div>
         @if ($plan->retenu=="Retenu(e)")
             <div class="ligne-rapport"><span>Date de la première séance : </span>{{$dossier->mesures->where('temps', 1)->first()->date->toDateString()}}</div>
@@ -150,7 +150,7 @@
                 </ul>
             </div>
         @endif
-        <div class="ligne-rapport"><span>Recommendations concernant les parents ou la famille : </span>{{$plan->recommendations}}</div>
+        <div class="ligne-rapport"><span>Recommandations concernant les parents ou la famille : </span>{{$plan->recommendations}}</div>
     </div>
     <a href="{{url('plans/1',$dossier->id)}}" class="btn btn-primary">Éditer le plan d'intervention</a>
 @endif

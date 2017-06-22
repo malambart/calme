@@ -40,7 +40,13 @@ class mesuresController extends Controller {
 
     public function show(Mesure $mesure)
     {
-        return view('mesures.show', compact('mesure'));
+        $ete = $mesure->ete();
+        // On vérifie si un enseignant existe
+        $hasEN = false;
+        if ($mesure->dossier->currentEnseignant()) {
+            $hasEN=true;
+        }
+        return view('mesures.show', compact('mesure', 'hasEN', 'ete'));
     }
 
     public function ajoutDate(Mesure $mesure)

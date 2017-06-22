@@ -1,13 +1,13 @@
 @extends('layouts.row')
 @section('panel-heading')
-    <h1>{{$mesure->dossier->prenom.' '.$mesure->dossier->nom.': temps '.$mesure->temps}}</h1>
+    <h1><a href="{{ $mesure->dossier->baseURL() }}">{{$mesure->dossier->prenom.' '.$mesure->dossier->nom}}</a>{{': temps '.$mesure->temps}}</h1>
     <a href="{{url('mesures/edit', $mesure->id)}}" class="btn btn-primary pull-right">Éditer</a>
 @endsection
 @section('body')
     <div class="list-group">
         @foreach($mesure->getTokens() as $q)
             @if($q->rep=="PA" && !$mesure->dossier->hasRepondant())
-            @elseif($q->rep=="EN" && !$mesure->dossier->currentEnseignant())
+            @elseif($q->rep=="EN" && ($ete || !$hasEN))
             @elseif($q->rep=="JE" && $mesure->age<8)
             @elseif($q->isCompleted()=="N")
                 <a class="list-group-item"
@@ -28,7 +28,7 @@
                 répondant</a>
         </div>
     @endif
-    @if(!$mesure->dossier->exclu && !$mesure->dossier->currentEnseignant())
+    @if(!$mesure->dossier->exclu && !$hasEN && !$ete)
         <div class="alert alert-warning">
             L'enseignant n'a pas été ajouté
             <a class="alert-link" href="{{url('enseignants/create',$mesure->dossier->id)}}">Ajouter un enseignant
@@ -45,7 +45,7 @@
             Les questionnaires parent et enseignant n'ont pas été générés, puisque le jeune est exclu de l'étude.
         </div>
     @endif
-    @if($mesure->date->month >= 7 && $mesure->date->month < 10)
+    @if($ete)
         <div class="alert alert-info">
             Le questionnaire enseignant n'a pas été généré, puisque la première séance a lieu entre le mois de juillet
             et d'octobre.
