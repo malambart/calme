@@ -96,11 +96,11 @@
                     Dernier diplôme obtenu
                 </label>
                 <div class="radio col-md-6">
-                    <label><input type="radio" name="scolarite" value="DES nom terminé"
+                    <label><input type="radio" name="scolarite" value="DES non terminé"
                                   @if(old('scolarite')=="DES non terminé")
                                   checked
                                 @endif
-                        >Des nom terminé</label>
+                        >DES non terminé</label>
                 </div>
                 <div class="radio col-md-6 col-md-offset-4">
                     <label><input type="radio" name="scolarite" value="DES"
