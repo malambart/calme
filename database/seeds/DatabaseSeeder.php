@@ -50,6 +50,13 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt(env('USER3_PASSWORD')),
                 'created_by' => 1
             ],
+            [
+                'name' => env('USER4_NAME'),
+                'role' => env('USER4_ROLE'),
+                'email' => env('USER4_EMAIL'),
+                'password' => bcrypt(env('USER4_PASSWORD')),
+                'created_by' => 1
+            ],
         ];
         
 
