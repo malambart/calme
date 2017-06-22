@@ -100,7 +100,7 @@
                     <span class="help-block"><strong>{{ $errors->first('ante_bilan') }}</strong></span>
                 @endif
             </div>
-            <div class="form-group{{ $errors->has('ante_bilan_date') ? ' has-error' : '' }}" v-show="ante_bilan">
+            <div class="form-group{{ $errors->has('ante_bilan_date') ? ' has-error' : '' }}" v-show="ante_bilan == 1">
                 <label for="ante_bilan_date" class=" control-label">Date du dernier bilan sanguin<span class="tip">(aaaa-mm-jj)</span></label>
                 <input id="ante_bilan_date" type="date" class="form-control datepicker" name="ante_bilan_date"
                        value="{{ old('ante_bilan_date', $plan->ante_bilan_date) }}">

@@ -1,13 +1,13 @@
 <script type="text/javascript">
     var oldObjectifs = [];
     @if($plan->objectifs != '')
-        @foreach(json_decode($plan->objectifs) as $objectif)
+        @foreach($plan->objectifs as $objectif)
             oldObjectifs.push('{{$objectif}}');
     @endforeach
             @endif
     var oldMedication = [];
     @if($plan->pharmaco_liste != '')
-    @foreach(json_decode($plan->pharmaco_liste) as $med)
+    @foreach($plan->pharmaco_liste as $med)
         oldMedication.push({
         nom: '{{$med->nom}}',
         posologie: '{{$med->posologie}}',
