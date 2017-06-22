@@ -140,11 +140,13 @@
         @if ($plan->traitement_pharmaco==1)
             <div class="ligne-rapport"><span>Médicaments : </span>
                 <ul>
+                    @if($plan->pharmaco_list)
                     @foreach((array_column($plan->pharmaco_liste, 'med_string')) as $med)
                         <li>
                             {{$med}}
                         </li>
                     @endforeach
+                    @endif
                 </ul>
             </div>
         @endif
