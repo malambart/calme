@@ -83,7 +83,7 @@ class Plan extends Model
             'diagnostics' => 'array',
             'medication' => 'array',
             'objectifs' => 'array',
-            'pharmaco_list' => 'array',
+            'pharmaco_liste' => 'array',
         ];
 
 

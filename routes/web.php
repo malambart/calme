@@ -79,7 +79,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('journals/edit/{journal}', 'JournalsController@edit');
     Route::patch('journals/edit/{journal}', 'JournalsController@update');
 
-
+    Route::get('downloads/selection', 'DownloadsController@formulaire');
+    Route::post('downloads/getfile', 'DownloadsController@getFile');
 });
 
 

@@ -34,6 +34,9 @@
                                 <span class="caret"></span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url('/downloads/selection') }}">Télécharger les données</a>
+                        </li>
                     @endif
                 </ul>
         @endif
