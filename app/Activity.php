@@ -15,4 +15,9 @@ class Activity extends Model
         'user_id',
         'backup'
         ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

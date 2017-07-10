@@ -3,9 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Updater;
-use App\ParentRep;
-use App\Enseignant;
 use App\PlanInterventions\Plan;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;

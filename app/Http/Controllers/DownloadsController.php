@@ -16,6 +16,7 @@ class DownloadsController extends Controller
             ['Parents', 'parents'],
             ['Plans d\'intervention', 'plans'],
             ['Plans d\'intervention - partenaires', 'partenaires'],
+            ['Plans d\'intervention - antécédent', 'antecedents'],
             ['Écoles', 'ecoles'],
             ['Enseignants', 'enseignants'],
             ['Dossier-enseignant', 'dossier_enseignant'],

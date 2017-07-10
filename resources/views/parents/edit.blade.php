@@ -129,11 +129,11 @@
                         >DEC général ou technique</label>
                 </div>
                 <div class="radio col-md-6 col-md-offset-4">
-                    <label><input type="radio" name="scolarite" value="1er cycle universitaite"
-                                  @if(old('scolarite',$parent->scolarite)=="1er cycle universitaite")
+                    <label><input type="radio" name="scolarite" value="1er cycle universitaire"
+                                  @if(old('scolarite',$parent->scolarite)=="1er cycle universitaire")
                                   checked
                                 @endif
-                        >1er cycle universitaite</label>
+                        >1er cycle universitaire</label>
                 </div>
                 <div class="radio col-md-6 col-md-offset-4">
                     <label><input type="radio" name="scolarite" value="2e cycle universitaire"

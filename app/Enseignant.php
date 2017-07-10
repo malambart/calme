@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Updater;
-use App\Dossier;
 
 class Enseignant extends Model
 {
 	use Updater;
+	use RecordsActivity;
+
 	protected $fillable=['nom', 'prenom', 'ecole_id', 'courriel'];
 
     public function dossiers()

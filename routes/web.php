@@ -81,6 +81,11 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('downloads/selection', 'DownloadsController@formulaire');
     Route::post('downloads/getfile', 'DownloadsController@getFile');
+
+    Route::get('/activities', 'ActivitiesController@index');
+
+
+
 });
 
 
