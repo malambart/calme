@@ -13,7 +13,7 @@
                 <label for="date_eval" class=" control-label">Date de l'évaluation<span
                             class="tip">(aaaa-mm-jj)</span></label>
                 <input id="date_eval" type="date" class="form-control datepicker" name="date_eval"
-                       value="{{ old('date_eval', $plan->date_eval) }}" autofocus>
+                       value="{{ old('date_eval', dateString($plan->date_eval)) }}" autofocus>
                 @if ($errors->has('date_eval'))
                     <span class="help-block"><strong>{{ $errors->first('date_eval') }}</strong></span>
                 @endif
@@ -70,7 +70,7 @@
                 <label for="reference" class=" control-label">Date de la référence au module Calme<span
                             class="tip">(aaaa-mm-jj)</span></label>
                 <input id="reference" type="date" class="form-control datepicker" name="reference"
-                       value="{{ old('reference', $plan->reference) }}">
+                       value="{{ old('reference', dateString($plan->reference)) }}">
                 @if ($errors->has('reference'))
                     <span class="help-block"><strong>{{ $errors->first('reference') }}</strong></span>
                 @endif

@@ -58,4 +58,13 @@ function arrContains($value, $arr) {
     return $result;
 }
 
+function dateString ($date) {
+    if (is_null($date)) {
+        return null;
+    }
+    else {
+        return $date->toDateString();
+    }
+}
+
 

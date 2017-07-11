@@ -8,7 +8,7 @@
         {{ method_field('PATCH') }}
         <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
             <label for="date" class=" control-label">Date<span class="tip">(aaaa-mm-jj)</span></label>
-            <input required id="date" type="date" class="form-control datepicker" name="date" value="{{ old('date', $journal->date) }}">
+            <input required id="date" type="date" class="form-control datepicker" name="date" value="{{ old('date', dateString($journal->date)) }}">
             @if ($errors->has('date'))
                 <span class="help-block"><strong>{{ $errors->first('date') }}</strong></span>
             @endif

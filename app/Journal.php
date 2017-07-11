@@ -28,4 +28,8 @@ class Journal extends Model
         return $this->belongsTo(Dossier::class);
     }
 
+    protected $dates = [
+        'date'
+    ];
+
 }

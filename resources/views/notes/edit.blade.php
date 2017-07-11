@@ -11,7 +11,7 @@
             <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                 <label for="date" class=" control-label">Date de la séance <span class="tip">(aaaa-mm-jj)</span></label>
                 <input id="date" type="date" class="form-control datepicker" name="date"
-                       value="{{ old('date', $note->date) }}"
+                       value="{{ old('date', dateString($note->date)) }}"
                        required="required">
                 @if ($errors->has('date'))
                     <span class="help-block"><strong>{{ $errors->first('date') }}</strong></span>
@@ -157,7 +157,7 @@
             <div class="form-group{{ $errors->has('prochaine_rencontre') ? ' has-error' : '' }}">
                 <label for="prochaine_rencontre" class=" control-label">Date de la prochaine rencontre<span class="tip">(aaaa-mm-jj)</span></label>
                 <input id="prochaine_rencontre" type="date" class="form-control datepicker" name="prochaine_rencontre"
-                       value="{{ old('prochaine_rencontre', $note->prochaine_rencontre) }}">
+                       value="{{ old('prochaine_rencontre', dateString($note->prochaine_rencontre)) }}">
                 @if ($errors->has('prochaine_rencontre'))
                     <span class="help-block"><strong>{{ $errors->first('prochaine_rencontre') }}</strong></span>
                 @endif

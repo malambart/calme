@@ -79,12 +79,18 @@ class Plan extends Model
         return $this->hasMany(Impression::class);
     }
 
-    protected $casts =[
-            'diagnostics' => 'array',
-            'medication' => 'array',
-            'objectifs' => 'array',
-            'pharmaco_liste' => 'array',
-        ];
+    protected $casts = [
+        'diagnostics' => 'array',
+        'medication' => 'array',
+        'objectifs' => 'array',
+        'pharmaco_liste' => 'array',
+    ];
+
+    protected $dates = [
+        'date_eval',
+        'reference',
+        'ante_bilan_date'
+    ];
 
 
 }

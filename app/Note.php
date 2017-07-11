@@ -36,4 +36,9 @@ class Note extends Model
         return $this->hasMany(Exercise::class);
 
     }
+
+    protected $dates = [
+        'date',
+        'prochaine_rencontre'
+    ];
 }
