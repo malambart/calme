@@ -38,4 +38,37 @@ class LsController extends Controller
         return redirect(url('/adresse-confirmation'));
 
     }
+
+    protected function getLink(Token $tok) {
+
+        $quest='';
+        switch ($tok->rep) {
+            case 'JE': $quest = env('QUEST_JEUNE');
+                break;
+            case 'PA': $quest = env('QUEST_PARENT');
+                break;
+            case 'EN': $quest = env('QUEST_ENSEIGNANT');
+                break;
+        }
+
+        return $link = env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$quest.'/token/'.$tok->token.'/newtest/Y';
+
+    }
+
+    public function terminerPlusTard($token)
+    {
+        $tok = Token::where('token', $token)->first();
+        $link = $this->getLink($tok);
+        return view('ls.terminer-plus-tard', compact('link'));
+
+    }
+
+    public function ressources($token)
+    {
+        $tok = Token::where('token', $token)->first();
+        $link = $this->getLink($tok);
+        $rep = $tok->rep;
+        return view('ls.ressources', compact('link', 'rep'));
+    }
+
 }
