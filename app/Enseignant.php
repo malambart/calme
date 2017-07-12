@@ -19,4 +19,9 @@ class Enseignant extends Model
 	{
 		return $this->belongsTo(Ecole::class);
 	}
+
+    public function adresse()
+	{
+        return $this->hasOne(AdresseProf::class);
+	}
 }

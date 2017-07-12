@@ -58,19 +58,19 @@ class EnseignantsController extends Controller {
         return view('enseignants.show', compact('enseignant', 'ecole', 'dossier'));
     }
 
-    public function edit(Enseignant $enseignant)
+    public function edit(Enseignant $enseignant, Dossier $dossier)
     {
         $ecoles=Ecole::all();
-        return view('enseignants.edit', compact('enseignant', 'ecoles'));
+        return view('enseignants.edit', compact('enseignant', 'ecoles', 'dossier'));
 
     }
 
-    public function update(Enseignant $enseignant, Request $request)
+    public function update(Enseignant $enseignant, Request $request, Dossier $dossier)
     {
         $this->validate($request,['ecole_id'=>'required','prenom'=>'required','nom'=>'required', 'courriel'=>'email']);
 
         $enseignant->update($request->all());
 
-        return redirect (url('/'));
+        return redirect (url('enseignants/show', [$enseignant->id, $dossier->id]));
     }
 }

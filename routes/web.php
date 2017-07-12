@@ -2,6 +2,14 @@
 
 Auth::routes();
 
+Route::get('/ressources/{token}', 'LsController@ressources');
+Route::get('/terminer-plus-tard/{token}', 'LsController@terminerPlusTard');
+Route::get('/coordo-enseignant/{TOKEN}', 'LsController@coordo');
+Route::patch('/coordo-enseignant/{adresse}', 'LsController@storeAdresse');
+Route::get('/adresse-confirmation', function () {
+    return view('ls.adresse-confirmation');
+});
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'HomeController@index');
     Route::get('utilisateurs/ajout', 'Auth\RegisterController@showRegistrationForm');
@@ -55,8 +63,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('enseignants/create/{dossier}', 'EnseignantsController@create');
     Route::post('enseignants/create/{dossier}', 'EnseignantsController@store');
     Route::get('enseignants/show/{enseignant}/{dossier}', 'EnseignantsController@show');
-    Route::get('enseignants/edit/{enseignant}', 'EnseignantsController@edit');
-    Route::patch('enseignants/edit/{enseignant}', 'EnseignantsController@update');
+    Route::get('enseignants/edit/{enseignant}/{dossier}', 'EnseignantsController@edit');
+    Route::patch('enseignants/edit/{enseignant}/{dossier}', 'EnseignantsController@update');
 
     Route::get('tableau-de-bord','HomeController@dashbord');
 

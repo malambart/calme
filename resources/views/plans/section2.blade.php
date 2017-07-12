@@ -75,6 +75,7 @@
                     <span class="help-block"><strong>{{ $errors->first('reference') }}</strong></span>
                 @endif
             </div>
+            {{ var_dump(dateString($plan->reference)) }}
             <div class="form-group{{ $errors->has('motif') ? ' has-error' : '' }}">
                 <label for="motif" class=" control-label">Motif de la référence</label>
                 <input id="motif" type="text" class="form-control" name="motif"

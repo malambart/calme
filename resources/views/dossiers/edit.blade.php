@@ -60,7 +60,7 @@
         </div>
         <div class="form-group{{ $errors->has('date_naiss') ? ' has-error' : '' }}">
             <label for="date_naiss" class=" control-label">Date de naissance</label>
-            <input id="date_naiss" type="date" class="form-control" name="date_naiss"
+            <input id="date_naiss" type="date" class="form-control datepicker" name="date_naiss"
                    value="{{ old('date_naiss', $dossier->date_naiss->toDateString()) }}">
             @if ($errors->has('date_naiss'))
                 <span class="help-block">

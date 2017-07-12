@@ -5,7 +5,7 @@
 @section('body')
     @include('ecoles.create')
     <form class="form-horizontal" id="form" role="form" method="POST"
-          action="{{ url('enseignants/edit', $enseignant->id) }}">
+          action="{{ url('enseignants/edit', [$enseignant->id, $dossier->id]) }}">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
         <div class="form-group{{ $errors->has('ecole_id') ? ' has-error' : '' }}">
