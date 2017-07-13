@@ -6,8 +6,8 @@ use App\AdresseProf;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use App\Mesure;
-use App\Dossier;
 use App\Token;
+use App\Questionnaire;
 
 class LsController extends Controller
 {
@@ -41,16 +41,7 @@ class LsController extends Controller
 
     protected function getLink(Token $tok) {
 
-        $quest='';
-        switch ($tok->rep) {
-            case 'JE': $quest = env('QUEST_JEUNE');
-                break;
-            case 'PA': $quest = env('QUEST_PARENT');
-                break;
-            case 'EN': $quest = env('QUEST_ENSEIGNANT');
-                break;
-        }
-
+        $quest = Questionnaire::where('rep', $tok->rep)->where('temps', $tok->mesure->temps)->first()->ls_id;
         return $link = env('LS_BASE_PATH').'/index.php?r=survey/index/sid/'.$quest.'/token/'.$tok->token.'/newtest/Y';
 
     }
