@@ -1,6 +1,6 @@
 @extends('layouts.row')
 @section('panel-heading')
-    <h1><a href="{{ $mesure->dossier->baseURL() }}">{{$mesure->dossier->prenom.' '.$mesure->dossier->nom}}</a>{{': temps '.$mesure->temps}}</h1>
+    <h1><a href="{{ $mesure->dossier->baseURL() }}">{{$mesure->dossier->prenom.' '.$mesure->dossier->nom}}</a>{{': temps '.$mesure->temps}} - {{ $mesure->date->toDateString() }}</h1>
     <a href="{{url('mesures/edit', $mesure->id)}}" class="btn btn-primary pull-right">Éditer</a>
 @endsection
 @section('body')

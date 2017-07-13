@@ -75,7 +75,7 @@ class mesuresController extends Controller {
                     'date'=>'required|date_format:Y-m-d|after:today'
                 ]);
                 $mesure->update($request->all());
-                return view('mesures/show', compact('mesure'));
+                return redirect(url('mesures/show', $mesure->id));
             }
 
 }
