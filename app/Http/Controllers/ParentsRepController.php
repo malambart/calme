@@ -61,9 +61,9 @@ class ParentsRepController extends Controller {
 
     public function delete(ParentRep $parent)
         {
-            $dossier=$parent->dossier()->get();
+            $dossier=$parent->dossier;
             $parent->delete();
-            return redirect(url('dossier/show',$dossier->id));
+            return redirect(url('dossiers/show',$dossier->id));
         }
 
 

@@ -235,7 +235,7 @@
                     </button>
                 </li>
                 <li>
-                    <a id="deleteButton" class="btn btn-danger" data-href="{{url('parents/'.$parent->id.'/delete')}}"
+                    <a id="deleteButton" class="btn btn-danger" data-href="{{url('parents/delete', $parent->id)}}"
                        data-toggle="modal" data-target="#confirm-delete">Supprimer</a>
                 </li>
             </ul>
