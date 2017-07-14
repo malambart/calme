@@ -14,7 +14,8 @@
 </div>
 <script>
 $( document ).ready(function() {
-	var url=$('#deleteButton').data("href");
+	let url=$('#deleteButton').data("href");
+	console.log(url);
 	$('#confirmButton').attr('href',url);
 });
 </script>

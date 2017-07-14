@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'HomeController@index');
     Route::get('utilisateurs/ajout', 'Auth\RegisterController@showRegistrationForm');
     Route::get('/user/create', 'UsersController@create');
+    Route::get('/user/delete/{user}', 'UsersController@delete');
     Route::get('/accueil', 'HomeController@index');
     Route::get('/home', 'HomeController@index');
 

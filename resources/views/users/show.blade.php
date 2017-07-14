@@ -24,9 +24,5 @@
 
 @endsection
 @section('script')
-<script type="text/javascript">
 	@include('partials.confirmationSupression')
-	<script type="text/javascript">
-		$( "#gestion_utilisateurs" ).addClass( "active" );
-	</script>
-	@endsection		
+@endsection
