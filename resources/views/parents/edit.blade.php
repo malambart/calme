@@ -4,7 +4,7 @@
 @endsection
 @section('body')
     <div id="app">
-        <form class="form-horizontal" role="form" method="POST" action="{{ url('/parents/edit',$dossier->id) }}">
+        <form class="form-horizontal" role="form" method="POST" action="{{ url('/parents/edit',$parent->id) }}">
             {{ csrf_field() }}
             {{ method_field('PATCH')}}
             @if(!$parent->dossier->hasRepondant() || $parent->repondant)
