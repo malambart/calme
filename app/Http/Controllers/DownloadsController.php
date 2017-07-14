@@ -12,16 +12,24 @@ class DownloadsController extends Controller
     public function getModels()
     {
         return [
+            ['Activitées', 'activities'],
+            ['Adresses enseignants', 'adresse_profs'],
+            ['Antécédents', 'antecedents'],
+            ['Contenu des scéances', 'contenu_seances'],
             ['Dossiers', 'dossiers'],
-            ['Parents', 'parents'],
-            ['Plans d\'intervention', 'plans'],
-            ['Plans d\'intervention - partenaires', 'partenaires'],
-            ['Plans d\'intervention - antécédent', 'antecedents'],
+            ['Dossier-enseignant', 'dossier_enseignant'],
             ['Écoles', 'ecoles'],
             ['Enseignants', 'enseignants'],
-            ['Dossier-enseignant', 'dossier_enseignant'],
-            ['Journals', 'journals'],
-            ['Notes évolutives', 'notes']
+            ['Exercices', 'exercises'],
+            ['Impressions diagnostiques', 'impressions'],
+            ['Journal de bord', 'journals'],
+            ['Mesures', 'mesures'],
+            ['Notes évolutives', 'notes'],
+            ['Objectifs', 'objectifs'],
+            ['Parents', 'parents'],
+            ['Partenaires', 'partenaires'],
+            ['Traitements pharmaco', 'pharmacos'],
+            ['Plans d\'intervention', 'plans']
         ];
 
     }
@@ -37,7 +45,6 @@ class DownloadsController extends Controller
     }
 
 
-
     public function formulaire()
     {
         $models = $this->getModels();
@@ -51,7 +58,7 @@ class DownloadsController extends Controller
         $questionnaires = $request->questionnaires;
         try {
             Excel::create('DonneesCalme', function ($excel) use ($selection, $questionnaires) {
-                if($selection) {
+                if ($selection) {
                     foreach ($selection as $choix) {
                         $data = DB::table($choix)->get();
                         if ($data->count() >= 1) {
@@ -72,12 +79,12 @@ class DownloadsController extends Controller
                 }
                 if ($questionnaires) {
                     $labels = [
-                      env('QUEST_JEUNE') => 'Questionnaire jeunes',
-                      env('QUEST_PARENT') => 'Questionnaire parents',
-                      env('QUEST_ENSEIGNANT') => 'Questionnaire enseignant',
+                        env('QUEST_JEUNE') => 'Questionnaire jeunes',
+                        env('QUEST_PARENT') => 'Questionnaire parents',
+                        env('QUEST_ENSEIGNANT') => 'Questionnaire enseignant',
                     ];
                     foreach ($questionnaires as $questionnaire) {
-                        $table=env('LS_PREFIX').'survey_'.$questionnaire;
+                        $table = env('LS_PREFIX') . 'survey_' . $questionnaire;
                         $data = DB::connection('ls')->table($table)->get();
                         if ($data->count() >= 1) {
                             $rows = [];
@@ -99,7 +106,6 @@ class DownloadsController extends Controller
         } catch (Exception $e) {
             return view('downloads.exeption', compact('e'));
         }
-
 
 
     }
