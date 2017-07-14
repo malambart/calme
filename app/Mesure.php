@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mesure extends Model
 {
 	use Updater;
+	use RecordsActivity;
 	protected $fillable=['temps','date'];
 	public function questionnaires()
 	{
