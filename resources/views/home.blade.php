@@ -21,7 +21,9 @@
                             @elseif($mesure->temps===2)
                                 Bilan final: <b>{{$mesure->date->toDateString()}}</b>
                             @endif
-                            <span class="badge">{{$mesure->qCompleted()['complet'].' / '.$mesure->qCompleted()['deno']}}</span>
+                            <span class="badge">
+                                {{ $mesure->status }}
+                            </span>
                             </a>
                         @endforeach
                     </div>

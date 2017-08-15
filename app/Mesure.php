@@ -75,4 +75,47 @@ class Mesure extends Model
         $date=$this->date;
         return round(($date->diff($naiss)->format('%a'))/365.25, 1);
     }
+
+    public function getStatusAttribute()
+    {
+        $status = [0,0,0];
+
+        foreach($this->tokens as $q)
+            if ($q->isCompleted()!='N') {
+                switch ($q->rep){
+                    case 'PA':
+                        $status[0] = 1;
+                        break;
+                    case 'JE':
+                        $status[1] = 1;
+                        break;
+                    case 'EN':
+                        $status[2] = 1;
+                        break;
+                }
+            }
+
+        if ($this->age<8) {
+            $status[1] = 'x';
+        }
+        if ($this->ete()) {
+            $status[2] = 'x';
+        }
+        if ($this->dossier->exclu) {
+            $status[0] = 'x';
+            $status[2] = 'x';
+        }
+        $status = implode("-", $status);
+        return $status;
+    }
+
+    public function getCompletedAttribute()
+    {
+        $result = false;
+        $qCompleted = $this->qCompleted();
+        if ($qCompleted['deno'] === $qCompleted['complet']) {
+            $result = true;
+        }
+        return $result;
+    }
 }
