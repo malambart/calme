@@ -40,6 +40,55 @@
                     </div>
                 @endforeach
             </div>
+            <div class="form-group{{ $errors->has('ponctualite') ? ' has-error' : '' }}">
+                <label for="ponctualite" class="control-label">Ponctualité</label>
+                <select class="form-control" name="ponctualite" v-model="ponctualite">
+                    <option value="" selected>Veuillez choisir</option>
+                    <option value="1"
+                            @if(old('ponctualite', $note->ponctualite)==1)
+                            selected
+                            @endif>
+                        À l'heure
+                    </option>
+                    <option value="2"
+                            @if(old('ponctualite', $note->ponctualite)=="2")
+                            selected
+                            @endif>
+                        En retard de plus de 5 minutes
+                    </option>
+                    <option value="3"
+                            @if(old('ponctualite', $note->ponctualite)=="3")
+                            selected
+                            @endif>
+                        Ne se présente pas sans avis
+                    </option>
+                    <option value="4"
+                            @if(old('ponctualite', $note->ponctualite)=="4")
+                            selected
+                            @endif>
+                        Annule plus de 24h à l'avance
+                    </option>
+                    <option value="5"
+                            @if(old('ponctualite', $note->ponctualite)=="5")
+                            selected
+                            @endif>
+                        Annule moins de 24h à l'avance
+                    </option>
+                </select>
+                @if ($errors->has('ponctualite'))
+                    <span class="help-block"><strong>{{ $errors->first('ponctualite') }}</strong></span>
+                @endif
+            </div>
+            <div v-show="ponctualite >= 4" class="form-group{{ $errors->has('ponctualite_motif') ? ' has-error' : '' }}">
+                <label for="ponctualite_motif" class=" control-label">Motif de l'annulation</label>
+                <input id="ponctualite_motif" type="text" class="form-control" name="ponctualite_motif"
+                       value="{{ old('ponctualite_motif', $note->ponctualite_motif) }}">
+                @if ($errors->has('ponctualite_motif'))
+                    <span class="help-block">
+            		    <strong>{{ $errors->first('ponctualite_motif') }}</strong>
+            		</span>
+                @endif
+            </div>
             <exercises items="{{old('exercises', $note->exercises)}}"></exercises>
             <label for="">Évaluation du comportement du jeune pendant la séance</label>
             <div class="checkbox-list">
@@ -183,7 +232,8 @@
                }
             },
             data: {
-                autre:0
+                autre:0,
+                ponctualite:'{{ old('ponctualite', $note->ponctualite) }}'
             },
         })
     </script>

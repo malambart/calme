@@ -145,6 +145,5 @@
     </div>
 @endsection
 @section('script')
-
     @include('partials.js.section3')
 @endsection

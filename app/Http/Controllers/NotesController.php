@@ -40,9 +40,8 @@ class NotesController extends Controller
 
     public function show(Note $note)
     {
-
+        $note = $note->getLabels();
         return view('notes.show', compact('note'));
-
     }
 
     public function edit(Note $note)

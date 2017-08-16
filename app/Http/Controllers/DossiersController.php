@@ -93,15 +93,13 @@ class DossiersController extends Controller
         return view('dossiers.show', compact('dossier', 'enseignant', 'plan'));
     }
 
-    public
-    function index()
+    public function index()
     {
         $dossiers = Dossier::select(['id', 'nom_complet'])->get();
         return view('dossiers.liste', compact('dossiers'));
     }
 
-    public
-    function recherche(Request $request)
+    public function recherche(Request $request)
     {
         $this->validate($request, ['recherche' => 'required']);
         //dd($request->recherche);
@@ -121,15 +119,13 @@ class DossiersController extends Controller
         return view('recherche', compact('results', 'chaine'));
     }
 
-    public
-    function edit(Dossier $dossier)
+    public function edit(Dossier $dossier)
     {
         return view('dossiers.edit', compact('dossier'));
     }
 
 
-    public
-    function update(Dossier $dossier, Request $request)
+    public function update(Dossier $dossier, Request $request)
     {
         $this->validate($request, [
             'nom' => 'required',
@@ -145,22 +141,19 @@ class DossiersController extends Controller
     }
 
 
-    public
-    function delete(Dossier $dossier)
+    public function delete(Dossier $dossier)
     {
         $dossier->delete();
         return redirect('/');
     }
 
-    public
-    function supprimes()
+    public function supprimes()
     {
         $dossiers = Dossier::onlyTrashed()->select(['id', 'nom_complet'])->get();
         return view('dossiers.supprimes', compact('dossiers'));
     }
 
-    public
-    function restore($dossier)
+    public function restore($dossier)
     {
         $d = Dossier::onlyTrashed()->findOrFail($dossier);
         $d->restore();
