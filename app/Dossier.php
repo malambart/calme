@@ -12,7 +12,7 @@ class Dossier extends Model {
     use SoftDeletes;
     use Updater;
     protected $searchableColumns = ['id' => 30, 'nom' => 20, 'prenom' => 10];
-    protected $fillable = ['nom', 'prenom', 'nom_complet', 'no_doss_chus', 'date_naiss', 'sexe', 'exclu'];
+    protected $fillable = ['nom', 'prenom', 'nom_complet', 'no_doss_chus', 'date_naiss', 'sexe', 'exclu', 'confirmation_received'];
 
     public function plan()
     {

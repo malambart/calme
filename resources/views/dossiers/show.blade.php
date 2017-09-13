@@ -65,7 +65,13 @@
         @else
             <a class="btn btn-primary" href="{{url('parents/create',$dossier->id)}}">Ajouter un parent</a>
         @endif
-
+        <p>Confirmation reçue des parents :
+        @if($dossier->confirmation_received)
+            Oui
+        @else
+            Non
+        @endif
+        </p>
 
         <hr>
         @if($enseignant)

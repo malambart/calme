@@ -71,10 +71,18 @@
         <input type="hidden" name="exclu" value="0">
         <div class="form-group">
             <label><input type="checkbox" name="exclu" value="1"
-                          @if($dossier->exclu)
+                          @if(old('exclu', $dossier->exclu))
                           checked
                         @endif>
                 Exclure de l'étude</label>
+        </div>
+        <input type="hidden" name="confirmation_received" value="0">
+        <div class="form-group">
+            <label><input type="checkbox" name="confirmation_received" value="1"
+                          @if(old('confirmation_received', $dossier->confirmation_received)==1)
+                          checked
+                        @endif
+                > Consentement du parent reçue</label>
         </div>
 
         <ul class="list-inline pull-right">

@@ -93,6 +93,13 @@
                         @endif
                 > Exclure de l'étude</label>
         </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="confirmation_received" value="1"
+                          @if(old('confirmation_received')==1)
+                          checked
+                        @endif
+                > Consentement du parent reçue</label>
+        </div>
         <button type="submit" class="btn btn-primary pull-right">
             Ajouter
         </button>
