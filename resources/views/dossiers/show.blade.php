@@ -23,6 +23,13 @@
             @endif</p>
         <p>Numéro de dossier au CHUS : {{$dossier->no_doss_chus}}</p>
         <hr>
+        <p>Confirmation reçue des parents :
+            @if($dossier->confirmation_received)
+                Oui
+            @else
+                Non
+            @endif
+        </p>
         @if($dossier->parents->count()>0)
             @foreach($dossier->parents->sortByDesc('repondant') as $parent)
                 <p>
@@ -65,13 +72,7 @@
         @else
             <a class="btn btn-primary" href="{{url('parents/create',$dossier->id)}}">Ajouter un parent</a>
         @endif
-        <p>Confirmation reçue des parents :
-        @if($dossier->confirmation_received)
-            Oui
-        @else
-            Non
-        @endif
-        </p>
+
 
         <hr>
         @if($enseignant)
