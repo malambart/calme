@@ -18,6 +18,7 @@ class PlansController extends Controller {
             $plan = $dossier->plan()->create([]);
         }
         if ($section==9) {
+            //dd($plan->pharmaco_liste);
             $premiere_seance=$dossier->mesures()->where('temps','1')->first();
             return view('plans/section' . $section, compact('dossier', 'plan', 'section', 'premiere_seance'));
         }

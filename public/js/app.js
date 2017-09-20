@@ -1925,6 +1925,9 @@ module.exports = {
 //
 //
 //
+//
+//
+//
 
 module.exports = {
     props: ['name', 'inputname', 'items', 'value', 'old_med', 'old_posologie', 'old_unit'],
@@ -1949,25 +1952,26 @@ module.exports = {
     methods: {
         addMedicament: function addMedicament() {
             var med = this.new_medicament && this.new_medicament.trim();
-            if (!med) {}
-            //TODO Voir pourquoi ce else if ne marche pas...
-            else if (jQuery.inArray(med, this.medication) !== -1) {
-                    alert('Cet élément a déjà été entré.');
-                } else {
-                    var med_string = med;
-                    if (this.new_posologie !== '') {
-                        med_string = med + ' - ' + this.new_posologie + ' ' + this.new_unit;
-                    }
-
-                    this.medication.push({
-                        nom: med,
-                        posologie: this.new_posologie,
-                        unit: this.new_unit,
-                        med_string: med_string });
-                    this.new_medicament = '';
-                    this.new_posologie = '';
-                    this.new_unit = 'mg/jour';
+            if (!med) {} else if (jQuery.grep(this.medication, function (n) {
+                return n.nom === med;
+            }).length !== 0) {
+                alert('Cet élément a déjà été entré.');
+            } else {
+                var med_string = med;
+                if (this.new_posologie !== '') {
+                    med_string = med + ' - ' + this.new_posologie + ' ' + this.new_unit;
                 }
+
+                this.medication.push({
+                    nom: med,
+                    posologie: this.new_posologie,
+                    unit: this.new_unit,
+                    med_string: med_string
+                });
+                this.new_medicament = '';
+                this.new_posologie = '';
+                this.new_unit = 'mg/jour';
+            }
         },
         deleteMedicament: function deleteMedicament(medicament) {
             this.medication.splice(this.medication.indexOf(medicament), 1);
@@ -32350,7 +32354,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "mg/jour",
       "selected": ""
     }
-  }, [_vm._v("\n                    mg/jour\n                ")])])]), _vm._v(" "), _c('button', {
+  }, [_vm._v("\n                    mg/jour\n\n                ")])])]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary",
     on: {
       "click": function($event) {
@@ -32363,7 +32367,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.medication), function(medicament) {
     return _c('li', {
       staticClass: "list-group-item"
-    }, [_vm._v("\n            " + _vm._s(medicament.med_string) + "\n"), _c('button', {
+    }, [_vm._v("\n            " + _vm._s(medicament.med_string) + "\n\n            "), _c('button', {
       staticClass: "btn btn-danger btn-xs pull-right",
       attrs: {
         "type": "button"
@@ -32373,7 +32377,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.deleteMedicament(medicament)
         }
       }
-    }, [_vm._v("X")])])
+    }, [_vm._v("X\n            ")])])
   })), _vm._v(" "), _vm._l((_vm.medication), function(medicament) {
     return _c('input', {
       attrs: {

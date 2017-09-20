@@ -9,10 +9,10 @@
     @if($plan->pharmaco_liste != '')
     @foreach($plan->pharmaco_liste as $med)
         oldMedication.push({
-        nom: '{{$med->nom}}',
-        posologie: '{{$med->posologie}}',
-        unit: '{{$med->unit}}',
-        med_string: '{{$med->med_string}}'
+        nom: '{{$med['nom']}}',
+        posologie: '{{$med['posologie']}}',
+        unit: '{{$med['unit']}}',
+        med_string: '{{$med['med_string']}}'
     })
     @endforeach
             @endif
