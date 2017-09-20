@@ -6,7 +6,9 @@ trait Labels {
     public function getLabels()
     {
         foreach ($this->labels as $attribute => $label) {
-            $this->$attribute = $label[$this->$attribute];
+            if ($this->$attribute) {
+                $this->$attribute = $label[$this->$attribute];
+            }
         }
         return $this;
     }
