@@ -29,7 +29,9 @@ class DownloadsController extends Controller
             ['Parents', 'parents'],
             ['Partenaires', 'partenaires'],
             ['Traitements pharmaco', 'pharmacos'],
-            ['Plans d\'intervention', 'plans']
+            ['Plans d\'intervention', 'plans'],
+            ['Tokens', 'tokens'],
+            ['Utilisateurs', 'users']
         ];
 
     }
