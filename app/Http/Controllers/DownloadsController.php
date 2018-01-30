@@ -49,7 +49,7 @@ class DownloadsController extends Controller
     public function getOldQuestionnaires()
     {
         return array(
-            [['Questionnaire jeunes version 1', env('QUEST_JEUNE_V1')]]
+            ['Questionnaire jeunes version 1', env('QUEST_JEUNE_V1')]
         );
     }
 
@@ -58,17 +58,18 @@ class DownloadsController extends Controller
     {
         $models = $this->getModels();
         $questionnaires = $this->getQuestionnaires();
-        $oldquestionnaires = $this->getOldQuestionnaires();
-        dd($oldquestionnaires);
-        return view('downloads.formulaire', compact('models', 'questionnaires', 'oldquestionnaires'));
+        $archives = $this->getOldQuestionnaires();
+        return view('downloads.formulaire', compact('models', 'questionnaires', 'archives'));
     }
 
     public function getfile(Request $request)
     {
         $selection = $request->choix;
         $questionnaires = $request->questionnaires;
+        $archives = $request->archives;
+
         try {
-            Excel::create('DonneesCalme', function ($excel) use ($selection, $questionnaires, $oldquestionnaires) {
+            Excel::create('DonneesCalme', function ($excel) use ($selection, $questionnaires, $archives) {
                 if ($selection) {
                     foreach ($selection as $choix) {
                         $data = DB::table($choix)->get();
@@ -114,12 +115,12 @@ class DownloadsController extends Controller
                     }
 
                 }
-                if ($oldquestionnaires) {
+                if ($archives) {
                     $labels = [
                         env('QUEST_JEUNE_V1') => 'Questionnaire jeunes V1'
                     ];
-                    foreach ($oldquestionnaires as $oldquestionnaire) {
-                        $table = $oldquestionnaire;
+                    foreach ($archives as $archive) {
+                        $table = $archive;
                         $data = DB::connection('ls')->table($table)->get();
                         if ($data->count() >= 1) {
                             $rows = [];
@@ -129,7 +130,7 @@ class DownloadsController extends Controller
                                 $rows[] = array_values((get_object_vars($d)));
                             }
 
-                            $excel->sheet($labels[$oldquestionnaire], function ($sheet) use ($rows) {
+                            $excel->sheet($labels[$archive], function ($sheet) use ($rows) {
 
                                 $sheet->fromArray($rows, null, 'A1', true, false);
 
