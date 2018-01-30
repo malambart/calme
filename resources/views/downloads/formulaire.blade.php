@@ -20,6 +20,11 @@
                     <label><input type="checkbox" name="questionnaires[]" value="{{ $questionnaire[1] }}" checked>{{ $questionnaire[0] }}</label>
                 </div>
             @endforeach
+            @foreach( $oldquestionnaires as $oldquestionnaire)
+                <div class="checkbox">
+                    <label><input type="checkbox" name="olds[]" value="{{ $old[1] }}" checked>{{ $old[0] }}</label>
+                </div>
+            @endforeach
         </div>
 
 

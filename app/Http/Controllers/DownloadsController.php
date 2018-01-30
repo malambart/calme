@@ -46,12 +46,20 @@ class DownloadsController extends Controller
 
     }
 
+    public function getOldQuestionnaires()
+    {
+        return array(
+            [['Questionnaire jeunes version 1', env('QUEST_JEUNE_V1')]]
+        );
+    }
+
 
     public function formulaire()
     {
         $models = $this->getModels();
         $questionnaires = $this->getQuestionnaires();
-        return view('downloads.formulaire', compact('models', 'questionnaires'));
+        $oldquestionnaires = $this->getOldQuestionnaires();
+        return view('downloads.formulaire', compact('models', 'questionnaires', 'oldquestionnaires'));
     }
 
     public function getfile(Request $request)
@@ -59,7 +67,7 @@ class DownloadsController extends Controller
         $selection = $request->choix;
         $questionnaires = $request->questionnaires;
         try {
-            Excel::create('DonneesCalme', function ($excel) use ($selection, $questionnaires) {
+            Excel::create('DonneesCalme', function ($excel) use ($selection, $questionnaires, $oldquestionnaires) {
                 if ($selection) {
                     foreach ($selection as $choix) {
                         $data = DB::table($choix)->get();
@@ -103,6 +111,31 @@ class DownloadsController extends Controller
                             });
                         }
                     }
+
+                }
+                if ($oldquestionnaires) {
+                    $labels = [
+                        env('QUEST_JEUNE_V1') => 'Questionnaire jeunes V1'
+                    ];
+                    foreach ($oldquestionnaires as $oldquestionnaire) {
+                        $table = $oldquestionnaire;
+                        $data = DB::connection('ls')->table($table)->get();
+                        if ($data->count() >= 1) {
+                            $rows = [];
+                            $rows[] = array_keys(get_object_vars($data->first()));
+
+                            foreach ($data->all() as $d) {
+                                $rows[] = array_values((get_object_vars($d)));
+                            }
+
+                            $excel->sheet($labels[$oldquestionnaire], function ($sheet) use ($rows) {
+
+                                $sheet->fromArray($rows, null, 'A1', true, false);
+
+                            });
+                        }
+                    }
+
                 }
             })->download('xlsx');
         } catch (Exception $e) {
