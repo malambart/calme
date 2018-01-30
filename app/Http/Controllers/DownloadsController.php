@@ -59,6 +59,7 @@ class DownloadsController extends Controller
         $models = $this->getModels();
         $questionnaires = $this->getQuestionnaires();
         $oldquestionnaires = $this->getOldQuestionnaires();
+        dd($oldquestionnaires);
         return view('downloads.formulaire', compact('models', 'questionnaires', 'oldquestionnaires'));
     }
 
