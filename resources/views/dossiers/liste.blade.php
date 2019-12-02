@@ -7,8 +7,11 @@
     <div class='list-group'>
         @foreach($dossiers as $dossier)
             <a class="list-group-item" href={{url('dossiers/show',$dossier->id)}}>
-                {{$dossier->nom_complet}}
-                <span class="pull-right">{{$dossier->id}}</span>
+                @if($dossier->accepte == 1)
+                {{$dossier->nom_complet}}  <span class="pull-right">{{$dossier->id}}</span>
+                @else
+                    Anonyme  <span class="pull-right">{{$dossier->id}}</span>
+                @endif
             </a>
         @endforeach
     </div>

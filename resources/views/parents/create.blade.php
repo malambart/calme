@@ -16,7 +16,7 @@
                     </div>
                 </div>
             @endif
-            <div class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
+            <div v-if="accepte == 1" class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
                 <label for="prenom" class="col-md-4 control-label">Prénom</label>
                 <div class="col-md-6">
                     <input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}"
@@ -28,7 +28,7 @@
                     @endif
                 </div>
             </div>
-            <div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
+            <div v-if="accepte == 1" class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
                 <label for="nom" class="col-md-4 control-label">Nom</label>
                 <div class="col-md-6">
                     <input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom') }}">
@@ -91,6 +91,74 @@
                     <input type="number" class="form-control" name="age" value="{{old('age')}}">
                 </div>
             </div>
+            <div v-if="accepte ==1" class="form-group{{ $errors->has('date_naiss') ? ' has-error' : '' }}">
+                <label for="date_naiss" class="col-md-4 control-label">Date de naissance <span
+                            class="tip">(aaaa-mm-jj)</span></label>
+                <div class="col-md-6">
+                    <input id="date_naiss" type="date" class="form-control datepicker" name="date_naiss"
+                           value="{{ old('date_naiss') }}" autofocus>
+                </div>
+
+                @if ($errors->has('date_naiss'))
+                    <span class="help-block">
+		<strong>{{ $errors->first('date_naiss') }}</strong>
+	</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('situation_familiale') ? ' has-error' : '' }}">
+                <label for="situation_familiale" class="col-md-4 control-label">Situation familiale</label>
+                <div class="col-md-6">
+                    <select v-model="situation_familiale" class="form-control" name="situation_familiale">
+                        <option value="" selected>Veuillez choisir</option>
+                        <option value="Biparentale intacte"
+                                @if(old('situation_familiale')=="Biparentale intacte")
+                                selected
+                                @endif>
+                            Biparentale intacte
+                        </option>
+                        <option value="Biparentale recomposée"
+                                @if(old('situation_familiale')=="Biparentale recomposée")
+                                selected
+                                @endif>
+                            Biparentale recomposée
+                        </option>
+                        <option value="Monoparentale"
+                                @if(old('situation_familiale')=="Monoparentale")
+                                selected
+                                @endif>
+                            Monoparentale
+                        </option>
+                        <option value="Famille d'accueil"
+                                @if(old('situation_familiale')=="Famille d'accueil")
+                                selected
+                                @endif>
+                            Famille d'accueil
+                        </option>
+                        <option value="Autre"
+                                @if(old('situation_familiale')=="Autre")
+                                selected
+                                @endif>
+                            Autre
+                        </option>
+                    </select>
+                </div>
+
+                @if ($errors->has('situation_familiale'))
+                    <span class="help-block"><strong>{{ $errors->first('situation_familiale') }}</strong></span>
+                @endif
+            </div>
+            <div v-show="situation_familiale == 'Autre'" class="form-group{{ $errors->has('situation_familiale_autre') ? ' has-error' : '' }}">
+                <label for="situation_familiale_autre" class="col-md-4 control-label">Précisez autre situation familiale</label>
+                <div class="col-md-6">
+                    <input id="situation_familiale_autre" type="text" class="form-control" name="situation_familiale_autre"
+                           value="{{ old('situation_familiale_autre') }}">
+                </div>
+                @if ($errors->has('situation_familiale_autre'))
+                    <span class="help-block">
+            		    <strong>{{ $errors->first('situation_familiale_autre') }}</strong>
+            		</span>
+                @endif
+            </div>
             <div class="form-group">
                 <label for="scolarite" class="col-md-4 control-label">
                     Dernier diplôme obtenu
@@ -145,7 +213,7 @@
                         >3e cycle universitaire</label>
                 </div>
             </div>
-            <div class="form-group">
+            <div v-if="accepte == 1" class="form-group">
                 <label for="emploi" class="col-md-4 control-label">
                     Emploi
                 </label>
@@ -154,7 +222,7 @@
                 </div>
             </div>
             @if(!$dossier->hasRepondant())
-                <div v-show="repondant">
+                <div v-show="repondant && accepte == 1">
                     <div class="form-group{{ $errors->has('lieuT1') ? ' has-error' : '' }}">
                         <label for="lieuT1" class="col-md-4 control-label">Questionnaire T1 complété...</label>
                         <div class="col-md-6">
@@ -234,8 +302,10 @@
         new Vue({
             el: '#app',
             data: {
+                accepte: '{{ $dossier->accepte }}',
                 lien: '',
-                repondant: true
+                repondant: true,
+                situation_familiale:''
             },
         });
 

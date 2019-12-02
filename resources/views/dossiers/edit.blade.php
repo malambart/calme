@@ -3,105 +3,147 @@
     <h1>Éditer dossier {{$dossier->id.' ('.$dossier->nom_complet.')'}}</h1>
 @endsection
 @section('body')
-    <form role="form" method="POST" action="{{ url('/dossiers/edit',$dossier->id) }}">
-        {{ csrf_field() }}
-        {{ method_field('PATCH')}}
-        <div class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
-            <label for="prenom" class=" control-label">Prénom</label>
-            <input id="prenom" type="text" class="form-control" name="prenom"
-                   value="{{ old('prenom', $dossier->prenom) }}" autofocus>
-            @if ($errors->has('prenom'))
-                <span class="help-block">
+    <div id="app">
+        <form role="form" method="POST" action="{{ url('/dossiers/edit',$dossier->id) }}">
+            {{ csrf_field() }}
+            {{ method_field('PATCH')}}
+            <div class="form-group">
+                <select v-model="accepte" class="form-control" name="accepte">
+                    <option value="0" selected>Sélectionnez la situation qui s'applique.</option>
+                    <option value="1">
+                        La famille accepte d'être contactée par l'équipe de recherche
+                    </option>
+                    </option>
+                    <option value="2">
+                        La famille refuse d'être contactée par l'équipe de recherche
+                    </option>
+                </select>
+            </div>
+            <div v-if="accepte != 0">
+                <div v-if="accepte == 1" class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
+                    <label for="prenom" class=" control-label">Prénom</label>
+                    <input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom', $dossier->prenom) }}"
+                           autofocus>
+                    @if ($errors->has('prenom'))
+                        <span class="help-block">
 			<strong>{{ $errors->first('prenom') }}</strong>
 		</span>
-            @endif
-        </div>
-        <div class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
-            <label for="nom" class=" control-label">Nom</label>
-            <input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom', $dossier->nom) }}"
-                  >
+                    @endif
+                </div>
+                <div v-if="accepte == 1" class="form-group{{ $errors->has('nom') ? ' has-error' : '' }}">
+                    <label for="nom" class=" control-label">Nom</label>
+                    <input id="nom" type="text" class="form-control" name="nom" value="{{ old('nom', $dossier->nom) }}" autofocus>
 
-            @if ($errors->has('nom'))
-                <span class="help-block">
+                    @if ($errors->has('nom'))
+                        <span class="help-block">
 			<strong>{{ $errors->first('nom') }}</strong>
 		</span>
-            @endif
-        </div>
-        <div class="form-group{{ $errors->has('sexe') ? ' has-error' : '' }}">
-            <label for="sexe" class="control-label">Sexe du jeune</label>
-            <select class="form-control" name="sexe">
-                <option value="" selected>Veuillez choisir</option>
-                <option value=2 @if(old('sexe', $dossier->sexe)==2)
-                selected
-                        @endif>
-                    Féminin
-                </option>
-                <option value=1 @if(old('sexe', $dossier->sexe)==1)
-                selected
-                        @endif>
-                    Masculin
-                </option>
-            </select>
-            @if ($errors->has('sexe'))
-                <span class="help-block">
-	<strong>{{ $errors->first('sexe') }}</strong>
-</span>
-            @endif
-        </div>
-        <div class="form-group{{ $errors->has('no_doss_chus') ? ' has-error' : '' }}">
-            <label for="no_doss_chus" class=" control-label"># dossier CHUS</label>
-            <input id="no_doss_chus" type="text" class="form-control" name="no_doss_chus"
-                   value="{{ old('no_doss_chus', $dossier->no_doss_chus) }}">
-            @if ($errors->has('no_doss_chus'))
-                <span class="help-block">
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('sexe') ? ' has-error' : '' }}">
+                    <label for="sexe" class="control-label">Sexe du jeune</label>
+                    <select class="form-control" name="sexe">
+                        <option value="" selected>Veuillez choisir</option>
+                        <option value=2 @if(old('sexe', $dossier->sexe)==2)
+                        selected
+                                @endif>
+                            Féminin
+                        </option>
+                        <option value=1 @if(old('sexe', $dossier->sexe)==1)
+                        selected
+                                @endif>
+                            Masculin
+                        </option>
+                    </select>
+                    @if ($errors->has('sexe'))
+                        <span class="help-block"><strong>{{ $errors->first('sexe') }}</strong></span>
+                    @endif
+                </div>
+                <div v-if="accepte == 1" class="form-group{{ $errors->has('no_doss_chus') ? ' has-error' : '' }}">
+                    <label for="no_doss_chus" class=" control-label"># dossier CHUS</label>
+                    <input id="no_doss_chus" type="text" class="form-control" name="no_doss_chus"
+                           value="{{ old('no_doss_chus', $dossier->no_doss_chus) }}" autofocus>
+                    @if ($errors->has('no_doss_chus'))
+                        <span class="help-block">
 		<strong>{{ $errors->first('no_doss_chus') }}</strong>
 	</span>
-            @endif
-        </div>
-        <div class="form-group{{ $errors->has('date_naiss') ? ' has-error' : '' }}">
-            <label for="date_naiss" class=" control-label">Date de naissance</label>
-            <input id="date_naiss" type="date" class="form-control datepicker" name="date_naiss"
-                   value="{{ old('date_naiss', $dossier->date_naiss->toDateString()) }}">
-            @if ($errors->has('date_naiss'))
-                <span class="help-block">
+                    @endif
+                </div>
+                <div v-if="accepte == 1" class="form-group{{ $errors->has('date_naiss') ? ' has-error' : '' }}">
+                    <label for="date_naiss" class=" control-label">Date de naissance <span
+                                class="tip">(aaaa-mm-jj)</span></label>
+                    <input id="date_naiss" type="date" class="form-control datepicker" name="date_naiss"
+                           value="{{ old('date_naiss', $dossier->date_naiss ? $dossier->date_naiss->toDateString(): "") }}" autofocus>
+                    @if ($errors->has('date_naiss'))
+                        <span class="help-block">
 		<strong>{{ $errors->first('date_naiss') }}</strong>
 	</span>
-            @endif
-        </div>
-        <input type="hidden" name="exclu" value="0">
-        <div class="form-group">
-            <label><input type="checkbox" name="exclu" value="1"
-                          @if(old('exclu', $dossier->exclu))
-                          checked
-                        @endif>
-                Exclure de l'étude</label>
-        </div>
-        <input type="hidden" name="confirmation_received" value="0">
-        <div class="form-group">
-            <label><input type="checkbox" name="confirmation_received" value="1"
-                          @if(old('confirmation_received', $dossier->confirmation_received)==1)
-                          checked
-                        @endif
-                > Consentement du parent reçue</label>
-        </div>
-
-        <ul class="list-inline pull-right">
-            <li>
-                <button type="submit" class="btn btn-primary">
+                    @endif
+                </div>
+                <div v-if="accepte == 2" class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
+                    <label for="age">Âge de l'enfant</label>
+                    <input class="form-control" type="number" name="age" value="{{ old('age', $dossier->age) }}">
+                    @if ($errors->has('age'))
+                        <span class="help-block">
+			<strong>{{ $errors->first('age') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('langue') ? ' has-error' : '' }}">
+                    <label for="langue" class=" control-label">Langue principale</label>
+                    <input id="langue" type="text" class="form-control" name="langue" value="{{ old('langue', $dossier->langue) }}">
+                    @if ($errors->has('langue'))
+                        <span class="help-block">
+            		    <strong>{{ $errors->first('langue') }}</strong>
+            		</span>
+                    @endif
+                </div>
+                <div class="form-group{{ $errors->has('diagnostic') ? ' has-error' : '' }}">
+                    <label for="diagnostic" class=" control-label">Diagnostics pédopsychiatriques</label>
+                    <input id="diagnostic" type="text" class="form-control" name="diagnostic"
+                           value="{{ old('diagnostic', $dossier->diagnostic) }}">
+                    @if ($errors->has('diagnostic'))
+                        <span class="help-block">
+                		    <strong>{{ $errors->first('diagnostic') }}</strong>
+                		</span>
+                    @endif
+                </div>
+                <!--
+                <div class="form-group">
+                    <label><input type="checkbox" name="exclu" value="1"
+                                  @if(old('exclu')==1)
+                                  checked
+                                @endif
+                        > Exclure de l'étude</label>
+                </div>
+                <div class="form-group">
+                    <label><input type="checkbox" name="confirmation_received" value="1"
+                                  @if(old('confirmation_received')==1)
+                                  checked
+                                @endif
+                        > Consentement du parent reçue</label>
+                </div>
+                !-->
+                <button type="submit" class="btn btn-primary pull-right">
                     Sauvegarder
                 </button>
-            </li>
-            <li>
-                <a data-href="{{url('dossiers/delete', $dossier->id)}}" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger" id="deleteButton">
-                    Supprimer le dossier
-                </a>
-            </li>
-        </ul>
+            </div>
 
-    </form>
+        </form>
+    </div>
 @endsection
 @section('script')
-    @include('partials.confirmationSupression')
     <script type="text/javascript">
+        let accepte = "{{ $dossier->accepte }}";
+        let old_accepte = "{{ old('accepte') }}";
+        /*if(old_accepte != 0) {
+            accepte = old_accepte;
+        }*/
+        vm = new Vue({
+            el: '#app',
+            data: {
+                'accepte': accepte,
+            },
+        })
     </script>
 @endsection

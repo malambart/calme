@@ -12,7 +12,21 @@ class Dossier extends Model {
     use SoftDeletes;
     use Updater;
     protected $searchableColumns = ['id' => 30, 'nom' => 20, 'prenom' => 10];
-    protected $fillable = ['nom', 'prenom', 'nom_complet', 'no_doss_chus', 'date_naiss', 'sexe', 'exclu', 'confirmation_received'];
+    protected $fillable =
+        [
+            'nom',
+            'prenom',
+            'nom_complet',
+            'no_doss_chus',
+            'date_naiss',
+            'sexe',
+            'exclu',
+            'confirmation_received',
+            'accepte',
+            'langue',
+            'diagnostic',
+            'age'
+        ];
 
     public function plan()
     {
@@ -52,7 +66,7 @@ class Dossier extends Model {
 
     protected $dates = ['date_naiss'];
 
-    public function getAgeAttribute()
+    public function getCumputedAgeAttribute()
     {
         $naiss = $this->date_naiss;
         $auj = Carbon::today();
@@ -76,6 +90,15 @@ class Dossier extends Model {
 
     public function journals() {
         return $this->hasMany(Journal::class);
+    }
+
+    public function getAge()
+    {
+        if($this->accepte == 1) {
+            return $this->CumputedAge;
+        } else {
+            return $this->age;
+        }
     }
 
 }

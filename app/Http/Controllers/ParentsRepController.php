@@ -17,8 +17,6 @@ class ParentsRepController extends Controller {
     public function store(Dossier $dossier, Request $request)
     {
         $rules = [
-            'prenom' => 'required',
-            'nom' => 'required',
             'lien' => 'required',
         ];
         if ($request->repondant == 1) {

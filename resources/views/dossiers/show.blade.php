@@ -1,7 +1,7 @@
 @extends('layouts.row')
 @section('panel-heading')
     <h1>
-        {{$dossier->nom_complet.' ('.$dossier->id.')'}}
+        {{$dossier->accepte == 1 ? $dossier->nom_complet : "Anonyme" .' ('.$dossier->id.')'}}
         @if($dossier->exclu)
             <i>
                 - dossier exclu de l'étude
@@ -9,12 +9,13 @@
         @endif
     </h1>
     <a class="btn btn-primary pull-right" href="{{url('dossiers/edit', $dossier->id)}}">Éditer</a>
-
 @endsection
 @section('body')
     <section>
+        @if($dossier->accepte == 1)
         <p>Date de naissance : {{$dossier->date_naiss->toDateString()}}</p>
-        <p>Âge : {{$dossier->age}}</p>
+        @endif
+        <p>Âge : {{$dossier->getAge()}}</p>
         <p>Sexe :
             @if($dossier->sexe==1)
                 Masculin

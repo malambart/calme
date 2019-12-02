@@ -11,7 +11,25 @@ class ParentRep extends Model
 	use Updater;
 	use SoftDeletes;
 	protected $table='parents';
-    protected $fillable=['prenom', 'nom', 'lien', 'lien_autre', 'lieuT1', 'courriel', 'tel', 'tel2','ext','ext2','age','scolarite','repondant','emploi'];
+    protected $fillable=[
+        'prenom',
+        'nom',
+        'lien',
+        'lien_autre',
+        'lieuT1',
+        'courriel',
+        'tel',
+        'tel2',
+        'ext',
+        'ext2',
+        'age',
+        'scolarite',
+        'repondant',
+        'emploi',
+        'date_naiss',
+        'situation_familiale',
+        'situation_familiale_autre'
+    ];
 
     public function dossier()
     {

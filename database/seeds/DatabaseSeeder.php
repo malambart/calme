@@ -35,30 +35,9 @@ class DatabaseSeeder extends Seeder
                 'email' => env('USER1_EMAIL'),
                 'password' => bcrypt(env('USER1_PASSWORD')),
                 'created_by' => 1
-            ],
-            [
-                'name' => env('USER2_NAME'),
-                'role' => env('USER2_ROLE'),
-                'email' => env('USER2_EMAIL'),
-                'password' => bcrypt(env('USER2_PASSWORD')),
-                'created_by' => 1
-            ],
-            [
-                'name' => env('USER3_NAME'),
-                'role' => env('USER3_ROLE'),
-                'email' => env('USER3_EMAIL'),
-                'password' => bcrypt(env('USER3_PASSWORD')),
-                'created_by' => 1
-            ],
-            [
-                'name' => env('USER4_NAME'),
-                'role' => env('USER4_ROLE'),
-                'email' => env('USER4_EMAIL'),
-                'password' => bcrypt(env('USER4_PASSWORD')),
-                'created_by' => 1
-            ],
+            ]
         ];
-        
+
 
         foreach ($users as $u) {
             DB::table('users')->insert([
@@ -70,7 +49,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-
+        /*
         Questionnaire::create([
             'ls_id' => env('QUEST_JEUNE'),
             'rep' => 'JE',
@@ -107,7 +86,7 @@ class DatabaseSeeder extends Seeder
             'temps' => 2,
             'titre' => 'Questionnaire aux enseignant',
         ]);
-
+        */
         $contenus = [
             ['no_seance' => 1, 'categories' => 'Objectifs enfants', 'label' => 'Introduction du programme'],
             ['no_seance' => 1, 'categories' => 'Objectifs enfants', 'label' => 'Règles du groupe'],

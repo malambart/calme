@@ -22,25 +22,43 @@ class DossiersController extends Controller
         return view('dossiers.create');
     }
 
+    private function getValidationRules($accepte, $verb = 'edit', $params = []) {
+        $rules =  [
+            'sexe' => 'required',
+        ];
+        $moreRules = [];
+        $evenMoreRules = [];
+        if ($accepte == 1) {
+            $moreRules = [
+                'nom' => 'required',
+                'prenom' => 'required',
+                'no_doss_chus' => 'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/',
+                'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01',
+            ];
+         if($verb == 'create')
+            $evenMoreRules = [
+                'premiere_seance' => 'required|date_format:Y-m-d|after:today|before:' . $params['bilan_final'],
+                'bilan_final' => 'required|date_format:Y-m-d|after:today|after:' . $params['premiere_seance']
+            ];
+        }
+        return array_merge($rules, $moreRules, $evenMoreRules);
+    }
+
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nom' => 'required',
-            'prenom' => 'required',
-            'sexe' => 'required',
-            'no_doss_chus' => 'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/',
-            'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01',
-            'premiere_seance' => 'required|date_format:Y-m-d|after:today|before:' . $request->bilan_final,
-            'bilan_final' => 'required|date_format:Y-m-d|after:today|after:' . $request->premiere_seance
-        ]);
-        $data = $request->all();
-        $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
-        $dossier = Dossier::create($data);
+        $params = [
+            'bilan_final' => $request->bilan_final,
+            'premiere_seance' => $request->premiere_seance
+        ];
 
-        //dd($request->premiere_seance);
-        //Mail::to('francislafort@gmail.com'->send(new NouveauDossier($dossier));
-        //$user=User::findOrFail(1);
-        //$user->notify(new NouveauDossier($dossier));
+        $this->validate($request, $this->getValidationRules($request->accepte, 'create', $params));
+        $data = $request->all();
+
+        if ($request->accepte == 1) {
+            $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
+        }
+
+        $dossier = Dossier::create($data);
 
         //Creation du premier temps de mesure
 
@@ -76,7 +94,7 @@ class DossiersController extends Controller
             }
 
         }
-
+        
         if (!$dossier->exclu) {
             return redirect(url('parents/create', $dossier->id));
         } else {
@@ -95,7 +113,7 @@ class DossiersController extends Controller
 
     public function index()
     {
-        $dossiers = Dossier::select(['id', 'nom_complet'])->get();
+        $dossiers = Dossier::select(['id', 'nom_complet', 'accepte'])->get();
         return view('dossiers.liste', compact('dossiers'));
     }
 
@@ -127,15 +145,39 @@ class DossiersController extends Controller
 
     public function update(Dossier $dossier, Request $request)
     {
-        $this->validate($request, [
-            'nom' => 'required',
-            'prenom' => 'required',
-            'no_doss_chus' => ['required', Rule::unique('dossiers')->ignore($dossier->id), 'regex:/^[0-9]{7}$/'],
-            'date_naiss' => 'required|date',
-        ]);
-
+        $this->validate($request, $this->getValidationRules($request->accepte));
         $data = $request->all();
-        $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
+
+        if($request->accepte == 1) {
+            $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
+        } elseif($request->accepte == 2) {
+            $toRemove = ['nom', 'prenom', 'no_doss_chus', 'date_naiss', 'nom_complet'];
+            foreach ($toRemove as $r) {
+                $data[$r] = null;
+            }
+            //dd($data);
+            // On enlève aussi les données des parents
+            $parents = $dossier->parents;
+            $parentToRemove = [
+                'date_naiss',
+                'nom',
+                'prenom',
+                'tel',
+                'ext',
+                'tel2',
+                'ext2',
+                'emploi',
+                'courriel'
+            ];
+            foreach ($parents as $p) {
+                foreach ($parentToRemove as $r) {
+                    $p->$r = null;
+                }
+                $p->save();
+            }
+
+
+        }
         $dossier->update($data);
         return redirect(url('dossiers/show', $dossier->id));
     }

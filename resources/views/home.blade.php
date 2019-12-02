@@ -41,7 +41,7 @@
                     <div class="list-group">
                         @foreach($last as $d)
                             <a class="list-group-item" href="{{ url('dossiers/show', $d->id) }}">
-                                {{$d->prenom}} {{$d->nom}}
+                                {{ $d->accepte == 1 ? $d->nom_complet:"Anonyme" }}
                                 <span class="pull-right">{{ $d->created_at }}</span>
                             </a>
                         @endforeach
