@@ -18,9 +18,24 @@ class HomeController extends Controller {
     {
        $today = new Carbon();
        $last = Dossier::all()->sortByDesc('created_at')->take(5);
-       $mesures = Mesure::has('dossier')->where('Date', '>=', $today)->orderBy('Date')->take(10)->get();
-       $mesures = $mesures->where('completed', '===', false);
+	$mesures = Mesure::all();
+	//dd($mesures);
+	$mesures = $mesures->filter(function ($value, $key) use ($today) {
+	$result = false;
+	
+	if($value->dossier && $value->date >= $today) {
+	
+	$result = true;
+	}
 
+	return $result;
+	});
+	
+
+
+
+      // $mesures = Mesure::has('dossier')->where('Date', '>=', $today)->orderBy('Date')->take(10)->get();
+      $mesures = $mesures->where('completed', '===', false);
        return view('home', compact('last', 'mesures'));
     }
 
