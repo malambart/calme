@@ -74,9 +74,14 @@ class Mesure extends Model
 
     public function getAgeAttribute()
     {
-        $naiss = $this->dossier->date_naiss;
-        $date = $this->date;
-        return round(($date->diff($naiss)->format('%a')) / 365.25, 1);
+        if ($this->dossier->date_naiss) {
+            $naiss = $this->dossier->date_naiss;
+            $date = $this->date;
+            return round(($date->diff($naiss)->format('%a')) / 365.25, 1);
+        } else {
+            return $this->dossier->age;
+        }
+
     }
 
     public function getStatusAttribute()

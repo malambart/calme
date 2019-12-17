@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Dossier;
 use App\Mesure;
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
 
     /**
      * Show the application dashboard.
@@ -16,27 +17,23 @@ class HomeController extends Controller {
      */
     public function index()
     {
-       $today = new Carbon();
-       $last = Dossier::all()->sortByDesc('created_at')->take(5);
-	$mesures = Mesure::all();
-	//dd($mesures);
-	$mesures = $mesures->filter(function ($value, $key) use ($today) {
-	$result = false;
-	
-	if($value->dossier && $value->date >= $today) {
-	
-	$result = true;
-	}
+        $today = new Carbon();
+        $last = Dossier::all()->sortByDesc('created_at')->take(5);
+        $mesures = Mesure::all();
+        // Correction du bug avec has....
+        $mesures = $mesures->filter(function ($value, $key) use ($today) {
+            $result = false;
 
-	return $result;
-	});
-	
+            if ($value->dossier && $value->date >= $today) {
 
+                $result = true;
+            }
 
-
-      // $mesures = Mesure::has('dossier')->where('Date', '>=', $today)->orderBy('Date')->take(10)->get();
-      $mesures = $mesures->where('completed', '===', false);
-       return view('home', compact('last', 'mesures'));
+            return $result;
+        });
+        // $mesures = Mesure::has('dossier')->where('Date', '>=', $today)->orderBy('Date')->take(10)->get();
+        $mesures = $mesures->where('completed', '===', false);
+        return view('home', compact('last', 'mesures'));
     }
 
 }
