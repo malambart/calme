@@ -64,7 +64,7 @@
             @endforeach
 
         @endif
-        @if(!$dossier->exclu && !$dossier->hasRepondant())
+        @if(!$dossier->exclu && !$dossier->hasRepondant() && $dossier->accepte == 1)
             <div class="alert alert-warning">
                 Le parent n'a pas été ajouté.
                 <a class="alert-link" href="{{url('parents/create',$dossier->id)}}">Ajouter un parent

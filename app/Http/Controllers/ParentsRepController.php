@@ -19,8 +19,8 @@ class ParentsRepController extends Controller {
         $rules = [
             'lien' => 'required',
         ];
-        if ($request->repondant == 1) {
-            $rules['lieuT1'] = 'required';
+        if ($request->repondant == 1 && $dossier->accepte == 1) {
+            //$rules['lieuT1'] = 'required';
             $rules['tel'] = 'required';
             if ($request->lieuT1 == "maison") {
                 $rules['courriel'] = 'required';
@@ -33,7 +33,7 @@ class ParentsRepController extends Controller {
         $this->validate($request, $rules);
         $data = $request->all();
 
-        $parent = $dossier->parents()->create($data);
+        $dossier->parents()->create($data);
 
         return redirect(url('dossiers/show',$dossier->id));
 

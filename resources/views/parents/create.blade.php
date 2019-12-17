@@ -8,7 +8,7 @@
             {{ csrf_field() }}
             @if(!$dossier->hasRepondant())
                 <input type="hidden" name="repondant" value="0">
-                <div class="form-group">
+                <div v-if="accepte == 1" class="form-group">
                     <label for="repondant" class="col-md-4 control-label"></label>
                     <div class="col-md-6 checkbox">
                         <label><input selected type="checkbox" name="repondant" v-model="repondant" value="1"><b>Parent

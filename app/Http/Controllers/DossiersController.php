@@ -56,45 +56,48 @@ class DossiersController extends Controller
 
         if ($request->accepte == 1) {
             $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
+        } else {
+            $data['nom_complet'] = 'Anonyme';
         }
 
         $dossier = Dossier::create($data);
 
         //Creation du premier temps de mesure
+        if($request->accepte == 1) {
+            $temps_mesure = [1, 2];
 
-        $temps_mesure = [1, 2];
+            foreach ($temps_mesure as $tm) {
 
-        foreach ($temps_mesure as $tm) {
+                $mesure = $dossier->mesures()->create(['temps' => $tm]);
 
-            $mesure = $dossier->mesures()->create(['temps' => $tm]);
+                if ($tm == 1) {
+                    $date = $request->premiere_seance;
+                } elseif ($tm == 2) {
+                    $date = $request->bilan_final;
+                }
 
-            if ($tm == 1) {
-                $date = $request->premiere_seance;
-            } elseif ($tm == 2) {
-                $date = $request->bilan_final;
+                $mesure->date = $date;
+                $mesure->save();
+                //On fetch les questionnaires associés
+                $questionnaires = $mesure->questionnaires()->where('temps', $tm)->get();
+                // On cree l'invitation dans limeSurvey
+                foreach ($questionnaires as $q) {
+                    $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
+                    $token = $mesure->id . $q->ls_id . str_random(12);
+                    DB::connection('ls')->insert('insert into ' . $table . ' (attribute_1, attribute_2, firstname, lastname, token) values (?, ?, ?, ?, ?)',
+                        [
+                            $mesure->temps,
+                            $mesure->id,
+                            $dossier->prenom,
+                            $dossier->nom,
+                            $token]
+                    );
+                    $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
+                }
+
             }
-
-            $mesure->date = $date;
-            $mesure->save();
-            //On fetch les questionnaires associés
-            $questionnaires = $mesure->questionnaires()->where('temps', $tm)->get();
-            // On cree l'invitation dans limeSurvey
-            foreach ($questionnaires as $q) {
-                $table = env('LS_PREFIX') . 'tokens_' . $q->ls_id;
-                $token = $mesure->id . $q->ls_id . str_random(12);
-                DB::connection('ls')->insert('insert into ' . $table . ' (attribute_1, attribute_2, firstname, lastname, token) values (?, ?, ?, ?, ?)',
-                    [
-                        $mesure->temps,
-                        $mesure->id,
-                        $dossier->prenom,
-                        $dossier->nom,
-                        $token]
-                );
-                $mesure->tokens()->create(['token' => $token, 'ls_id' => $q->ls_id, 'rep' => $q->rep]);
-            }
-
         }
-        
+
         if (!$dossier->exclu) {
             return redirect(url('parents/create', $dossier->id));
         } else {
@@ -155,6 +158,7 @@ class DossiersController extends Controller
             foreach ($toRemove as $r) {
                 $data[$r] = null;
             }
+            $data['nom_complet'] = 'Anonyme';
             //dd($data);
             // On enlève aussi les données des parents
             $parents = $dossier->parents;
