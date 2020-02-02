@@ -23,25 +23,36 @@ class DossiersController extends Controller
     }
 
     private function getValidationRules($accepte, $verb = 'edit', $params = []) {
-        $rules =  [
-            'sexe' => 'required',
-        ];
-        $moreRules = [];
-        $evenMoreRules = [];
+        $rules = [];
+
+        if($accepte <> 3) {
+            $rules['sexe'] = 'required';
+        }
+       
         if ($accepte == 1) {
-            $moreRules = [
+
+            $rules['nom']='required';
+            $rules['prenom']='required';
+            $rules['no_doss_chus']='required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/';
+            $rules['date_naiss']='required|date_format:Y-m-d|after:1990-01-01';
+         
+           
+            /*$moreRules = [
                 'nom' => 'required',
                 'prenom' => 'required',
                 'no_doss_chus' => 'required|unique:dossiers,no_doss_chus|regex:/^[0-9]{7}$/',
                 'date_naiss' => 'required|date_format:Y-m-d|after:1990-01-01',
-            ];
+            ];*/
          if($verb == 'create')
-            $evenMoreRules = [
+            $rules['premiere_seance']='required|date_format:Y-m-d|after:today|before:' . $params['bilan_final'];
+            $rules['bilan_final']='required|date_format:Y-m-d|after:today|after:' . $params['premiere_seance'];
+            
+            /*$evenMoreRules = [
                 'premiere_seance' => 'required|date_format:Y-m-d|after:today|before:' . $params['bilan_final'],
                 'bilan_final' => 'required|date_format:Y-m-d|after:today|after:' . $params['premiere_seance']
-            ];
+            ];*/
         }
-        return array_merge($rules, $moreRules, $evenMoreRules);
+        return $rules;
     }
 
     public function store(Request $request)
@@ -150,7 +161,7 @@ class DossiersController extends Controller
     {
         $this->validate($request, $this->getValidationRules($request->accepte));
         $data = $request->all();
-
+    
         if($request->accepte == 1) {
             $data['nom_complet'] = $request->prenom . ' ' . $request->nom;
         } elseif($request->accepte == 2) {

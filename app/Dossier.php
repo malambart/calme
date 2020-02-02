@@ -25,7 +25,10 @@ class Dossier extends Model {
             'accepte',
             'langue',
             'diagnostic',
-            'age'
+            'age',
+            'orientation',
+            'orientation_autre',
+            'pourquoi_la_recherche_n_est_pas_proposee'
         ];
 
     public function plan()

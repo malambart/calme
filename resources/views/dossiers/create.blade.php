@@ -7,6 +7,18 @@
         <form role="form" method="POST" action="{{ url('/dossiers/create') }}">
             {{ csrf_field() }}
             <div class="form-group">
+                <select v-model="orientation" class="form-control" name="orientation">
+                    <option value="0" selected>Quelle est l’orientation du cas suite à l’évaluation ?</option>
+                    <option value="1">Module Calme</option>
+                    <option value="2">Suivi intensif</option>
+                    <option value="3">Autre</option>
+                </select>
+            </div>
+            <div v-if="orientation == 3" class=form-group>
+                <label for="orientation_autre" class="control-label">Veuillez préciser</label>
+                <input type="text" name="orientation_autre" class="form-control" value="{{ old('orientation_autre') }}">
+            </div>
+            <div class="form-group">
                 <select v-model="accepte" class="form-control" name="accepte">
                     <option value="0" selected>Sélectionnez la situation qui s'applique.</option>
                     <option value="1">
@@ -17,9 +29,19 @@
                     <option value="2">
                         La famille refuse d'être contactée par l'équipe de recherche
                     </option>
+                     <option value="3">
+                        La recherche n'est pas proposée
+                    </option>
                 </select>
             </div>
-            <div v-if="accepte != 0">
+            <div v-if="accepte == 3" class="form-group">
+                <label for="pourquoi_la_recherche_n_est_pas_proposee">
+                    Pourquoi la recherche n'a pas été proposée?
+                </label>
+                <textarea class="form-control" name="pourquoi_la_recherche_n_est_pas_proposee">{{ old('pourquoi_la_recherche_n_est_pas_proposee') }}
+                </textarea>
+            </div>
+            <div v-if="accepte == 1 || accepte == 2">
                 <div v-if="accepte == 1" class="form-group{{ $errors->has('prenom') ? ' has-error' : '' }}">
                     <label for="prenom" class=" control-label">Prénom</label>
                     <input id="prenom" type="text" class="form-control" name="prenom" value="{{ old('prenom') }}"
@@ -147,10 +169,11 @@
                         > Consentement du parent reçue</label>
                 </div>
                 !-->
-                <button type="submit" class="btn btn-primary pull-right">
+              
+            </div>
+              <button type="submit" class="btn btn-primary pull-right">
                     Ajouter
                 </button>
-            </div>
 
         </form>
     </div>
@@ -159,13 +182,19 @@
     <script type="text/javascript">
         let accepte = 0;
         let old_accepte = "{{ old('accepte') }}";
+        let orientation = 0;
+        let old_orientation =  "{{ old('orientation')}}"
         if(old_accepte != 0) {
             accepte = old_accepte;
+        }
+        if(old_orientation != 0) {
+            orientation = old_orientation
         }
         vm = new Vue({
             el: '#app',
             data: {
                 'accepte': accepte,
+                'orientation': orientation
             },
         })
     </script>
